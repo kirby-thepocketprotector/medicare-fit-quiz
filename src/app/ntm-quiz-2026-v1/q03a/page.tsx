@@ -16,9 +16,9 @@ export default function Q03APage() {
     updateAnswer('usesVA', value);
     setCurrentStep(4);
     if (value) {
-      router.push('/quiz/q03b');
+      router.push('/ntm-quiz-2026-v1/q03b');
     } else {
-      router.push('/quiz/q04');
+      router.push('/ntm-quiz-2026-v1/q04');
     }
   };
 

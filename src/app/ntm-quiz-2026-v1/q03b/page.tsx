@@ -18,7 +18,7 @@ export default function Q03BPage() {
 
   const handleContinue = () => {
     setCurrentStep(5);
-    router.push('/quiz/q04');
+    router.push('/ntm-quiz-2026-v1/q04');
   };
 
   return (

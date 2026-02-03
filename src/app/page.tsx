@@ -1,6 +1,7 @@
 "use client";
 
-import { Section, Block, Link } from "@/devlink/_Builtin";
+import { Section, Block } from "@/devlink/_Builtin";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -41,20 +42,18 @@ export default function Home() {
           </Block>
           <div style={{ marginTop: "12px" }}>
             <Link
-              button={true}
-              options={{
-                href: "/quiz/splash",
-              }}
+              href="/ntm-quiz-2026-v1/splash"
               className="button-primary"
               style={{
+                display: "inline-block",
+                textDecoration: "none",
                 borderRadius: "12px",
                 background: "#0A5C5C",
                 color: "#ffffff",
                 padding: "16px 32px",
                 fontSize: "16px",
                 fontWeight: "600",
-                boxShadow:
-                  "0px 4px 12px rgba(10, 92, 92, 0.2)",
+                boxShadow: "0px 4px 12px rgba(10, 92, 92, 0.2)",
               }}
             >
               Start Quiz

@@ -16,7 +16,7 @@ export default function Q05CPage() {
     updateAnswer('budgetChoice', choice);
     const updatedAnswers = { ...answers, budgetChoice: choice };
     const result = determineResult(updatedAnswers);
-    router.push(`/quiz/result/${result}`);
+    router.push(`/ntm-quiz-2026-v1/result/${result}`);
   };
 
   return (

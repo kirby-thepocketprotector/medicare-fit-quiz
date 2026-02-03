@@ -169,7 +169,7 @@ export default function Q05Page() {
 
         <div style={{ marginTop: 'auto', width: '100%' }}>
           <ContinueButton
-            onPress={() => router.push('/quiz/q05a')}
+            onPress={() => router.push('/ntm-quiz-2026-v1/q05a')}
             label="See Sam's story"
           />
         </div>

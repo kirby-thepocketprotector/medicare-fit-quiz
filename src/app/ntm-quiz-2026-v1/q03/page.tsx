@@ -16,9 +16,9 @@ export default function Q03Page() {
     updateAnswer('isVeteran', value);
     setCurrentStep(3);
     if (value) {
-      router.push('/quiz/q03a');
+      router.push('/ntm-quiz-2026-v1/q03a');
     } else {
-      router.push('/quiz/q04');
+      router.push('/ntm-quiz-2026-v1/q04');
     }
   };
 

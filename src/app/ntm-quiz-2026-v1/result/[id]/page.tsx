@@ -37,7 +37,7 @@ export default function ResultPage() {
 
   const handleStartOver = () => {
     resetQuiz();
-    router.push('/quiz/splash');
+    router.push('/ntm-quiz-2026-v1/splash');
   };
 
   return (

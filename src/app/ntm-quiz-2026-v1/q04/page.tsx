@@ -26,9 +26,9 @@ export default function Q04Page() {
     setCurrentStep(6);
 
     if (selected === true) {
-      router.push('/quiz/result/R03');
+      router.push('/ntm-quiz-2026-v1/result/R03');
     } else {
-      router.push('/quiz/q05');
+      router.push('/ntm-quiz-2026-v1/q05');
     }
   };
 

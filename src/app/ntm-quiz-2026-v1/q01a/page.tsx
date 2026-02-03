@@ -129,7 +129,7 @@ export default function Q01APage() {
         </div>
 
         <div style={{ marginTop: '24px' }}>
-          <ContinueButton onPress={() => router.push('/quiz/q02')} />
+          <ContinueButton onPress={() => router.push('/ntm-quiz-2026-v1/q02')} />
         </div>
       </div>
     </div>

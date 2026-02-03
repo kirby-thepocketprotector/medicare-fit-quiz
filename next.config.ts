@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // basePath: "/app", // Removed to serve from root
+  basePath: "/app",
 };
 
 export default nextConfig;

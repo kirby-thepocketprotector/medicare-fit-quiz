@@ -126,7 +126,7 @@ export default function SplashPage() {
       }}>
         <ContinueButton
           label="Start the quiz"
-          onPress={() => router.push('/quiz/q01')}
+          onPress={() => router.push('/ntm-quiz-2026-v1/q01')}
         />
         <p style={{
           textAlign: 'center',

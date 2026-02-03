@@ -7,37 +7,38 @@ import ContinueButton from '@/components/ContinueButton';
 import Colors from '@/constants/colors';
 
 const timeline = [
-  "Does not need to see the primary care doctor",
-  "Alex can go directly to any GI specialist that takes Medicare.",
-  "No waiting, preapprovals or referrals needed",
+  "Visits the primary care doctor.",
+  "Primary care doctor issues referral for GI specialist.",
+  "Sam needs to wait for the insurance to pre-authorize and approve the referral.",
+  "Once approved, Sam has a limited number of options to choose from in-network.",
 ];
 
-export default function Q05BPage() {
+export default function Q05APage() {
   const router = useRouter();
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: Colors.background }}>
-      <QuizHeader currentStep={9} totalSteps={10} />
+      <QuizHeader currentStep={8} totalSteps={10} />
       <div style={{ maxWidth: '600px', margin: '0 auto', padding: '24px', paddingTop: '8px', paddingBottom: '100px' }}>
         <div style={{ display: 'flex', backgroundColor: Colors.primaryLight + '12', borderRadius: '12px', padding: '16px', marginBottom: '24px', gap: '12px' }}>
           <div style={{ width: '48px', height: '48px', borderRadius: '24px', backgroundColor: Colors.primaryLight + '20', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <User size={24} color={Colors.primary} />
           </div>
           <div>
-            <div style={{ fontSize: '15px', fontWeight: '600', color: Colors.text }}>Alex, 68 — Original Medicare + Medigap</div>
-            <div style={{ fontSize: '13px', color: Colors.primary, fontWeight: '500' }}>Pays $175 Monthly Premium</div>
+            <div style={{ fontSize: '15px', fontWeight: '600', color: Colors.text }}>Sam, 68 — Medicare Advantage</div>
+            <div style={{ fontSize: '13px', color: Colors.primary, fontWeight: '500' }}>Pays $0 Monthly Premium</div>
           </div>
         </div>
 
         <div style={{ marginBottom: '20px' }}>
           <h3 style={{ fontSize: '16px', fontWeight: '700', color: Colors.text, marginBottom: '8px' }}>The problem:</h3>
           <p style={{ fontSize: '15px', lineHeight: '24px', color: Colors.textSecondary, margin: 0 }}>
-            Alex develops severe abdominal pain and needs a GI specialist. Alex can go directly to the GI specialist.
+            Sam develops severe abdominal pain and needs a GI specialist. But Sam can&apos;t go directly.
           </p>
         </div>
 
         <div style={{ marginBottom: '20px' }}>
-          <h3 style={{ fontSize: '16px', fontWeight: '700', color: Colors.text, marginBottom: '8px' }}>Alex&apos;s timeline:</h3>
+          <h3 style={{ fontSize: '16px', fontWeight: '700', color: Colors.text, marginBottom: '8px' }}>Sam&apos;s timeline:</h3>
           {timeline.map((step, i) => (
             <div key={i} style={{ display: 'flex', gap: '12px', marginBottom: '12px' }}>
               <div style={{ width: '28px', height: '28px', borderRadius: '14px', backgroundColor: Colors.backgroundDark, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
@@ -49,9 +50,9 @@ export default function Q05BPage() {
         </div>
 
         {[
-          { Icon: Clock, title: 'Outcome', text: 'Alex had care start immediately.' },
-          { Icon: DollarSign, title: 'The Cost', text: 'Alex paid the $514 deductible before her plan kicked in and paid the rest.' },
-          { Icon: FileText, title: 'Bottom Line', text: 'Alex pays a $175 monthly premium, but when Alex needed care, Alex got it immediately and was able to choose any doctor with very low out of pocket costs.' },
+          { Icon: Clock, title: 'Outcome', text: 'This all took 3 weeks, and care got delayed.' },
+          { Icon: DollarSign, title: 'The Cost', text: "By year-end, Sam has hit the plan's deductible and copay limit before the plan starts paying the rest. All in, this ends up costing Sam $7,000 out of pocket (the plan pays the rest)" },
+          { Icon: FileText, title: 'Bottom Line', text: 'Sam does not have to pay anything for the plan each month, and yes, Sam got care - but it took 3 weeks with more limited doctor options and real out of pocket costs.' },
         ].map(({ Icon, title, text }, idx) => (
           <div key={idx} style={{ backgroundColor: Colors.backgroundDark, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
             <div style={{ display: 'flex', gap: '12px' }}>
@@ -65,7 +66,7 @@ export default function Q05BPage() {
         ))}
 
         <div style={{ marginTop: '8px' }}>
-          <ContinueButton onPress={() => router.push('/quiz/q05c')} label="Let's See What Fits You Best" />
+          <ContinueButton onPress={() => router.push('/ntm-quiz-2026-v1/q05b')} label="See Alex's Story" />
         </div>
       </div>
     </div>

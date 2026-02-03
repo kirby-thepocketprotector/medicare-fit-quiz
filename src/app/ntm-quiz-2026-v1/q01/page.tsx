@@ -43,9 +43,9 @@ export default function Q01Page() {
       const isInIEP = today >= iepStart && today <= iepEnd;
 
       if (isInIEP) {
-        router.push('/quiz/q01a');
+        router.push('/ntm-quiz-2026-v1/q01a');
       } else {
-        router.push('/quiz/q02');
+        router.push('/ntm-quiz-2026-v1/q02');
       }
     }
   };

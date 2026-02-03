@@ -24,11 +24,11 @@ export default function Q02APage() {
     setCurrentStep(2);
 
     if (value === 'medicare_advantage') {
-      router.push('/quiz/result/R08');
+      router.push('/ntm-quiz-2026-v1/result/R08');
     } else if (value === 'medigap') {
-      router.push('/quiz/result/R09');
+      router.push('/ntm-quiz-2026-v1/result/R09');
     } else {
-      router.push('/quiz/q03');
+      router.push('/ntm-quiz-2026-v1/q03');
     }
   };
 

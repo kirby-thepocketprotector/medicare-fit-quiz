@@ -16,9 +16,9 @@ export default function Q02Page() {
     updateAnswer('hasPartAB', value);
     setCurrentStep(2);
     if (value) {
-      router.push('/quiz/q02a');
+      router.push('/ntm-quiz-2026-v1/q02a');
     } else {
-      router.push('/quiz/q03');
+      router.push('/ntm-quiz-2026-v1/q03');
     }
   };
 
