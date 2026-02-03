@@ -1,0 +1,59 @@
+.section-footer-v3 {
+  background-color: #f8f8f8;
+  color: #555;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@media screen and (max-width: 991px) {
+  .section-footer-v3 {
+    overflow: hidden;
+  }
+}
+
+.page-padding {
+  padding-right: 2.5rem;
+  padding-left: 2.5rem;
+}
+
+@media screen and (max-width: 991px) {
+  .page-padding {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .page-padding {
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+  }
+}
+
+.container-1280 {
+  width: 100%;
+  max-width: 80rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media screen and (max-width: 479px) {
+  .container-1280 {
+    max-width: none;
+  }
+}
+
+.padding-section-30 {
+  padding-top: 1.875rem;
+  padding-bottom: 1.875rem;
+}
+
+.footer-link-v2 {
+  color: #555;
+  text-decoration: none;
+}
+
+.footer-link-v2:hover {
+  color: #555;
+  text-decoration: underline;
+}
