@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, ReactNode, useEffect } from 'react';
 import { QuizAnswers, initialQuizAnswers, calculateIsInIEP, determineResult, ResultScreenId } from '@/constants/quiz-data';
 
 interface QuizContextType {
@@ -17,10 +17,64 @@ interface QuizContextType {
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
+const STORAGE_KEY = 'medicare-quiz-answers';
+const STEP_STORAGE_KEY = 'medicare-quiz-step';
+
+// Helper function to safely access localStorage
+const getStoredAnswers = (): QuizAnswers | null => {
+  if (typeof window === 'undefined') return null;
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : null;
+  } catch (error) {
+    console.error('Error reading from localStorage:', error);
+    return null;
+  }
+};
+
+const getStoredStep = (): number => {
+  if (typeof window === 'undefined') return 0;
+  try {
+    const stored = localStorage.getItem(STEP_STORAGE_KEY);
+    return stored ? parseInt(stored, 10) : 0;
+  } catch (error) {
+    console.error('Error reading step from localStorage:', error);
+    return 0;
+  }
+};
+
 export function QuizProvider({ children }: { children: ReactNode }) {
-  const [answers, setAnswers] = useState<QuizAnswers>(initialQuizAnswers);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [answers, setAnswers] = useState<QuizAnswers>(() => {
+    return getStoredAnswers() || initialQuizAnswers;
+  });
+  const [currentStep, setCurrentStepState] = useState(() => getStoredStep());
   const [totalSteps] = useState(10);
+
+  // Persist answers to localStorage whenever they change
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
+      } catch (error) {
+        console.error('Error saving to localStorage:', error);
+      }
+    }
+  }, [answers]);
+
+  // Persist current step to localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(STEP_STORAGE_KEY, currentStep.toString());
+      } catch (error) {
+        console.error('Error saving step to localStorage:', error);
+      }
+    }
+  }, [currentStep]);
+
+  const setCurrentStep = useCallback((step: number) => {
+    setCurrentStepState(step);
+  }, []);
 
   const updateAnswer = useCallback(<K extends keyof QuizAnswers>(
     key: K,
@@ -68,7 +122,16 @@ export function QuizProvider({ children }: { children: ReactNode }) {
 
   const resetQuiz = useCallback(() => {
     setAnswers(initialQuizAnswers);
-    setCurrentStep(0);
+    setCurrentStepState(0);
+    // Clear localStorage
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(STEP_STORAGE_KEY);
+      } catch (error) {
+        console.error('Error clearing localStorage:', error);
+      }
+    }
   }, []);
 
   return (
