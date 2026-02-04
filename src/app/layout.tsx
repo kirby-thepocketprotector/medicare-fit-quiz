@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import Script from "next/script";
+import { Suspense } from "react";
 import "./globals.css";
 import { DevLinkProvider } from "@/devlink/DevLinkProvider";
 import { QuizProvider } from "@/contexts/QuizContext";
@@ -42,7 +43,9 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
         {/* UTM tracking - captures and persists UTM parameters */}
-        <UTMTracker />
+        <Suspense fallback={null}>
+          <UTMTracker />
+        </Suspense>
         <QuizProvider>
           <DevLinkProvider>
             {/* Add here any Navbar or Header you want to be present on all pages */}

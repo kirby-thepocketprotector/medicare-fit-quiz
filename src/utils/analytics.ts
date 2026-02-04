@@ -325,7 +325,7 @@ export function trackViewBudgetChoiceDecide() {
  * @param answers - Quiz answers for context
  */
 function trackResultPageView(eventName: string, answers: Partial<QuizAnswers>) {
-  const iepWindow = calculateIEPWindow(answers.birthMonth, answers.birthYear);
+  const iepWindow = calculateIEPWindow(answers.birthMonth ?? null, answers.birthYear ?? null);
   const medicareABStatus = answers.hasPartAB ?? false;
 
   trackPageView(eventName, {
