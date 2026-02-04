@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { Phone, RotateCcw, DollarSign, Shield, MapPin, Heart } from 'lucide-react';
 import { useQuiz } from '@/contexts/QuizContext';
-import { RESULT_CONTENT, ResultScreenId, calculateIEPWindow } from '@/constants/quiz-data';
+import { RESULT_CONTENT, ResultScreenId, calculateIEPWindow, QuizAnswers } from '@/constants/quiz-data';
 import Colors from '@/constants/colors';
 import { getAllUTMParams } from '@/utils/utm';
 import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
@@ -57,7 +57,7 @@ export default function ResultPage() {
 
   useEffect(() => {
     // Track result page view based on result ID with pass-through variables
-    const trackingMap: Record<ResultScreenId, (answers: typeof answers) => void> = {
+    const trackingMap: Record<ResultScreenId, (quizAnswers: QuizAnswers) => void> = {
       R01: trackViewResultMANonVet,
       R02: trackViewResultMSNonVet,
       R03: trackViewResultDSNP,
