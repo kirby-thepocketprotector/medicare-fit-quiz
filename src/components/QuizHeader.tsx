@@ -2,7 +2,6 @@
 
 import { ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import Colors from '@/constants/colors';
 
 interface QuizHeaderProps {
   currentStep: number;
@@ -25,55 +24,57 @@ export default function QuizHeader({ currentStep, totalSteps, onBack }: QuizHead
 
   return (
     <div style={{
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
       paddingTop: '16px',
-      paddingBottom: '16px',
+      paddingBottom: '8px',
       paddingLeft: '24px',
       paddingRight: '24px',
     }}>
-      <button
-        onClick={handleBack}
-        style={{
-          width: '40px',
-          height: '40px',
-          borderRadius: '20px',
-          backgroundColor: Colors.backgroundDark,
-          border: 'none',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          marginRight: '16px',
-        }}
-      >
-        <ChevronLeft size={20} color={Colors.text} />
-      </button>
+      <div style={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: '16px',
+      }}>
+        <button
+          onClick={handleBack}
+          style={{
+            width: '48px',
+            height: '48px',
+            borderRadius: '24px',
+            backgroundColor: '#E8E8E8',
+            border: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+          }}
+        >
+          <ChevronLeft size={24} color="#1A1F2C" strokeWidth={2.5} />
+        </button>
 
-      <div style={{ flex: 1 }}>
         <div style={{
-          fontSize: '14px',
-          color: Colors.textMuted,
-          marginBottom: '8px',
+          fontSize: '16px',
+          color: '#9CA3AF',
+          fontWeight: '500',
         }}>
           {currentStep} of {totalSteps}
         </div>
+      </div>
 
+      <div style={{
+        width: '100%',
+        height: '4px',
+        backgroundColor: '#E8E8E8',
+        borderRadius: '2px',
+        overflow: 'hidden',
+      }}>
         <div style={{
-          width: '100%',
-          height: '6px',
-          backgroundColor: Colors.backgroundDark,
-          borderRadius: '3px',
-          overflow: 'hidden',
-        }}>
-          <div style={{
-            width: `${progress}%`,
-            height: '100%',
-            backgroundColor: Colors.primary,
-            transition: 'width 0.3s ease',
-          }} />
-        </div>
+          width: `${progress}%`,
+          height: '100%',
+          backgroundColor: '#0A5C5C',
+          transition: 'width 0.3s ease',
+        }} />
       </div>
     </div>
   );

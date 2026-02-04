@@ -1,7 +1,6 @@
 'use client';
 
 import { LucideIcon } from 'lucide-react';
-import Colors from '@/constants/colors';
 
 interface QuestionHeaderProps {
   Icon: LucideIcon;
@@ -11,30 +10,30 @@ interface QuestionHeaderProps {
 
 export default function QuestionHeader({ Icon, question, subtext }: QuestionHeaderProps) {
   return (
-    <div style={{ marginBottom: '24px' }}>
+    <div style={{ marginBottom: '32px' }}>
       <div
         style={{
           width: '52px',
           height: '52px',
-          backgroundColor: Colors.primaryLight + '20',
-          borderRadius: '14px',
+          backgroundColor: '#E8F0F0',
+          borderRadius: '20px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          marginBottom: '16px',
+          marginBottom: '24px',
         }}
       >
-        <Icon size={28} color={Colors.primary} />
+        <Icon size={24} color="#0A5C5C" strokeWidth={2} />
       </div>
 
       <h2
         style={{
           fontSize: '24px',
           fontWeight: '700',
-          color: Colors.text,
+          color: '#1A1F2C',
           marginBottom: subtext ? '12px' : '0',
-          lineHeight: '1.3',
-          letterSpacing: '-0.3px',
+          lineHeight: '32px',
+          letterSpacing: '-0.4px',
         }}
       >
         {question}
@@ -44,7 +43,7 @@ export default function QuestionHeader({ Icon, question, subtext }: QuestionHead
         <p
           style={{
             fontSize: '16px',
-            color: Colors.textSecondary,
+            color: '#6B7280',
             lineHeight: '1.5',
           }}
         >

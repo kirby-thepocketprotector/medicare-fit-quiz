@@ -1,7 +1,6 @@
 'use client';
 
 import { Info } from 'lucide-react';
-import Colors from '@/constants/colors';
 
 interface WhyWeAskBoxProps {
   title?: string;
@@ -12,20 +11,19 @@ export default function WhyWeAskBox({ title = 'Why We Ask', content }: WhyWeAskB
   return (
     <div
       style={{
-        backgroundColor: Colors.primaryLight + '10',
-        border: `1px solid ${Colors.primaryLight + '30'}`,
-        borderRadius: '12px',
-        padding: '16px',
+        backgroundColor: '#0d7a7a0f',
+        borderRadius: '16px',
+        padding: '20px',
         marginTop: '24px',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
-        <Info size={18} color={Colors.primary} style={{ marginRight: '8px' }} />
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
+        <Info size={20} color="#6B7280" style={{ marginRight: '8px' }} strokeWidth={2} />
         <h3
           style={{
             fontSize: '14px',
             fontWeight: '600',
-            color: Colors.text,
+            color: '#0a5c5c',
             margin: 0,
           }}
         >
@@ -35,8 +33,8 @@ export default function WhyWeAskBox({ title = 'Why We Ask', content }: WhyWeAskB
 
       <p
         style={{
-          fontSize: '14px',
-          color: Colors.textSecondary,
+          fontSize: '15px',
+          color: '#6B7280',
           lineHeight: '1.6',
           margin: 0,
         }}

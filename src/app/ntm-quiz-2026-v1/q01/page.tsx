@@ -9,15 +9,12 @@ import WhyWeAskBox from '@/components/WhyWeAskBox';
 import ContinueButton from '@/components/ContinueButton';
 import { useQuiz } from '@/contexts/QuizContext';
 import { MONTHS, YEARS } from '@/constants/quiz-data';
-import Colors from '@/constants/colors';
 
 export default function Q01Page() {
   const router = useRouter();
   const { answers, setBirthDate, setCurrentStep } = useQuiz();
   const [selectedMonth, setSelectedMonth] = useState<string | null>(answers.birthMonth);
   const [selectedYear, setSelectedYear] = useState<string | null>(answers.birthYear);
-  const [showMonthPicker, setShowMonthPicker] = useState(false);
-  const [showYearPicker, setShowYearPicker] = useState(false);
 
   const isValid = selectedMonth !== null && selectedYear !== null;
 
@@ -53,7 +50,7 @@ export default function Q01Page() {
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundColor: Colors.background,
+      backgroundColor: '#FAFAFA',
       display: 'flex',
       flexDirection: 'column',
     }}>
@@ -62,8 +59,8 @@ export default function Q01Page() {
       <div style={{
         flex: 1,
         padding: '24px',
-        paddingTop: '8px',
-        maxWidth: '600px',
+        paddingTop: '24px',
+        maxWidth: '680px',
         margin: '0 auto',
         width: '100%',
       }}>
@@ -72,20 +69,20 @@ export default function Q01Page() {
           question="What month and year were you born?"
         />
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ position: 'relative' }}>
             <select
               value={selectedMonth || ''}
               onChange={(e) => setSelectedMonth(e.target.value)}
               style={{
                 width: '100%',
-                padding: '18px',
-                fontSize: '16px',
-                color: selectedMonth ? Colors.text : Colors.textMuted,
-                backgroundColor: Colors.card,
-                border: `2px solid ${Colors.border}`,
-                borderRadius: '12px',
-                fontWeight: '500',
+                padding: '20px',
+                fontSize: '17px',
+                color: selectedMonth ? '#1A1F2C' : '#9CA3AF',
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E5E7EB',
+                borderRadius: '16px',
+                fontWeight: '400',
                 cursor: 'pointer',
                 appearance: 'none',
               }}
@@ -96,15 +93,16 @@ export default function Q01Page() {
               ))}
             </select>
             <ChevronDown
-              size={20}
-              color={Colors.textMuted}
+              size={22}
+              color="#9CA3AF"
               style={{
                 position: 'absolute',
-                right: '18px',
+                right: '20px',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 pointerEvents: 'none',
               }}
+              strokeWidth={2}
             />
           </div>
 
@@ -114,13 +112,13 @@ export default function Q01Page() {
               onChange={(e) => setSelectedYear(e.target.value)}
               style={{
                 width: '100%',
-                padding: '18px',
-                fontSize: '16px',
-                color: selectedYear ? Colors.text : Colors.textMuted,
-                backgroundColor: Colors.card,
-                border: `2px solid ${Colors.border}`,
-                borderRadius: '12px',
-                fontWeight: '500',
+                padding: '20px',
+                fontSize: '17px',
+                color: selectedYear ? '#1A1F2C' : '#9CA3AF',
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E5E7EB',
+                borderRadius: '16px',
+                fontWeight: '400',
                 cursor: 'pointer',
                 appearance: 'none',
               }}
@@ -131,31 +129,29 @@ export default function Q01Page() {
               ))}
             </select>
             <ChevronDown
-              size={20}
-              color={Colors.textMuted}
+              size={22}
+              color="#9CA3AF"
               style={{
                 position: 'absolute',
-                right: '18px',
+                right: '20px',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 pointerEvents: 'none',
               }}
+              strokeWidth={2}
             />
           </div>
         </div>
 
         <WhyWeAskBox
-          content="This tells us if you're in or close to your Initial Enrollment Period (IEP), a critical time when MediGap providers cannot ask health questions, upcharge you, or deny you.
-
-This is a very important one-time window. If you miss it, getting MediGap later can be difficult or even impossible."
+          content="This tells us if you're in or close to your Initial Enrollment Period (IEP), a critical time when MediGap providers cannot ask health questions, upcharge you, or deny you. This is a very important one-time window. If you miss it, getting MediGap later can be difficult or even impossible."
         />
       </div>
 
       <div style={{
         padding: '24px',
-        backgroundColor: Colors.white,
-        borderTop: `1px solid ${Colors.borderLight}`,
-        maxWidth: '600px',
+        paddingBottom: '32px',
+        maxWidth: '680px',
         margin: '0 auto',
         width: '100%',
       }}>

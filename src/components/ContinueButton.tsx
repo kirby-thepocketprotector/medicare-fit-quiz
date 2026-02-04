@@ -1,7 +1,5 @@
 'use client';
 
-import Colors from '@/constants/colors';
-
 interface ContinueButtonProps {
   onPress: () => void;
   disabled?: boolean;
@@ -15,17 +13,18 @@ export default function ContinueButton({ onPress, disabled = false, label = 'Con
       disabled={disabled}
       style={{
         width: '100%',
-        backgroundColor: disabled ? Colors.textMuted : Colors.primary,
-        color: Colors.white,
+        backgroundColor: disabled ? '#f2f0ed' : '#0A5C5C',
+        color: disabled ? '#8b92a5': '#FFFFFF',
         padding: '18px',
-        borderRadius: '12px',
+        borderRadius: '16px',
         border: 'none',
-        fontSize: '16px',
+        fontSize: '17px',
         fontWeight: '600',
         cursor: disabled ? 'not-allowed' : 'pointer',
-        boxShadow: disabled ? 'none' : '0 4px 12px rgba(10, 92, 92, 0.2)',
+        boxShadow: 'none',
         transition: 'all 0.2s ease',
-        opacity: disabled ? 0.5 : 1,
+        opacity: 1,
+        WebkitBoxShadow: disabled ? 'none' : '0px 4px 8px rgba(10,92,92,0.30)',
       }}
     >
       {label}
