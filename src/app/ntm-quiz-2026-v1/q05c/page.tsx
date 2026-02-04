@@ -1,16 +1,22 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { Minus } from 'lucide-react';
 import QuizHeader from '@/components/QuizHeader';
 import OptionButton from '@/components/OptionButton';
 import { useQuiz } from '@/contexts/QuizContext';
 import { determineResult } from '@/constants/quiz-data';
 import Colors from '@/constants/colors';
+import { trackViewBudgetChoiceDecide } from '@/utils/analytics';
+import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
 
 export default function Q05CPage() {
-  const router = useRouter();
+  const router = useNavigateWithUTM();
   const { answers, updateAnswer } = useQuiz();
+
+  useEffect(() => {
+    trackViewBudgetChoiceDecide();
+  }, []);
 
   const handleSelect = (choice: 'flexible' | 'lower_cost') => {
     updateAnswer('budgetChoice', choice);

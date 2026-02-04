@@ -1,13 +1,19 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { Scale, User } from 'lucide-react';
 import QuizHeader from '@/components/QuizHeader';
 import ContinueButton from '@/components/ContinueButton';
 import Colors from '@/constants/colors';
+import { trackViewBudgetChoiceStart } from '@/utils/analytics';
+import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
 
 export default function Q05Page() {
-  const router = useRouter();
+  const router = useNavigateWithUTM();
+
+  useEffect(() => {
+    trackViewBudgetChoiceStart();
+  }, []);
 
   return (
     <div style={{

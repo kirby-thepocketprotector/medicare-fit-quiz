@@ -1,10 +1,26 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import { Phone, RotateCcw, DollarSign, Shield, MapPin, Heart } from 'lucide-react';
 import { useQuiz } from '@/contexts/QuizContext';
-import { RESULT_CONTENT, ResultScreenId } from '@/constants/quiz-data';
+import { RESULT_CONTENT, ResultScreenId, calculateIEPWindow } from '@/constants/quiz-data';
 import Colors from '@/constants/colors';
+import { getAllUTMParams } from '@/utils/utm';
+import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
+import {
+  trackViewResultMANonVet,
+  trackViewResultMSNonVet,
+  trackViewResultDSNP,
+  trackViewResultMAVetVA,
+  trackViewResultMSVetVA,
+  trackViewResultMAVetNonVA,
+  trackViewResultMSVetNonVA,
+  trackViewResultAlreadyEnrolledMA,
+  trackViewResultAlreadyEnrolledMS,
+  trackResultCall,
+  trackQuizRestart,
+} from '@/utils/analytics';
 
 const iconMap: Record<string, any> = {
   'dollar-sign': DollarSign,
@@ -22,7 +38,7 @@ const iconMap: Record<string, any> = {
 
 export default function ResultPage() {
   const params = useParams();
-  const router = useRouter();
+  const router = useNavigateWithUTM();
   const { answers, resetQuiz } = useQuiz();
 
   const resultId = params.id as ResultScreenId;
@@ -35,9 +51,39 @@ export default function ResultPage() {
   const isEarlyExit = resultId === 'R08' || resultId === 'R09';
   const showMedicareOverride = !answers.hasPartAB && !isEarlyExit;
 
+  // Pass-through variables for analytics/call context
+  const iepWindow = calculateIEPWindow(answers.birthMonth, answers.birthYear);
+  const medicareABStatus = answers.hasPartAB ?? false;
+
+  useEffect(() => {
+    // Track result page view based on result ID with pass-through variables
+    const trackingMap: Record<ResultScreenId, (answers: typeof answers) => void> = {
+      R01: trackViewResultMANonVet,
+      R02: trackViewResultMSNonVet,
+      R03: trackViewResultDSNP,
+      R04: trackViewResultMAVetVA,
+      R05: trackViewResultMSVetVA,
+      R06: trackViewResultMAVetNonVA,
+      R07: trackViewResultMSVetNonVA,
+      R08: trackViewResultAlreadyEnrolledMA,
+      R09: trackViewResultAlreadyEnrolledMS,
+    };
+
+    const trackFn = trackingMap[resultId];
+    if (trackFn) {
+      trackFn(answers);
+    }
+  }, [resultId, answers]);
+
+  const handleCallClick = () => {
+    trackResultCall();
+    window.location.href = 'tel:18449170659';
+  };
+
   const handleStartOver = () => {
+    trackQuizRestart();
     resetQuiz();
-    router.push('/ntm-quiz-2026-v1/splash');
+    router.push('/ntm-quiz-2026-v1/');
   };
 
   return (
@@ -106,32 +152,70 @@ export default function ResultPage() {
           </div>
         )}
 
-        {result.nextStepHeader && (
+        {showMedicareOverride ? (
           <div style={{ marginBottom: '32px' }}>
             <h2 style={{ fontSize: '22px', fontWeight: '700', color: Colors.text, marginBottom: '16px' }}>
-              {result.nextStepHeader}
+              Next Step: Get Enrolled in Medicare Part A & Part B
             </h2>
-            {result.nextStepIntro && (
-              <p style={{ fontSize: '16px', lineHeight: '26px', color: Colors.textSecondary, marginBottom: '20px' }}>
-                {result.nextStepIntro}
+            <p style={{ fontSize: '16px', lineHeight: '26px', color: Colors.textSecondary, marginBottom: '20px' }}>
+              Before you can choose a supplemental plan, you'll need to enroll in Original Medicare (Parts A and B). Here's what you need to know:
+            </p>
+
+            <div style={{ marginBottom: '16px' }}>
+              <h4 style={{ fontSize: '16px', fontWeight: '600', color: Colors.text, marginBottom: '6px' }}>
+                When to Enroll
+              </h4>
+              <p style={{ fontSize: '15px', lineHeight: '24px', color: Colors.textSecondary, margin: 0 }}>
+                Your Initial Enrollment Period starts 3 months before you turn 65, includes your birth month, and continues for 3 months after. Enrolling during this window helps you avoid late penalties.
               </p>
-            )}
-            {result.nextStepItems && result.nextStepItems.map((item, idx) => (
-              <div key={idx} style={{ marginBottom: '16px' }}>
-                <h4 style={{ fontSize: '16px', fontWeight: '600', color: Colors.text, marginBottom: '6px' }}>
-                  {item.title}
-                </h4>
-                <p style={{ fontSize: '15px', lineHeight: '24px', color: Colors.textSecondary, margin: 0 }}>
-                  {item.description}
-                </p>
-              </div>
-            ))}
+            </div>
+
+            <div style={{ marginBottom: '16px' }}>
+              <h4 style={{ fontSize: '16px', fontWeight: '600', color: Colors.text, marginBottom: '6px' }}>
+                How to Enroll
+              </h4>
+              <p style={{ fontSize: '15px', lineHeight: '24px', color: Colors.textSecondary, margin: 0 }}>
+                You can enroll online at SSA.gov, by calling Social Security at 1-800-772-1213, or by visiting your local Social Security office. If you're already receiving Social Security benefits, you may be automatically enrolled.
+              </p>
+            </div>
+
+            <div style={{ marginBottom: '16px' }}>
+              <h4 style={{ fontSize: '16px', fontWeight: '600', color: Colors.text, marginBottom: '6px' }}>
+                After You Enroll
+              </h4>
+              <p style={{ fontSize: '15px', lineHeight: '24px', color: Colors.textSecondary, margin: 0 }}>
+                Once you have your Medicare card showing Part A and Part B coverage, you can move forward with choosing the supplemental coverage that's right for you. Our agents can help you navigate your options at that time.
+              </p>
+            </div>
           </div>
+        ) : (
+          result.nextStepHeader && (
+            <div style={{ marginBottom: '32px' }}>
+              <h2 style={{ fontSize: '22px', fontWeight: '700', color: Colors.text, marginBottom: '16px' }}>
+                {result.nextStepHeader}
+              </h2>
+              {result.nextStepIntro && (
+                <p style={{ fontSize: '16px', lineHeight: '26px', color: Colors.textSecondary, marginBottom: '20px' }}>
+                  {result.nextStepIntro}
+                </p>
+              )}
+              {result.nextStepItems && result.nextStepItems.map((item, idx) => (
+                <div key={idx} style={{ marginBottom: '16px' }}>
+                  <h4 style={{ fontSize: '16px', fontWeight: '600', color: Colors.text, marginBottom: '6px' }}>
+                    {item.title}
+                  </h4>
+                  <p style={{ fontSize: '15px', lineHeight: '24px', color: Colors.textSecondary, margin: 0 }}>
+                    {item.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )
         )}
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '40px' }}>
           <button
-            onClick={() => window.location.href = 'tel:1-800-MEDICARE'}
+            onClick={handleCallClick}
             style={{
               display: 'flex',
               alignItems: 'center',

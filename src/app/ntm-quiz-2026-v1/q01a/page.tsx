@@ -1,13 +1,19 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { Calendar } from 'lucide-react';
 import QuizHeader from '@/components/QuizHeader';
 import ContinueButton from '@/components/ContinueButton';
 import Colors from '@/constants/colors';
+import { trackViewInIEP } from '@/utils/analytics';
+import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
 
 export default function Q01APage() {
-  const router = useRouter();
+  const router = useNavigateWithUTM();
+
+  useEffect(() => {
+    trackViewInIEP();
+  }, []);
 
   return (
     <div style={{

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { FileText } from 'lucide-react';
 import QuizHeader from '@/components/QuizHeader';
 import QuestionHeader from '@/components/QuestionHeader';
@@ -8,6 +8,8 @@ import OptionButton from '@/components/OptionButton';
 import { useQuiz } from '@/contexts/QuizContext';
 import { CurrentCoverageType } from '@/constants/quiz-data';
 import Colors from '@/constants/colors';
+import { trackViewCurrentCoverage, trackIsNewToMedicare } from '@/utils/analytics';
+import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
 
 const COVERAGE_OPTIONS: { id: CurrentCoverageType; label: string }[] = [
   { id: 'parts_ab_only', label: 'I just have Medicare Parts A and B' },
@@ -16,12 +18,21 @@ const COVERAGE_OPTIONS: { id: CurrentCoverageType; label: string }[] = [
 ];
 
 export default function Q02APage() {
-  const router = useRouter();
+  const router = useNavigateWithUTM();
   const { answers, updateAnswer, setCurrentStep } = useQuiz();
+
+  useEffect(() => {
+    trackViewCurrentCoverage();
+  }, []);
 
   const handleSelect = (value: CurrentCoverageType) => {
     updateAnswer('currentCoverage', value);
     setCurrentStep(2);
+
+    // Track is_new_to_medicare event
+    // At this point we have all required data (hasPartAB === true and now we have currentCoverage)
+    const updatedAnswers = { ...answers, currentCoverage: value };
+    trackIsNewToMedicare(updatedAnswers);
 
     if (value === 'medicare_advantage') {
       router.push('/ntm-quiz-2026-v1/result/R08');

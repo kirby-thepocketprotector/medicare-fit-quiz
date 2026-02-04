@@ -63,6 +63,50 @@ export function calculateIsInIEP(month: string, year: string): boolean {
   return today >= iepStart && today <= iepEnd;
 }
 
+export type IEPWindow = 'pre_iep' | 'in_iep' | 'post_iep';
+
+/**
+ * Calculate IEP window status
+ * IEP = 3 months before through 3 months after 65th birthday
+ *
+ * @param month - Birth month (e.g., 'Jan', 'Feb')
+ * @param year - Birth year (e.g., '1959')
+ * @returns 'pre_iep' | 'in_iep' | 'post_iep'
+ */
+export function calculateIEPWindow(month: string | null, year: string | null): IEPWindow {
+  if (!month || !year) return 'pre_iep'; // Default if no birth date
+
+  const monthIndex = MONTHS.indexOf(month);
+  const birthYear = parseInt(year, 10);
+
+  if (monthIndex === -1 || isNaN(birthYear)) return 'pre_iep';
+
+  const birthDate = new Date(birthYear, monthIndex, 1);
+  const today = new Date();
+
+  const turnedOrTurning65 = new Date(birthDate);
+  turnedOrTurning65.setFullYear(birthDate.getFullYear() + 65);
+
+  const iepStart = new Date(turnedOrTurning65);
+  iepStart.setMonth(iepStart.getMonth() - 3);
+
+  const iepEnd = new Date(turnedOrTurning65);
+  iepEnd.setMonth(iepEnd.getMonth() + 3);
+
+  // Pre-IEP: before IEP window starts
+  if (today < iepStart) {
+    return 'pre_iep';
+  }
+
+  // In-IEP: within the IEP window
+  if (today >= iepStart && today <= iepEnd) {
+    return 'in_iep';
+  }
+
+  // Post-IEP: after IEP window ends
+  return 'post_iep';
+}
+
 export function determineResult(answers: QuizAnswers): ResultScreenId {
   if (answers.hasMedicaid === true) {
     return 'R03';

@@ -1,16 +1,22 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { Award } from 'lucide-react';
 import QuizHeader from '@/components/QuizHeader';
 import QuestionHeader from '@/components/QuestionHeader';
 import OptionButton from '@/components/OptionButton';
 import { useQuiz } from '@/contexts/QuizContext';
 import Colors from '@/constants/colors';
+import { trackViewIsVeteran } from '@/utils/analytics';
+import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
 
 export default function Q03Page() {
-  const router = useRouter();
+  const router = useNavigateWithUTM();
   const { answers, updateAnswer, setCurrentStep } = useQuiz();
+
+  useEffect(() => {
+    trackViewIsVeteran();
+  }, []);
 
   const handleSelect = (value: boolean) => {
     updateAnswer('isVeteran', value);

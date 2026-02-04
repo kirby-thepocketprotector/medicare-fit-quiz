@@ -42,7 +42,7 @@ export default function Home() {
           </Block>
           <div style={{ marginTop: "12px" }}>
             <Link
-              href="/ntm-quiz-2026-v1/splash"
+              href="/ntm-quiz-2026-v1/"
               className="button-primary"
               style={{
                 display: "inline-block",

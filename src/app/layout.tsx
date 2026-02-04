@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { DevLinkProvider } from "@/devlink/DevLinkProvider";
 import { QuizProvider } from "@/contexts/QuizContext";
+import UTMTracker from "@/components/UTMTracker";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,6 +36,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}
       >
+        {/* Ringba call tracking script */}
+        <Script
+          src="https://b-js.ringba.com/CAec88b51adf8b437d8e159c668629b896"
+          strategy="afterInteractive"
+        />
+        {/* UTM tracking - captures and persists UTM parameters */}
+        <UTMTracker />
         <QuizProvider>
           <DevLinkProvider>
             {/* Add here any Navbar or Header you want to be present on all pages */}

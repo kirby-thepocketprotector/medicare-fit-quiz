@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { Calendar, ChevronDown } from 'lucide-react';
 import QuizHeader from '@/components/QuizHeader';
 import QuestionHeader from '@/components/QuestionHeader';
@@ -9,12 +8,18 @@ import WhyWeAskBox from '@/components/WhyWeAskBox';
 import ContinueButton from '@/components/ContinueButton';
 import { useQuiz } from '@/contexts/QuizContext';
 import { MONTHS, YEARS } from '@/constants/quiz-data';
+import { trackViewBirthMonth } from '@/utils/analytics';
+import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
 
 export default function Q01Page() {
-  const router = useRouter();
+  const router = useNavigateWithUTM();
   const { answers, setBirthDate, setCurrentStep } = useQuiz();
   const [selectedMonth, setSelectedMonth] = useState<string | null>(answers.birthMonth);
   const [selectedYear, setSelectedYear] = useState<string | null>(answers.birthYear);
+
+  useEffect(() => {
+    trackViewBirthMonth();
+  }, []);
 
   const isValid = selectedMonth !== null && selectedYear !== null;
 

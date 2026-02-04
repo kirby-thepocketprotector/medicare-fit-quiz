@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { ClipboardList } from 'lucide-react';
 import QuizHeader from '@/components/QuizHeader';
 import OptionButton from '@/components/OptionButton';
@@ -8,10 +8,16 @@ import ContinueButton from '@/components/ContinueButton';
 import { useQuiz } from '@/contexts/QuizContext';
 import { VA_PREFERENCE_OPTIONS } from '@/constants/quiz-data';
 import Colors from '@/constants/colors';
+import { trackViewVAPreference } from '@/utils/analytics';
+import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
 
 export default function Q03BPage() {
-  const router = useRouter();
+  const router = useNavigateWithUTM();
   const { answers, toggleVAPreference, setCurrentStep } = useQuiz();
+
+  useEffect(() => {
+    trackViewVAPreference();
+  }, []);
 
   const isValid = answers.vaPreferences.length > 0;
   const noneSelected = answers.vaPreferences.includes('none_apply');

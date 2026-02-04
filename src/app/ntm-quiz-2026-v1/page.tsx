@@ -1,9 +1,15 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { trackQuizStart } from '@/utils/analytics';
+import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
 
 export default function SplashPage() {
-  const router = useRouter();
+  const router = useNavigateWithUTM();
+
+  useEffect(() => {
+    trackQuizStart();
+  }, []);
 
   return (
     <div style={{

@@ -1,10 +1,12 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { User, Clock, DollarSign, FileText } from 'lucide-react';
 import QuizHeader from '@/components/QuizHeader';
 import ContinueButton from '@/components/ContinueButton';
 import Colors from '@/constants/colors';
+import { trackViewBudgetChoiceAlex } from '@/utils/analytics';
+import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
 
 const timeline = [
   "Does not need to see the primary care doctor",
@@ -13,7 +15,11 @@ const timeline = [
 ];
 
 export default function Q05BPage() {
-  const router = useRouter();
+  const router = useNavigateWithUTM();
+
+  useEffect(() => {
+    trackViewBudgetChoiceAlex();
+  }, []);
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: Colors.background }}>
