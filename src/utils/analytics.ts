@@ -22,6 +22,61 @@ declare global {
 }
 
 /**
+ * Tracking guard to prevent duplicate events
+ * Uses sessionStorage to track which events have fired in this session
+ */
+const TRACKING_GUARD_PREFIX = 'analytics_tracked_';
+
+function hasBeenTracked(eventKey: string): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    return sessionStorage.getItem(`${TRACKING_GUARD_PREFIX}${eventKey}`) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+function markAsTracked(eventKey: string): void {
+  if (typeof window === 'undefined') return;
+  try {
+    sessionStorage.setItem(`${TRACKING_GUARD_PREFIX}${eventKey}`, 'true');
+  } catch {
+    // Ignore errors
+  }
+}
+
+function clearTrackingGuard(eventKey: string): void {
+  if (typeof window === 'undefined') return;
+  try {
+    sessionStorage.removeItem(`${TRACKING_GUARD_PREFIX}${eventKey}`);
+  } catch {
+    // Ignore errors
+  }
+}
+
+/**
+ * Clear all tracking guards - used when quiz is restarted
+ */
+export function clearAllTrackingGuards(): void {
+  if (typeof window === 'undefined') return;
+  try {
+    // Get all keys from sessionStorage
+    const keys = Object.keys(sessionStorage);
+    // Remove all tracking guard keys
+    keys.forEach(key => {
+      if (key.startsWith(TRACKING_GUARD_PREFIX)) {
+        sessionStorage.removeItem(key);
+      }
+    });
+
+    // Also clear the is_new_to_medicare flag
+    sessionStorage.removeItem(NEW_TO_MEDICARE_FIRED_KEY);
+  } catch {
+    // Ignore errors
+  }
+}
+
+/**
  * Initialize dataLayer if it doesn't exist
  */
 function initDataLayer() {
@@ -46,14 +101,22 @@ function pushToDataLayer(data: Record<string, any>) {
 }
 
 /**
- * Track page/screen views
+ * Track page/screen views (with duplicate prevention)
  */
 export function trackPageView(eventName: string, metadata?: Record<string, any>) {
+  // Check if this event has already been tracked in this session
+  if (hasBeenTracked(eventName)) {
+    return; // Already tracked, skip
+  }
+
   pushToDataLayer({
     event: eventName,
     timestamp: new Date().toISOString(),
     ...metadata,
   });
+
+  // Mark as tracked
+  markAsTracked(eventName);
 }
 
 /**
@@ -225,9 +288,13 @@ export function trackQuizAbandonment(lastStep: number, answers: Partial<QuizAnsw
 }
 
 /**
- * Track quiz restart
+ * Track quiz restart and clear all tracking guards
  */
 export function trackQuizRestart() {
+  // Clear all tracking guards so events can fire again
+  clearAllTrackingGuards();
+
+  // Track the restart event
   trackPageView('ntm_quiz_result_startover');
 }
 

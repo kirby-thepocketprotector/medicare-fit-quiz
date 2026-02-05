@@ -48,7 +48,7 @@ export default function Q05CPage() {
           },
         ].map((card, idx) => (
           <div key={idx} style={{ backgroundColor: Colors.card, borderRadius: '16px', padding: '20px', border: `1px solid ${Colors.border}`, marginBottom: '16px' }}>
-            <h2 style={{ fontSize: '18px', fontWeight: '700', color: Colors.text, marginBottom: '4px' }}>{card.title}</h2>
+            <h2 style={{ fontSize: '18px', fontWeight: '700', color: Colors.text, marginBottom: '4px', marginTop: '0px' }}>{card.title}</h2>
             <p style={{ fontSize: '12px', color: Colors.textMuted, marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{card.subtitle}</p>
             {card.description && <p style={{ fontSize: '14px', lineHeight: '22px', color: Colors.textSecondary, marginBottom: '12px' }}>{card.description}</p>}
 

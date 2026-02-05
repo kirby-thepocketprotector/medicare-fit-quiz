@@ -15,17 +15,19 @@ export default function Q03Page() {
   const { answers, updateAnswer, setCurrentStep } = useQuiz();
 
   useEffect(() => {
+    // Track page view only once
     trackViewIsVeteran();
-  }, []);
+    // Prefetch likely next routes for instant navigation
+    router.prefetch('/ntm-quiz-2026-v1/q03a');
+    router.prefetch('/ntm-quiz-2026-v1/q04');
+  }, []); // Empty deps to run only once on mount
 
   const handleSelect = (value: boolean) => {
+    // Navigate immediately, then update state asynchronously
+    const nextRoute = value ? '/ntm-quiz-2026-v1/q03a' : '/ntm-quiz-2026-v1/q04';
+    router.push(nextRoute);
     updateAnswer('isVeteran', value);
     setCurrentStep(3);
-    if (value) {
-      router.push('/ntm-quiz-2026-v1/q03a');
-    } else {
-      router.push('/ntm-quiz-2026-v1/q04');
-    }
   };
 
   return (

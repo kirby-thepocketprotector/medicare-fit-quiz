@@ -2,11 +2,9 @@
 
 import { useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { Phone, RotateCcw, DollarSign, Shield, MapPin, Heart } from 'lucide-react';
+import { Phone, DollarSign, Shield, MapPin, Heart } from 'lucide-react';
 import { useQuiz } from '@/contexts/QuizContext';
-import { RESULT_CONTENT, ResultScreenId, calculateIEPWindow, QuizAnswers } from '@/constants/quiz-data';
-import Colors from '@/constants/colors';
-import { getAllUTMParams } from '@/utils/utm';
+import { RESULT_CONTENT, ResultScreenId, QuizAnswers } from '@/constants/quiz-data';
 import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
 import {
   trackViewResultMANonVet,
@@ -51,12 +49,9 @@ export default function ResultPage() {
   const isEarlyExit = resultId === 'R08' || resultId === 'R09';
   const showMedicareOverride = !answers.hasPartAB && !isEarlyExit;
 
-  // Pass-through variables for analytics/call context
-  const iepWindow = calculateIEPWindow(answers.birthMonth, answers.birthYear);
-  const medicareABStatus = answers.hasPartAB ?? false;
-
   useEffect(() => {
     // Track result page view based on result ID with pass-through variables
+    // Only track once on mount, not when answers change
     const trackingMap: Record<ResultScreenId, (quizAnswers: QuizAnswers) => void> = {
       R01: trackViewResultMANonVet,
       R02: trackViewResultMSNonVet,
@@ -73,7 +68,8 @@ export default function ResultPage() {
     if (trackFn) {
       trackFn(answers);
     }
-  }, [resultId, answers]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only track once on mount
 
   const handleCallClick = () => {
     trackResultCall();
@@ -87,153 +83,448 @@ export default function ResultPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: Colors.background }}>
-      <div style={{ maxWidth: '700px', margin: '0 auto', padding: '24px', paddingBottom: '100px' }}>
-        <div style={{ backgroundColor: Colors.primary + '10', borderRadius: '20px', padding: '8px 16px', display: 'inline-block', marginBottom: '16px' }}>
-          <span style={{ fontSize: '13px', fontWeight: '600', color: Colors.primary, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-            {result.subtitle}
-          </span>
+    <div style={{ minHeight: '100vh', backgroundColor: '#FAF9F7', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingTop: '44px', paddingBottom: '34px' }}>
+        <div style={{
+          flex: 1,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          WebkitOverflowScrolling: 'touch' as any,
+        }}>
+          <div style={{ padding: '24px', paddingBottom: '140px', display: 'flex', flexDirection: 'column' }}>
+            <div style={{
+              alignSelf: 'flex-start',
+              backgroundColor: 'rgba(46,158,107,0.08)',
+              borderRadius: '16px',
+              padding: '6px 14px',
+              marginBottom: '16px'
+            }}>
+              <span style={{ fontSize: '13px', fontWeight: '600', color: 'rgba(46,158,107,1.00)' }}>
+                {result.subtitle}
+              </span>
+            </div>
+
+            <h1 style={{
+              fontSize: '32px',
+              fontWeight: '700',
+              color: '#1A1F2C',
+              lineHeight: '40px',
+              letterSpacing: '-0.5px',
+              marginBottom: '24px'
+            }}>
+              {result.title}
+            </h1>
+
+            {showMedicareOverride && (
+              <div style={{
+                backgroundColor: 'rgba(229,168,75,0.06)',
+                border: '1px solid rgba(229,168,75,0.19)',
+                borderLeft: '3px solid #E5A84B',
+                borderRadius: '12px',
+                padding: '14px 16px',
+                marginBottom: '24px'
+              }}>
+                <p style={{
+                  fontSize: '15px',
+                  lineHeight: '22px',
+                  color: '#1A1F2C',
+                  margin: 0,
+                  fontWeight: '500'
+                }}>
+                  <strong>Important:</strong> You mentioned you're not yet enrolled in both Medicare Part A and Part B. Before choosing a supplemental plan, you'll need to get enrolled in Original Medicare first.
+                </p>
+              </div>
+            )}
+
+            {result.whyHeader && result.whyText && (
+              <div style={{ marginBottom: '24px' }}>
+                <h2 style={{
+                  fontSize: '18px',
+                  fontWeight: '700',
+                  color: '#1A1F2C',
+                  marginBottom: '12px'
+                }}>
+                  {result.whyHeader}
+                </h2>
+                <p style={{
+                  fontSize: '16px',
+                  lineHeight: '26px',
+                  color: '#5A6275',
+                  whiteSpace: 'pre-line',
+                  margin: 0
+                }}>
+                  {result.whyText}
+                </p>
+              </div>
+            )}
+
+            {result.benefits && result.benefits.length > 0 && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px' }}>
+                {result.benefits.map((benefit, idx) => {
+                  const IconComponent = iconMap[benefit.icon] || Shield;
+                  return (
+                    <div key={idx} style={{
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid rgba(232,230,227,1.00)',
+                      borderRadius: '12px',
+                      padding: '16px',
+                      display: 'flex',
+                      flexDirection: 'row',
+                      gap: '14px'
+                    }}>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: 'rgba(13,122,122,0.08)',
+                        borderRadius: '22px',
+                        width: '44px',
+                        height: '44px',
+                        flexShrink: 0
+                      }}>
+                        <IconComponent size={20} color="#0A5C5C" strokeWidth={2} />
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <h3 style={{
+                          fontSize: '15px',
+                          fontWeight: '600',
+                          color: '#1A1F2C',
+                          marginBottom: '4px',
+                          margin: 0
+                        }}>
+                          {benefit.title}
+                        </h3>
+                        <p style={{
+                          fontSize: '14px',
+                          lineHeight: '20px',
+                          color: '#5A6275',
+                          margin: 0
+                        }}>
+                          {benefit.description}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {result.importantNote && (
+              <div style={{
+                backgroundColor: 'rgba(229,168,75,0.06)',
+                border: '1px solid rgba(229,168,75,0.19)',
+                borderRadius: '12px',
+                padding: '16px',
+                marginBottom: '24px'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  marginBottom: '10px'
+                }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E5A84B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path>
+                    <path d="M12 9v4"></path>
+                    <path d="M12 17h.01"></path>
+                  </svg>
+                  <h3 style={{
+                    fontSize: '15px',
+                    fontWeight: '600',
+                    color: '#1A1F2C',
+                    margin: 0
+                  }}>
+                    Important to Know
+                  </h3>
+                </div>
+                <p style={{
+                  fontSize: '14px',
+                  lineHeight: '22px',
+                  color: '#5A6275',
+                  margin: 0,
+                  whiteSpace: 'pre-line'
+                }}>
+                  {result.importantNote}
+                </p>
+              </div>
+            )}
+
+            {showMedicareOverride ? (
+              <div style={{ marginBottom: '20px' }}>
+                <h2 style={{
+                  fontSize: '20px',
+                  fontWeight: '700',
+                  color: '#1A1F2C',
+                  letterSpacing: '-0.3px',
+                  marginBottom: '12px'
+                }}>
+                  Next Step: Get Enrolled in Medicare Part A & Part B
+                </h2>
+                <p style={{
+                  fontSize: '15px',
+                  lineHeight: '24px',
+                  color: '#5A6275',
+                  marginBottom: '20px'
+                }}>
+                  Before you can choose a supplemental plan, you'll need to enroll in Original Medicare (Parts A and B). Here's what you need to know:
+                </p>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'row', gap: '12px' }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: 'rgba(13,122,122,0.08)',
+                      borderRadius: '14px',
+                      width: '28px',
+                      height: '28px',
+                      flexShrink: 0,
+                      marginTop: '2px'
+                    }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A5C5C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 6 9 17l-5-5"></path>
+                      </svg>
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <h4 style={{
+                        fontSize: '15px',
+                        fontWeight: '600',
+                        color: '#1A1F2C',
+                        marginBottom: '4px',
+                        margin: 0
+                      }}>
+                        When to Enroll
+                      </h4>
+                      <p style={{
+                        fontSize: '14px',
+                        lineHeight: '22px',
+                        color: '#5A6275',
+                        margin: 0
+                      }}>
+                        Your Initial Enrollment Period starts 3 months before you turn 65, includes your birth month, and continues for 3 months after. Enrolling during this window helps you avoid late penalties.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'row', gap: '12px' }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: 'rgba(13,122,122,0.08)',
+                      borderRadius: '14px',
+                      width: '28px',
+                      height: '28px',
+                      flexShrink: 0,
+                      marginTop: '2px'
+                    }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A5C5C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 6 9 17l-5-5"></path>
+                      </svg>
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <h4 style={{
+                        fontSize: '15px',
+                        fontWeight: '600',
+                        color: '#1A1F2C',
+                        marginBottom: '4px',
+                        margin: 0
+                      }}>
+                        How to Enroll
+                      </h4>
+                      <p style={{
+                        fontSize: '14px',
+                        lineHeight: '22px',
+                        color: '#5A6275',
+                        margin: 0
+                      }}>
+                        You can enroll online at SSA.gov, by calling Social Security at 1-800-772-1213, or by visiting your local Social Security office. If you're already receiving Social Security benefits, you may be automatically enrolled.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'row', gap: '12px' }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: 'rgba(13,122,122,0.08)',
+                      borderRadius: '14px',
+                      width: '28px',
+                      height: '28px',
+                      flexShrink: 0,
+                      marginTop: '2px'
+                    }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A5C5C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 6 9 17l-5-5"></path>
+                      </svg>
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <h4 style={{
+                        fontSize: '15px',
+                        fontWeight: '600',
+                        color: '#1A1F2C',
+                        marginBottom: '4px',
+                        margin: 0
+                      }}>
+                        After You Enroll
+                      </h4>
+                      <p style={{
+                        fontSize: '14px',
+                        lineHeight: '22px',
+                        color: '#5A6275',
+                        margin: 0
+                      }}>
+                        Once you have your Medicare card showing Part A and Part B coverage, you can move forward with choosing the supplemental coverage that's right for you. Our agents can help you navigate your options at that time.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              result.nextStepHeader && (
+                <div style={{ marginBottom: '20px' }}>
+                  <h2 style={{
+                    fontSize: '20px',
+                    fontWeight: '700',
+                    color: '#1A1F2C',
+                    letterSpacing: '-0.3px',
+                    marginBottom: '12px'
+                  }}>
+                    {result.nextStepHeader}
+                  </h2>
+                  {result.nextStepIntro && (
+                    <p style={{
+                      fontSize: '15px',
+                      lineHeight: '24px',
+                      color: '#5A6275',
+                      marginBottom: '20px'
+                    }}>
+                      {result.nextStepIntro}
+                    </p>
+                  )}
+                  {result.nextStepItems && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                      {result.nextStepItems.map((item, idx) => (
+                        <div key={idx} style={{ display: 'flex', flexDirection: 'row', gap: '12px' }}>
+                          <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: 'rgba(13,122,122,0.08)',
+                            borderRadius: '14px',
+                            width: '28px',
+                            height: '28px',
+                            flexShrink: 0,
+                            marginTop: '2px'
+                          }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A5C5C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M20 6 9 17l-5-5"></path>
+                            </svg>
+                          </div>
+                          <div style={{ flex: 1 }}>
+                            <h4 style={{
+                              fontSize: '15px',
+                              fontWeight: '600',
+                              color: '#1A1F2C',
+                              marginBottom: '4px',
+                              margin: 0
+                            }}>
+                              {item.title}
+                            </h4>
+                            <p style={{
+                              fontSize: '14px',
+                              lineHeight: '22px',
+                              color: '#5A6275',
+                              margin: 0
+                            }}>
+                              {item.description}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )
+            )}
+
+            <div style={{
+              backgroundColor: '#FFFFFF',
+              border: '1px solid rgba(232,230,227,1.00)',
+              borderRadius: '12px',
+              padding: '16px',
+              marginBottom: '16px'
+            }}>
+              <p style={{
+                fontSize: '15px',
+                fontWeight: '600',
+                color: '#1A1F2C',
+                marginBottom: '6px',
+                margin: 0
+              }}>
+                Our help is always free
+              </p>
+              <p style={{
+                fontSize: '14px',
+                lineHeight: '22px',
+                color: '#5A6275',
+                margin: 0
+              }}>
+                Medicare plans cost the same whether you enroll with us or on your own. We never charge anything for our help.
+              </p>
+            </div>
+          </div>
         </div>
 
-        <h1 style={{ fontSize: '32px', fontWeight: '700', color: Colors.text, lineHeight: '1.2', marginBottom: '24px' }}>
-          {result.title}
-        </h1>
-
-        {showMedicareOverride && (
-          <div style={{ backgroundColor: Colors.warning + '15', borderLeft: `4px solid ${Colors.warning}`, borderRadius: '12px', padding: '16px', marginBottom: '24px' }}>
-            <p style={{ fontSize: '15px', lineHeight: '24px', color: Colors.text, margin: 0, fontWeight: '500' }}>
-              <strong>Important:</strong> You mentioned you're not yet enrolled in both Medicare Part A and Part B. Before choosing a supplemental plan, you'll need to get enrolled in Original Medicare first.
-            </p>
-          </div>
-        )}
-
-        {result.whyHeader && result.whyText && (
-          <div style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontSize: '20px', fontWeight: '700', color: Colors.text, marginBottom: '12px' }}>
-              {result.whyHeader}
-            </h2>
-            <p style={{ fontSize: '16px', lineHeight: '28px', color: Colors.textSecondary, whiteSpace: 'pre-line' }}>
-              {result.whyText}
-            </p>
-          </div>
-        )}
-
-        {result.benefits && result.benefits.length > 0 && (
-          <div style={{ marginBottom: '32px' }}>
-            {result.benefits.map((benefit, idx) => {
-              const IconComponent = iconMap[benefit.icon] || Shield;
-              return (
-                <div key={idx} style={{ display: 'flex', gap: '16px', marginBottom: '20px' }}>
-                  <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: Colors.primaryLight + '15', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <IconComponent size={24} color={Colors.primary} />
-                  </div>
-                  <div>
-                    <h3 style={{ fontSize: '16px', fontWeight: '600', color: Colors.text, marginBottom: '4px' }}>
-                      {benefit.title}
-                    </h3>
-                    <p style={{ fontSize: '14px', lineHeight: '22px', color: Colors.textSecondary, margin: 0 }}>
-                      {benefit.description}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-
-        {result.importantNote && (
-          <div style={{ backgroundColor: Colors.backgroundDark, borderRadius: '12px', padding: '20px', marginBottom: '32px' }}>
-            <h3 style={{ fontSize: '16px', fontWeight: '700', color: Colors.text, marginBottom: '12px' }}>
-              Important to Know
-            </h3>
-            <p style={{ fontSize: '15px', lineHeight: '26px', color: Colors.textSecondary, margin: 0, whiteSpace: 'pre-line' }}>
-              {result.importantNote}
-            </p>
-          </div>
-        )}
-
-        {showMedicareOverride ? (
-          <div style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontSize: '22px', fontWeight: '700', color: Colors.text, marginBottom: '16px' }}>
-              Next Step: Get Enrolled in Medicare Part A & Part B
-            </h2>
-            <p style={{ fontSize: '16px', lineHeight: '26px', color: Colors.textSecondary, marginBottom: '20px' }}>
-              Before you can choose a supplemental plan, you'll need to enroll in Original Medicare (Parts A and B). Here's what you need to know:
-            </p>
-
-            <div style={{ marginBottom: '16px' }}>
-              <h4 style={{ fontSize: '16px', fontWeight: '600', color: Colors.text, marginBottom: '6px' }}>
-                When to Enroll
-              </h4>
-              <p style={{ fontSize: '15px', lineHeight: '24px', color: Colors.textSecondary, margin: 0 }}>
-                Your Initial Enrollment Period starts 3 months before you turn 65, includes your birth month, and continues for 3 months after. Enrolling during this window helps you avoid late penalties.
-              </p>
-            </div>
-
-            <div style={{ marginBottom: '16px' }}>
-              <h4 style={{ fontSize: '16px', fontWeight: '600', color: Colors.text, marginBottom: '6px' }}>
-                How to Enroll
-              </h4>
-              <p style={{ fontSize: '15px', lineHeight: '24px', color: Colors.textSecondary, margin: 0 }}>
-                You can enroll online at SSA.gov, by calling Social Security at 1-800-772-1213, or by visiting your local Social Security office. If you're already receiving Social Security benefits, you may be automatically enrolled.
-              </p>
-            </div>
-
-            <div style={{ marginBottom: '16px' }}>
-              <h4 style={{ fontSize: '16px', fontWeight: '600', color: Colors.text, marginBottom: '6px' }}>
-                After You Enroll
-              </h4>
-              <p style={{ fontSize: '15px', lineHeight: '24px', color: Colors.textSecondary, margin: 0 }}>
-                Once you have your Medicare card showing Part A and Part B coverage, you can move forward with choosing the supplemental coverage that's right for you. Our agents can help you navigate your options at that time.
-              </p>
-            </div>
-          </div>
-        ) : (
-          result.nextStepHeader && (
-            <div style={{ marginBottom: '32px' }}>
-              <h2 style={{ fontSize: '22px', fontWeight: '700', color: Colors.text, marginBottom: '16px' }}>
-                {result.nextStepHeader}
-              </h2>
-              {result.nextStepIntro && (
-                <p style={{ fontSize: '16px', lineHeight: '26px', color: Colors.textSecondary, marginBottom: '20px' }}>
-                  {result.nextStepIntro}
-                </p>
-              )}
-              {result.nextStepItems && result.nextStepItems.map((item, idx) => (
-                <div key={idx} style={{ marginBottom: '16px' }}>
-                  <h4 style={{ fontSize: '16px', fontWeight: '600', color: Colors.text, marginBottom: '6px' }}>
-                    {item.title}
-                  </h4>
-                  <p style={{ fontSize: '15px', lineHeight: '24px', color: Colors.textSecondary, margin: 0 }}>
-                    {item.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          )
-        )}
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '40px' }}>
+        <div style={{
+          position: 'fixed',
+          bottom: '0px',
+          left: '0px',
+          right: '0px',
+          backgroundColor: '#FAF9F7',
+          borderTop: '1px solid rgba(232,230,227,1.00)',
+          padding: '16px 16px 24px 16px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '12px'
+        }}>
           <button
             onClick={handleCallClick}
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '8px',
-              backgroundColor: Colors.primary,
-              color: Colors.white,
+              gap: '10px',
+              backgroundColor: '#0A5C5C',
+              color: '#FFFFFF',
               padding: '18px',
               borderRadius: '12px',
               border: 'none',
-              fontSize: '16px',
+              fontSize: '17px',
               fontWeight: '600',
               cursor: 'pointer',
-              boxShadow: '0 4px 12px rgba(10, 92, 92, 0.2)',
+              boxShadow: '0px 4px 8px rgba(10,92,92,0.30)',
+              transition: 'all 0.15s ease',
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation',
+            }}
+            onMouseDown={(e) => {
+              e.currentTarget.style.transform = 'scale(0.98)';
+            }}
+            onMouseUp={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+            onTouchStart={(e) => {
+              e.currentTarget.style.transform = 'scale(0.98)';
+            }}
+            onTouchEnd={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
             }}
           >
-            <Phone size={20} />
-            Call for Free Consultation
+            <Phone size={20} strokeWidth={2} />
+            <span>Call Now</span>
           </button>
 
           <button
@@ -242,18 +533,16 @@ export default function ResultPage() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '8px',
-              backgroundColor: Colors.white,
-              color: Colors.text,
-              padding: '16px',
-              borderRadius: '12px',
-              border: `1px solid ${Colors.border}`,
+              padding: '8px',
+              backgroundColor: 'transparent',
+              color: 'rgba(139,146,165,1.00)',
+              border: 'none',
               fontSize: '15px',
               fontWeight: '500',
               cursor: 'pointer',
+              transition: 'all 0.15s ease',
             }}
           >
-            <RotateCcw size={18} />
             Start Over
           </button>
         </div>

@@ -13,7 +13,9 @@ export default function Q01APage() {
 
   useEffect(() => {
     trackViewInIEP();
-  }, []);
+    // Prefetch next route for instant navigation
+    router.prefetch('/ntm-quiz-2026-v1/q02');
+  }, []); // Empty deps to run only once on mount
 
   return (
     <div style={{

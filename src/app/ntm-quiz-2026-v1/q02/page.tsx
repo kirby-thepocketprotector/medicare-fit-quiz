@@ -16,23 +16,24 @@ export default function Q02Page() {
 
   useEffect(() => {
     trackViewMedicareAB();
-  }, []);
+    // Prefetch likely next routes for instant navigation
+    router.prefetch('/ntm-quiz-2026-v1/q02a');
+    router.prefetch('/ntm-quiz-2026-v1/q03');
+  }, []); // Empty deps to run only once on mount
 
   const handleSelect = (value: boolean) => {
+    // Navigate immediately for instant response
+    const nextRoute = value ? '/ntm-quiz-2026-v1/q02a' : '/ntm-quiz-2026-v1/q03';
+
+    // Update state and navigate (these happen asynchronously now)
     updateAnswer('hasPartAB', value);
     setCurrentStep(2);
+    router.push(nextRoute);
 
-    // Track is_new_to_medicare event if hasPartAB === false
-    // (we have all required data at this point)
+    // Track is_new_to_medicare event if hasPartAB === false (async)
     if (!value) {
       const updatedAnswers = { ...answers, hasPartAB: value };
-      trackIsNewToMedicare(updatedAnswers);
-    }
-
-    if (value) {
-      router.push('/ntm-quiz-2026-v1/q02a');
-    } else {
-      router.push('/ntm-quiz-2026-v1/q03');
+      setTimeout(() => trackIsNewToMedicare(updatedAnswers), 0);
     }
   };
 

@@ -19,15 +19,16 @@ export default function Q01Page() {
 
   useEffect(() => {
     trackViewBirthMonth();
-  }, []);
+    // Prefetch likely next routes for instant navigation
+    router.prefetch('/ntm-quiz-2026-v1/q01a');
+    router.prefetch('/ntm-quiz-2026-v1/q02');
+  }, []); // Empty deps to run only once on mount
 
   const isValid = selectedMonth !== null && selectedYear !== null;
 
   const handleContinue = () => {
     if (selectedMonth && selectedYear) {
-      setBirthDate(selectedMonth, selectedYear);
-      setCurrentStep(1);
-
+      // Calculate next route first
       const monthIndex = MONTHS.indexOf(selectedMonth);
       const birthYear = parseInt(selectedYear, 10);
       const birthDate = new Date(birthYear, monthIndex, 1);
@@ -43,12 +44,12 @@ export default function Q01Page() {
       iepEnd.setMonth(iepEnd.getMonth() + 3);
 
       const isInIEP = today >= iepStart && today <= iepEnd;
+      const nextRoute = isInIEP ? '/ntm-quiz-2026-v1/q01a' : '/ntm-quiz-2026-v1/q02';
 
-      if (isInIEP) {
-        router.push('/ntm-quiz-2026-v1/q01a');
-      } else {
-        router.push('/ntm-quiz-2026-v1/q02');
-      }
+      // Navigate immediately, then update state asynchronously
+      router.push(nextRoute);
+      setBirthDate(selectedMonth, selectedYear);
+      setCurrentStep(1);
     }
   };
 

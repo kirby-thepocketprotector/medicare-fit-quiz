@@ -17,7 +17,10 @@ export default function Q04Page() {
 
   useEffect(() => {
     trackViewHasMedicaid();
-  }, []);
+    // Prefetch likely next routes for instant navigation
+    router.prefetch('/ntm-quiz-2026-v1/result/R03');
+    router.prefetch('/ntm-quiz-2026-v1/q05');
+  }, []); // Empty deps to run only once on mount
   const [selected, setSelected] = useState<boolean | null>(answers.hasMedicaid);
 
   const handleSelect = (value: boolean) => {
@@ -28,13 +31,10 @@ export default function Q04Page() {
   const handleContinue = () => {
     if (selected === null) return;
 
+    // Navigate immediately, then update state asynchronously
+    const nextRoute = selected === true ? '/ntm-quiz-2026-v1/result/R03' : '/ntm-quiz-2026-v1/q05';
+    router.push(nextRoute);
     setCurrentStep(6);
-
-    if (selected === true) {
-      router.push('/ntm-quiz-2026-v1/result/R03');
-    } else {
-      router.push('/ntm-quiz-2026-v1/q05');
-    }
   };
 
   return (

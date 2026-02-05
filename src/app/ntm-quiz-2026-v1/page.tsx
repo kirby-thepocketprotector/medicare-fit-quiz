@@ -9,7 +9,9 @@ export default function SplashPage() {
 
   useEffect(() => {
     trackQuizStart();
-  }, []);
+    // Prefetch the first question for instant navigation
+    router.prefetch('/ntm-quiz-2026-v1/q01');
+  }, []); // Empty deps to run only once on mount
 
   return (
     <div style={{

@@ -22,9 +22,41 @@ export default function ContinueButton({ onPress, disabled = false, label = 'Con
         fontWeight: '600',
         cursor: disabled ? 'not-allowed' : 'pointer',
         boxShadow: 'none',
-        transition: 'all 0.2s ease',
+        transition: 'all 0.15s ease',
         opacity: 1,
         WebkitBoxShadow: disabled ? 'none' : '0px 4px 8px rgba(10,92,92,0.30)',
+        WebkitTapHighlightColor: 'transparent',
+        touchAction: 'manipulation',
+      }}
+      onMouseDown={(e) => {
+        if (!disabled) {
+          e.currentTarget.style.transform = 'scale(0.98)';
+          e.currentTarget.style.opacity = '0.9';
+        }
+      }}
+      onMouseUp={(e) => {
+        if (!disabled) {
+          e.currentTarget.style.transform = 'scale(1)';
+          e.currentTarget.style.opacity = '1';
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (!disabled) {
+          e.currentTarget.style.transform = 'scale(1)';
+          e.currentTarget.style.opacity = '1';
+        }
+      }}
+      onTouchStart={(e) => {
+        if (!disabled) {
+          e.currentTarget.style.transform = 'scale(0.98)';
+          e.currentTarget.style.opacity = '0.9';
+        }
+      }}
+      onTouchEnd={(e) => {
+        if (!disabled) {
+          e.currentTarget.style.transform = 'scale(1)';
+          e.currentTarget.style.opacity = '1';
+        }
       }}
     >
       {label}

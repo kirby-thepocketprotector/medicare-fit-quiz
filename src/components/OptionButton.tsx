@@ -25,6 +25,7 @@ export default function OptionButton({
 
   const handleClick = () => {
     if (!disabled) {
+      // Call onPress immediately for instant response
       onPress();
       if (expandedContent && !selected) {
         setIsExpanded(true);
@@ -56,9 +57,31 @@ export default function OptionButton({
           borderRadius: '12px',
           cursor: disabled ? 'not-allowed' : 'pointer',
           opacity: disabled ? 0.5 : 1,
-          transition: 'all 0.2s ease',
+          transition: 'all 0.15s ease',
           fontSize: '16px',
           textAlign: 'left',
+          WebkitTapHighlightColor: 'transparent',
+          touchAction: 'manipulation',
+        }}
+        onMouseDown={(e) => {
+          if (!disabled) {
+            e.currentTarget.style.transform = 'scale(0.98)';
+          }
+        }}
+        onMouseUp={(e) => {
+          if (!disabled) {
+            e.currentTarget.style.transform = 'scale(1)';
+          }
+        }}
+        onTouchStart={(e) => {
+          if (!disabled) {
+            e.currentTarget.style.transform = 'scale(0.98)';
+          }
+        }}
+        onTouchEnd={(e) => {
+          if (!disabled) {
+            e.currentTarget.style.transform = 'scale(1)';
+          }
         }}
       >
         <span

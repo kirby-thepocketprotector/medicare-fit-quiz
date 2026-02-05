@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useCallback, ReactNode, useEffect } from 'react';
 import { QuizAnswers, initialQuizAnswers, calculateIsInIEP, determineResult, ResultScreenId } from '@/constants/quiz-data';
+import { clearAllTrackingGuards } from '@/utils/analytics';
 
 interface QuizContextType {
   answers: QuizAnswers;
@@ -50,25 +51,35 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   const [currentStep, setCurrentStepState] = useState(() => getStoredStep());
   const [totalSteps] = useState(10);
 
-  // Persist answers to localStorage whenever they change
+  // Persist answers to localStorage asynchronously (non-blocking)
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
-      } catch (error) {
-        console.error('Error saving to localStorage:', error);
-      }
+      // Use setTimeout to make localStorage write non-blocking
+      const timeoutId = setTimeout(() => {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
+        } catch (error) {
+          console.error('Error saving to localStorage:', error);
+        }
+      }, 0);
+
+      return () => clearTimeout(timeoutId);
     }
   }, [answers]);
 
-  // Persist current step to localStorage
+  // Persist current step to localStorage asynchronously (non-blocking)
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem(STEP_STORAGE_KEY, currentStep.toString());
-      } catch (error) {
-        console.error('Error saving step to localStorage:', error);
-      }
+      // Use setTimeout to make localStorage write non-blocking
+      const timeoutId = setTimeout(() => {
+        try {
+          localStorage.setItem(STEP_STORAGE_KEY, currentStep.toString());
+        } catch (error) {
+          console.error('Error saving step to localStorage:', error);
+        }
+      }, 0);
+
+      return () => clearTimeout(timeoutId);
     }
   }, [currentStep]);
 
@@ -123,6 +134,10 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   const resetQuiz = useCallback(() => {
     setAnswers(initialQuizAnswers);
     setCurrentStepState(0);
+
+    // Clear analytics tracking guards so events can fire again
+    clearAllTrackingGuards();
+
     // Clear localStorage
     if (typeof window !== 'undefined') {
       try {

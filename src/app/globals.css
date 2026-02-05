@@ -6,7 +6,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #FAF9F7;
   --foreground: #171717;
 }
 
@@ -17,15 +17,128 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Disable dark mode - keep light theme always */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #FAF9F7;
+    --foreground: #171717;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #FAF9F7;
+  color: #171717;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+  background: #FAF9F7;
+}
+
+/* Comprehensive hiding of any orphan elements */
+body::before,
+body::after,
+html::before,
+html::after {
+  display: none !important;
+}
+
+/* Hide any absolutely positioned tiny elements (likely badges/indicators) */
+body > div[style*="position:absolute"][style*="top:0"],
+body > div[style*="position: absolute"][style*="top: 0"],
+body > span[style*="position:absolute"][style*="top:0"],
+body > span[style*="position: absolute"][style*="top: 0"],
+body > div[style*="position:fixed"][style*="top:0"],
+body > div[style*="position: fixed"][style*="top: 0"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Hide any small fixed/absolute elements in corners */
+*[style*="position:fixed"],
+*[style*="position: fixed"] {
+  /* Only hide if it's very small (likely a badge/indicator) */
+}
+*[style*="position:fixed"][style*="width:"][style*="px"]:not([style*="width: 100"]):not([style*="width:100"]),
+*[style*="position: fixed"][style*="width: "][style*="px"]:not([style*="width: 100"]) {
+  display: none !important;
+}
+
+/* Target very small elements that might be badges */
+body > *:not(#__next):not(script):not(style):not(link):not(meta):not(noscript):not(title) {
+  /* Add minimum size to prevent invisible badges */
+}
+
+body > div:empty:not(#__next),
+body > span:empty,
+body > div[style*="width: 0"],
+body > div[style*="height: 0"],
+body > div[style*="width:0"],
+body > div[style*="height:0"] {
+  display: none !important;
+}
+
+/* Aggressively hide GTM/GA debug elements */
+[class*="_gtm"],
+[id*="_gtm"],
+[class*="gtm_"],
+[id*="gtm_"],
+div[style*="z-index: 2147483647"],
+div[style*="z-index:2147483647"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Hide any debug badges or indicators from third-party scripts */
+[class*="debug"],
+[class*="indicator"],
+[id*="debug"],
+[id*="gtm-debug"],
+[id*="ringba"],
+[class*="ringba"],
+[data-ringba],
+._Ax9EX,
+/* Hide any notification badges */
+[role="status"],
+[aria-live="polite"],
+[aria-live="assertive"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Additional aggressive hiding for any small fixed positioned elements */
+div[style*="position: fixed"][style*="width: 0"],
+div[style*="position: fixed"][style*="height: 0"],
+div[style*="position:fixed"][style*="width:0"],
+div[style*="position:fixed"][style*="height:0"],
+/* Hide any small elements in top left corner */
+body > div:first-child:not([id]):not([class]) {
+  display: none !important;
+}
+
+/* Hide noscript iframes that might show */
+noscript iframe,
+noscript {
+  display: none !important;
+  position: absolute !important;
+  left: -9999px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Ringba and other tracking scripts - hide all visual elements */
+#ringba,
+[id^="ringba"],
+[class^="ringba"],
+.ringba {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  pointer-events: none !important;
 }
