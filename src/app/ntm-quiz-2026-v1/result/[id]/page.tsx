@@ -91,7 +91,7 @@ export default function ResultPage() {
           overflowX: 'hidden',
           WebkitOverflowScrolling: 'touch' as any,
         }}>
-          <div style={{ padding: '24px', paddingBottom: '140px', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ padding: '24px', paddingBottom: '180px', display: 'flex', flexDirection: 'column' }}>
             <div style={{
               alignSelf: 'flex-start',
               backgroundColor: 'rgba(46,158,107,0.08)',
@@ -485,10 +485,14 @@ export default function ResultPage() {
           right: '0px',
           backgroundColor: '#FAF9F7',
           borderTop: '1px solid rgba(232,230,227,1.00)',
-          padding: '16px 16px 24px 16px',
+          padding: '16px 16px calc(24px + env(safe-area-inset-bottom)) 16px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '12px'
+          gap: '12px',
+          zIndex: 1000,
+          boxShadow: '0px -2px 10px rgba(0, 0, 0, 0.05)',
+          maxWidth: '100vw',
+          width: '100%',
         }}>
           <button
             onClick={handleCallClick}
