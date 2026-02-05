@@ -1,14 +1,22 @@
 'use client';
 
 import { useEffect } from 'react';
-import { trackQuizStart } from '@/utils/analytics';
+import { trackQuizStart, clearAllTrackingGuards } from '@/utils/analytics';
 import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
+import { useQuiz } from '@/contexts/QuizContext';
 
 export default function SplashPage() {
   const router = useNavigateWithUTM();
+  const { resetQuiz } = useQuiz();
 
   useEffect(() => {
+    // Reset quiz data and analytics when landing on splash page
+    // This ensures a fresh start for analytics tracking
+    resetQuiz();
+
+    // Track quiz start (this will fire now that guards are cleared)
     trackQuizStart();
+
     // Prefetch the first question for instant navigation
     router.prefetch('/ntm-quiz-2026-v1/q01');
   }, []); // Empty deps to run only once on mount
