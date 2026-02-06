@@ -34,6 +34,22 @@ const iconMap: Record<string, any> = {
   'users': Heart,
 };
 
+// Helper function to get the recommended plan type based on result ID
+function getRecommendedPlanType(resultId: ResultScreenId): string {
+  const planTypeMap: Record<ResultScreenId, string> = {
+    R01: 'Medicare Advantage plan',
+    R02: 'Medigap (Medicare Supplement) plan',
+    R03: 'Dual Eligible Medicare Advantage plan',
+    R04: 'VA-Friendly Medicare Advantage plan',
+    R05: 'Medigap (Medicare Supplement) plan',
+    R06: 'VA-Friendly Medicare Advantage plan',
+    R07: 'Medigap (Medicare Supplement) plan',
+    R08: 'Medicare Advantage plan',
+    R09: 'Medigap (Medicare Supplement) plan',
+  };
+  return planTypeMap[resultId] || 'Medicare plan';
+}
+
 export default function ResultPage() {
   const params = useParams();
   const router = useNavigateWithUTM();
@@ -48,6 +64,7 @@ export default function ResultPage() {
 
   const isEarlyExit = resultId === 'R08' || resultId === 'R09';
   const showMedicareOverride = !answers.hasPartAB && !isEarlyExit;
+  const recommendedPlanType = getRecommendedPlanType(resultId);
 
   useEffect(() => {
     // Track result page view based on result ID with pass-through variables
@@ -83,15 +100,9 @@ export default function ResultPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#FAF9F7', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingTop: '44px', paddingBottom: '34px' }}>
-        <div style={{
-          flex: 1,
-          overflowY: 'auto',
-          overflowX: 'hidden',
-          WebkitOverflowScrolling: 'touch' as any,
-        }}>
-          <div style={{ padding: '24px', paddingBottom: '180px', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#FAF9F7', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingTop: '44px', paddingBottom: '34px', overflowY: 'auto', overflowX: 'hidden', WebkitOverflowScrolling: 'touch' as any }}>
+        <div style={{ padding: '24px', paddingBottom: '180px', display: 'flex', flexDirection: 'column' }}>
             <div style={{
               alignSelf: 'flex-start',
               backgroundColor: 'rgba(46,158,107,0.08)',
@@ -264,12 +275,21 @@ export default function ResultPage() {
                   fontSize: '15px',
                   lineHeight: '24px',
                   color: '#5A6275',
-                  marginBottom: '20px'
+                  marginBottom: '24px'
                 }}>
-                  Before you can choose a supplemental plan, you'll need to enroll in Original Medicare (Parts A and B). Here's what you need to know:
+                  Before you can move forward with your recommended plan, you'll first need to enroll in Original Medicare (Part A and Part B). This is a required first step—but you don't have to figure it out on your own.
                 </p>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <h3 style={{
+                  fontSize: '17px',
+                  fontWeight: '600',
+                  color: '#1A1F2C',
+                  marginBottom: '16px'
+                }}>
+                  How Pocket Protector Helps
+                </h3>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '20px' }}>
                   <div style={{ display: 'flex', flexDirection: 'row', gap: '12px' }}>
                     <div style={{
                       display: 'flex',
@@ -286,25 +306,15 @@ export default function ResultPage() {
                         <path d="M20 6 9 17l-5-5"></path>
                       </svg>
                     </div>
-                    <div style={{ flex: 1 }}>
-                      <h4 style={{
-                        fontSize: '15px',
-                        fontWeight: '600',
-                        color: '#1A1F2C',
-                        marginBottom: '4px',
-                        margin: 0
-                      }}>
-                        When to Enroll
-                      </h4>
-                      <p style={{
-                        fontSize: '14px',
-                        lineHeight: '22px',
-                        color: '#5A6275',
-                        margin: 0
-                      }}>
-                        Your Initial Enrollment Period starts 3 months before you turn 65, includes your birth month, and continues for 3 months after. Enrolling during this window helps you avoid late penalties.
-                      </p>
-                    </div>
+                    <p style={{
+                      fontSize: '15px',
+                      lineHeight: '24px',
+                      color: '#5A6275',
+                      margin: 0,
+                      flex: 1
+                    }}>
+                      When and how to enroll in Part A & Part B
+                    </p>
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'row', gap: '12px' }}>
@@ -323,25 +333,15 @@ export default function ResultPage() {
                         <path d="M20 6 9 17l-5-5"></path>
                       </svg>
                     </div>
-                    <div style={{ flex: 1 }}>
-                      <h4 style={{
-                        fontSize: '15px',
-                        fontWeight: '600',
-                        color: '#1A1F2C',
-                        marginBottom: '4px',
-                        margin: 0
-                      }}>
-                        How to Enroll
-                      </h4>
-                      <p style={{
-                        fontSize: '14px',
-                        lineHeight: '22px',
-                        color: '#5A6275',
-                        margin: 0
-                      }}>
-                        You can enroll online at SSA.gov, by calling Social Security at 1-800-772-1213, or by visiting your local Social Security office. If you're already receiving Social Security benefits, you may be automatically enrolled.
-                      </p>
-                    </div>
+                    <p style={{
+                      fontSize: '15px',
+                      lineHeight: '24px',
+                      color: '#5A6275',
+                      margin: 0,
+                      flex: 1
+                    }}>
+                      What to expect after you enroll
+                    </p>
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'row', gap: '12px' }}>
@@ -360,27 +360,19 @@ export default function ResultPage() {
                         <path d="M20 6 9 17l-5-5"></path>
                       </svg>
                     </div>
-                    <div style={{ flex: 1 }}>
-                      <h4 style={{
-                        fontSize: '15px',
-                        fontWeight: '600',
-                        color: '#1A1F2C',
-                        marginBottom: '4px',
-                        margin: 0
-                      }}>
-                        After You Enroll
-                      </h4>
-                      <p style={{
-                        fontSize: '14px',
-                        lineHeight: '22px',
-                        color: '#5A6275',
-                        margin: 0
-                      }}>
-                        Once you have your Medicare card showing Part A and Part B coverage, you can move forward with choosing the supplemental coverage that's right for you. Our agents can help you navigate your options at that time.
-                      </p>
-                    </div>
+                    <p style={{
+                      fontSize: '15px',
+                      lineHeight: '24px',
+                      color: '#5A6275',
+                      margin: 0,
+                      flex: 1
+                    }}>
+                      Choosing the {recommendedPlanType} that fits your needs once your Medicare is active
+                    </p>
                   </div>
                 </div>
+
+
               </div>
             ) : (
               result.nextStepHeader && (
@@ -457,43 +449,57 @@ export default function ResultPage() {
               padding: '16px',
               marginBottom: '16px'
             }}>
-              <p style={{
-                fontSize: '15px',
-                fontWeight: '600',
-                color: '#1A1F2C',
-                marginBottom: '6px',
-                margin: 0
-              }}>
-                Our help is always free
-              </p>
-              <p style={{
-                fontSize: '14px',
-                lineHeight: '22px',
-                color: '#5A6275',
-                margin: 0
-              }}>
-                Medicare plans cost the same whether you enroll with us or on your own. We never charge anything for our help.
-              </p>
+              {showMedicareOverride ? (
+                <p style={{
+                  fontSize: '15px',
+                  lineHeight: '24px',
+                  color: '#1A1F2C',
+                  margin: 0,
+                }}>
+                  Don't guess or go it alone. Call our team and we'll help you enroll correctly, on time, and without missing any important steps.
+                </p>
+              ) : (
+                <>
+                  <p style={{
+                    fontSize: '15px',
+                    fontWeight: '600',
+                    color: '#1A1F2C',
+                    marginBottom: '6px',
+                    margin: 0
+                  }}>
+                    Our help is always free
+                  </p>
+                  <p style={{
+                    fontSize: '14px',
+                    lineHeight: '22px',
+                    color: '#5A6275',
+                    margin: 0
+                  }}>
+                    Medicare plans cost the same whether you enroll with us or on your own. We never charge anything for our help.
+                  </p>
+                </>
+              )}
             </div>
           </div>
         </div>
 
-        <div style={{
-          position: 'fixed',
-          bottom: '0px',
-          left: '0px',
-          right: '0px',
-          backgroundColor: '#FAF9F7',
-          borderTop: '1px solid rgba(232,230,227,1.00)',
-          padding: '16px 16px calc(24px + env(safe-area-inset-bottom)) 16px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '12px',
-          zIndex: 1000,
-          boxShadow: '0px -2px 10px rgba(0, 0, 0, 0.05)',
-          maxWidth: '100vw',
-          width: '100%',
-        }}>
+      {/* Fixed button container - stays visible at bottom */}
+      <div style={{
+        position: 'fixed',
+        bottom: '0px',
+        left: '0px',
+        right: '0px',
+        backgroundColor: '#FAF9F7',
+        borderTop: '1px solid rgba(232,230,227,1.00)',
+        padding: '16px 16px calc(24px + env(safe-area-inset-bottom)) 16px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px',
+        zIndex: 1000,
+        boxShadow: '0px -2px 10px rgba(0, 0, 0, 0.05)',
+        maxWidth: '100vw',
+        width: '100%',
+      }}>
           <button
             onClick={handleCallClick}
             style={{
@@ -549,7 +555,6 @@ export default function ResultPage() {
           >
             Start Over
           </button>
-        </div>
       </div>
     </div>
   );
