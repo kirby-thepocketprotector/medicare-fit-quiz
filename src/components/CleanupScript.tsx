@@ -11,6 +11,30 @@ export default function CleanupScript() {
     if (typeof window === 'undefined') return;
 
     const cleanup = () => {
+      // Hide Next.js route announcer - target multiple selectors
+      const routeAnnouncerSelectors = [
+        'next-route-announcer',
+        '#__next-route-announcer__',
+        '[aria-live="assertive"]'
+      ];
+
+      routeAnnouncerSelectors.forEach(selector => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(element => {
+          const htmlEl = element as HTMLElement;
+          htmlEl.style.display = 'none';
+          htmlEl.style.visibility = 'hidden';
+          htmlEl.style.opacity = '0';
+          htmlEl.style.position = 'absolute';
+          htmlEl.style.left = '-9999px';
+          htmlEl.style.width = '1px';
+          htmlEl.style.height = '1px';
+          htmlEl.style.overflow = 'hidden';
+          htmlEl.style.clipPath = 'inset(50%)';
+          htmlEl.textContent = ''; // Clear any text content
+        });
+      });
+
       // Remove any small fixed/absolute positioned elements that might be badges
       const suspiciousElements = document.querySelectorAll(
         'body > div:not(#__next):not([id^="root"]), body > span'

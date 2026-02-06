@@ -53,7 +53,7 @@ export default function OptionButton({
           backgroundColor: selected ? Colors.primaryLight + '15' : Colors.white,
           border: selected
             ? `2px solid ${Colors.primary}`
-            : `1px solid ${Colors.border}`,
+            : `1px solid ${Colors.buttonBorder}`,
           borderRadius: '12px',
           cursor: disabled ? 'not-allowed' : 'pointer',
           opacity: disabled ? 0.5 : 1,

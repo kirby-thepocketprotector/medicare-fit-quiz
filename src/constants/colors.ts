@@ -12,6 +12,7 @@ export default {
   textMuted: '#8B92A5',
   border: '#E8E6E3',
   borderLight: '#F0EEEB',
+  buttonBorder: '#235c5c',
   success: '#2E9E6B',
   warning: '#E5A84B',
   error: '#D64545',
