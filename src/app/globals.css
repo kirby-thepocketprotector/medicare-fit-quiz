@@ -35,6 +35,10 @@ html {
   background: #FAF9F7;
 }
 
+#text {
+  display: none !important;
+}
+
 /* Comprehensive hiding of any orphan elements */
 body::before,
 body::after,
