@@ -8,7 +8,7 @@ import WhyWeAskBox from '@/components/WhyWeAskBox';
 import ContinueButton from '@/components/ContinueButton';
 import { useQuiz } from '@/contexts/QuizContext';
 import { MONTHS, YEARS } from '@/constants/quiz-data';
-import { trackViewBirthMonth } from '@/utils/analytics';
+import { trackViewBirthMonth, trackUserAge } from '@/utils/analytics';
 import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
 
 export default function Q01Page() {
@@ -28,6 +28,9 @@ export default function Q01Page() {
 
   const handleContinue = () => {
     if (selectedMonth && selectedYear) {
+      // Track age/demographics for analysis
+      trackUserAge(selectedMonth, selectedYear);
+
       // Calculate next route first
       const monthIndex = MONTHS.indexOf(selectedMonth);
       const birthYear = parseInt(selectedYear, 10);

@@ -13,6 +13,7 @@
 
 import { QuizAnswers, ResultScreenId, MONTHS, calculateIEPWindow, IEPWindow } from '@/constants/quiz-data';
 import { getAllUTMParams } from './utm';
+import { syncUserAgeToXano } from './xano';
 
 declare global {
   interface Window {
@@ -301,6 +302,100 @@ export function trackQuizRestart() {
 // ============================================================================
 // Page View Tracking Functions
 // ============================================================================
+
+/**
+ * Calculate age from birth month and year
+ */
+function calculateAge(birthMonth: string, birthYear: string): number {
+  const monthIndex = MONTHS.indexOf(birthMonth);
+  const birthDate = new Date(parseInt(birthYear, 10), monthIndex, 1);
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+
+  // Adjust if birthday hasn't occurred yet this year
+  if (monthDiff < 0) {
+    age--;
+  }
+
+  return age;
+}
+
+/**
+ * Track user age/demographics when birth date is submitted
+ * Sends to PostHog, GTM dataLayer, and Xano for analysis
+ */
+export async function trackUserAge(birthMonth: string, birthYear: string) {
+  const age = calculateAge(birthMonth, birthYear);
+  const ageGroup = getAgeGroup(age);
+  const sessionId = typeof window !== 'undefined' ? (window as any).ntmSessionId : null;
+
+  // Track in GTM dataLayer
+  pushToDataLayer({
+    event: 'user_age_captured',
+    birth_month: birthMonth,
+    birth_year: birthYear,
+    user_age: age,
+    age_group: ageGroup,
+    session_id: sessionId,
+    timestamp: new Date().toISOString(),
+  });
+
+  // Track in PostHog with person properties (with safety checks)
+  if (typeof window !== 'undefined' && (window as any).posthog) {
+    const posthog = (window as any).posthog;
+
+    try {
+      // Check if PostHog is fully initialized
+      if (typeof posthog.setPersonProperties === 'function' && typeof posthog.capture === 'function') {
+        // Set person properties for demographic analysis
+        posthog.setPersonProperties({
+          birth_month: birthMonth,
+          birth_year: birthYear,
+          age: age,
+          age_group: ageGroup,
+        });
+
+        // Capture event for tracking
+        posthog.capture('birth_date_submitted', {
+          birth_month: birthMonth,
+          birth_year: birthYear,
+          age: age,
+          age_group: ageGroup,
+          session_id: sessionId,
+        });
+      }
+    } catch (error) {
+      console.warn('PostHog tracking failed:', error);
+    }
+  }
+
+  // Sync to Xano (fire and forget - don't wait for response)
+  if (sessionId) {
+    syncUserAgeToXano({
+      session_id: sessionId,
+      birth_month: birthMonth,
+      birth_year: birthYear,
+      age: age,
+      age_group: ageGroup,
+    }).catch(() => {
+      // Silent fail - already logged in syncUserAgeToXano
+    });
+  }
+}
+
+/**
+ * Get age group for demographic segmentation
+ */
+function getAgeGroup(age: number): string {
+  if (age < 60) return 'under_60';
+  if (age >= 60 && age <= 63) return '60-63';
+  if (age === 64) return '64';
+  if (age === 65) return '65';
+  if (age >= 66 && age <= 70) return '66-70';
+  if (age > 70) return 'over_70';
+  return 'unknown';
+}
 
 /**
  * Track Q01: Birth Month/Year screen view

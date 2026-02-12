@@ -6,6 +6,7 @@ import "./globals.css";
 import { DevLinkProvider } from "@/devlink/DevLinkProvider";
 import { QuizProvider } from "@/contexts/QuizContext";
 import UTMTracker from "@/components/UTMTracker";
+import SessionIdTracker from "@/components/SessionIdTracker";
 import CleanupScript from "@/components/CleanupScript";
 
 const inter = Inter({
@@ -116,6 +117,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
         {/* Cleanup script to remove unwanted elements */}
         <CleanupScript />
+        {/* Session ID tracking - generates unique session identifier */}
+        <Suspense fallback={null}>
+          <SessionIdTracker />
+        </Suspense>
         {/* UTM tracking - captures and persists UTM parameters */}
         <Suspense fallback={null}>
           <UTMTracker />
