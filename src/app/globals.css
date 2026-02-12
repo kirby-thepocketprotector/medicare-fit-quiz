@@ -95,18 +95,15 @@ div[style*="z-index:2147483647"] {
 }
 
 /* Hide any debug badges or indicators from third-party scripts */
-[class*="debug"],
-[class*="indicator"],
-[id*="debug"],
+[class*="debug"]:not(.ringba-phone),
+[class*="indicator"]:not(.ringba-phone),
+[id*="debug"]:not(.ringba-phone),
 [id*="gtm-debug"],
-[id*="ringba"],
-[class*="ringba"],
-[data-ringba],
 ._Ax9EX,
 /* Hide any notification badges */
-[role="status"],
-[aria-live="polite"],
-[aria-live="assertive"] {
+[role="status"]:not(.ringba-phone),
+[aria-live="polite"]:not(.ringba-phone),
+[aria-live="assertive"]:not(.ringba-phone) {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
@@ -134,15 +131,27 @@ noscript {
   pointer-events: none !important;
 }
 
-/* Ringba and other tracking scripts - hide all visual elements */
-#ringba,
-[id^="ringba"],
-[class^="ringba"],
-.ringba {
+/* Ringba tracking scripts - hide debug/tracking elements but NOT phone numbers */
+#ringba:not(.ringba-phone):not([class*="ringba-phone"]),
+[id^="ringba"]:not(.ringba-phone):not([class*="ringba-phone"]),
+[class^="ringba"]:not(.ringba-phone):not([class*="ringba-phone"]),
+.ringba:not(.ringba-phone) {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
   position: absolute !important;
   left: -9999px !important;
   pointer-events: none !important;
+}
+
+/* Make sure our phone button is ALWAYS visible */
+.ringba-phone,
+[class*="ringba-phone"],
+a.ringba-phone {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  left: auto !important;
+  pointer-events: auto !important;
 }

@@ -7,8 +7,9 @@ import { initializeUTMTracking, appendUTMToAllLinks } from '@/utils/utm';
 /**
  * UTMTracker Component
  *
- * Initializes UTM tracking on mount and captures UTM parameters from URL.
- * Runs on every page to ensure UTM params are captured and persisted.
+ * Detects and logs ALL query parameters from the current URL.
+ * This includes UTM params, fbclid, gclid, and any custom tracking parameters.
+ * Runs on every page - parameters are passed via URL, no storage used.
  */
 export default function UTMTracker() {
   const pathname = usePathname();

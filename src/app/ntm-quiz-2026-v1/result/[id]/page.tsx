@@ -6,6 +6,7 @@ import { Phone, DollarSign, Shield, MapPin, Heart } from 'lucide-react';
 import { useQuiz } from '@/contexts/QuizContext';
 import { RESULT_CONTENT, ResultScreenId, QuizAnswers } from '@/constants/quiz-data';
 import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
+import RingbaPhoneNumber from '@/components/RingbaPhoneNumber';
 import {
   trackViewResultMANonVet,
   trackViewResultMSNonVet,
@@ -90,7 +91,7 @@ export default function ResultPage() {
 
   const handleCallClick = () => {
     trackResultCall();
-    window.location.href = 'tel:18449170659';
+    // The RingbaPhoneNumber component will handle the tel: link
   };
 
   const handleStartOver = () => {
@@ -500,8 +501,13 @@ export default function ResultPage() {
         maxWidth: '100vw',
         width: '100%',
       }}>
-          <button
-            onClick={handleCallClick}
+          <RingbaPhoneNumber
+            defaultNumber="18449170659"
+            displayFormat="Call Now"
+            onCallClick={handleCallClick}
+            asLink={true}
+            showNumber={true}
+            className="ringba-phone"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -519,23 +525,12 @@ export default function ResultPage() {
               transition: 'all 0.15s ease',
               WebkitTapHighlightColor: 'transparent',
               touchAction: 'manipulation',
-            }}
-            onMouseDown={(e) => {
-              e.currentTarget.style.transform = 'scale(0.98)';
-            }}
-            onMouseUp={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
-            }}
-            onTouchStart={(e) => {
-              e.currentTarget.style.transform = 'scale(0.98)';
-            }}
-            onTouchEnd={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
+              textDecoration: 'none',
+              width: '100%',
             }}
           >
             <Phone size={20} strokeWidth={2} />
-            <span>Call Now</span>
-          </button>
+          </RingbaPhoneNumber>
 
           <button
             onClick={handleStartOver}

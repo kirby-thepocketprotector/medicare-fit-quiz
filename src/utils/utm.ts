@@ -1,38 +1,41 @@
 /**
- * UTM Parameter Management
+ * Query Parameter Management
  *
- * Captures UTM parameters from the URL and persists them throughout the session.
- * UTM parameters are stored in sessionStorage and included in analytics events.
+ * Captures ALL query parameters from the current URL without any persistence/storage.
+ * Parameters are read directly from the URL on each page and passed along during navigation.
+ * This includes UTM parameters, ad platform click IDs (fbclid, gclid, etc.), and any custom parameters.
  */
 
-const UTM_STORAGE_KEY = 'quiz_utm_params';
-
 export interface UTMParams {
-  utm_source?: string;
-  utm_medium?: string;
-  utm_campaign?: string;
-  utm_term?: string;
-  utm_content?: string;
   [key: string]: string | undefined;
 }
 
 /**
- * Extract UTM parameters from URL search params
+ * Extract ALL query parameters from URL search params
+ * Captures everything: UTM params, fbclid, gclid, custom parameters, etc.
+ *
+ * Best practice: Capture all parameters to ensure no tracking data is lost
  */
 export function extractUTMParams(searchParams: URLSearchParams): UTMParams {
-  const utmParams: UTMParams = {};
+  const params: UTMParams = {};
 
+  // Capture ALL query parameters
   searchParams.forEach((value, key) => {
-    if (key.toLowerCase().startsWith('utm_')) {
-      utmParams[key.toLowerCase()] = value;
+    // Store with lowercase key for consistency
+    const normalizedKey = key.toLowerCase();
+
+    // Only store non-empty values
+    if (value && value.trim() !== '') {
+      params[normalizedKey] = value;
     }
   });
 
-  return utmParams;
+  return params;
 }
 
 /**
- * Get UTM parameters from current URL
+ * Get all query parameters from current URL
+ * No storage - always reads fresh from URL
  */
 export function getCurrentUTMParams(): UTMParams {
   if (typeof window === 'undefined') return {};
@@ -42,47 +45,15 @@ export function getCurrentUTMParams(): UTMParams {
 }
 
 /**
- * Save UTM parameters to sessionStorage
- */
-export function saveUTMParams(utmParams: UTMParams): void {
-  if (typeof window === 'undefined') return;
-
-  const existingParams = getStoredUTMParams();
-  const mergedParams = { ...existingParams, ...utmParams };
-
-  // Only save if there are UTM params
-  if (Object.keys(mergedParams).length > 0) {
-    sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(mergedParams));
-  }
-}
-
-/**
- * Get stored UTM parameters from sessionStorage
- */
-export function getStoredUTMParams(): UTMParams {
-  if (typeof window === 'undefined') return {};
-
-  try {
-    const stored = sessionStorage.getItem(UTM_STORAGE_KEY);
-    return stored ? JSON.parse(stored) : {};
-  } catch (e) {
-    return {};
-  }
-}
-
-/**
- * Get all UTM parameters (current URL + stored)
+ * Get all query parameters (alias for getCurrentUTMParams)
+ * Kept for backward compatibility with existing code
  */
 export function getAllUTMParams(): UTMParams {
-  const currentParams = getCurrentUTMParams();
-  const storedParams = getStoredUTMParams();
-
-  // Current URL params take precedence over stored
-  return { ...storedParams, ...currentParams };
+  return getCurrentUTMParams();
 }
 
 /**
- * Convert UTM params object to URL search params string
+ * Convert query params object to URL search params string
  */
 export function utmParamsToString(utmParams: UTMParams): string {
   const params = new URLSearchParams();
@@ -98,7 +69,7 @@ export function utmParamsToString(utmParams: UTMParams): string {
 }
 
 /**
- * Append UTM parameters to a URL
+ * Append query parameters to a URL
  */
 export function appendUTMToURL(url: string, utmParams?: UTMParams): string {
   const params = utmParams || getAllUTMParams();
@@ -110,7 +81,7 @@ export function appendUTMToURL(url: string, utmParams?: UTMParams): string {
   try {
     const urlObj = new URL(url, window.location.origin);
 
-    // Add UTM params only if they don't already exist
+    // Add params only if they don't already exist in target URL
     Object.entries(params).forEach(([key, value]) => {
       if (value && !urlObj.searchParams.has(key)) {
         urlObj.searchParams.set(key, value);
@@ -125,38 +96,58 @@ export function appendUTMToURL(url: string, utmParams?: UTMParams): string {
 }
 
 /**
- * Initialize UTM tracking
- * Call this on app load to capture and store UTM parameters
+ * Initialize query parameter tracking
+ * Logs current parameters in development mode (no storage)
  */
 export function initializeUTMTracking(): void {
   if (typeof window === 'undefined') return;
 
-  const currentUTMs = getCurrentUTMParams();
+  const currentParams = getCurrentUTMParams();
 
-  if (Object.keys(currentUTMs).length > 0) {
-    saveUTMParams(currentUTMs);
+  // Debug logging in development
+  if (process.env.NODE_ENV === 'development') {
+    console.log('🔍 Query Parameters Detected:', {
+      currentURL: window.location.href,
+      params: currentParams,
+      paramCount: Object.keys(currentParams).length,
+    });
   }
 }
 
 /**
- * Append UTM parameters to all links on the page
- * Useful for external links (internal navigation handled by Next.js)
+ * Append query parameters to all links on the page
+ * Best practice: Only append to external links and skip anchors/javascript links
  */
 export function appendUTMToAllLinks(): void {
   if (typeof window === 'undefined') return;
 
-  const utmParams = getAllUTMParams();
+  const params = getAllUTMParams();
 
-  if (Object.keys(utmParams).length === 0) return;
+  // If no params exist, nothing to do
+  if (Object.keys(params).length === 0) return;
 
   document.querySelectorAll('a[href]').forEach((link) => {
     try {
       const anchor = link as HTMLAnchorElement;
-      const url = new URL(anchor.href, window.location.origin);
+      const href = anchor.getAttribute('href');
 
-      // Only append to external links or tel: links
-      if (url.origin !== window.location.origin || anchor.href.startsWith('tel:')) {
-        Object.entries(utmParams).forEach(([key, value]) => {
+      // Skip anchor-only links, javascript links, and tel/mailto links
+      if (
+        !href ||
+        href.startsWith('#') ||
+        href.startsWith('javascript:') ||
+        href.startsWith('tel:') ||
+        href.startsWith('mailto:')
+      ) {
+        return;
+      }
+
+      const url = new URL(href, window.location.origin);
+
+      // Only append to external links (different origin)
+      if (url.origin !== window.location.origin) {
+        // Merge params: existing URL params take precedence
+        Object.entries(params).forEach(([key, value]) => {
           if (value && !url.searchParams.has(key)) {
             url.searchParams.set(key, value);
           }
@@ -165,7 +156,8 @@ export function appendUTMToAllLinks(): void {
         anchor.href = url.toString();
       }
     } catch (e) {
-      // Ignore invalid links (like anchors: "#")
+      // Ignore invalid URLs
+      console.debug('Could not process link:', link, e);
     }
   });
 }

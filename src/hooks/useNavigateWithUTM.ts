@@ -1,8 +1,9 @@
 /**
  * useNavigateWithUTM Hook
  *
- * Custom navigation hook that automatically preserves UTM parameters
- * when navigating between pages. Optimized for instant navigation.
+ * Custom navigation hook that automatically appends ALL query parameters from the current URL
+ * when navigating between pages. This includes UTM params, fbclid, gclid, and any custom parameters.
+ * Parameters are read from the current URL and appended to navigation targets - no storage used.
  */
 
 import { useRouter } from 'next/navigation';
@@ -24,6 +25,18 @@ export function useNavigateWithUTM() {
 
   const push = useCallback((path: string) => {
     const pathWithUTM = buildPathWithUTM(path);
+
+    // Debug logging
+    if (process.env.NODE_ENV === 'development') {
+      const params = getAllUTMParams();
+      console.log('🔗 Navigation with query params:', {
+        from: typeof window !== 'undefined' ? window.location.pathname : '',
+        to: path,
+        withParams: pathWithUTM,
+        params,
+        paramCount: Object.keys(params).length,
+      });
+    }
 
     // Navigate immediately
     router.push(pathWithUTM);

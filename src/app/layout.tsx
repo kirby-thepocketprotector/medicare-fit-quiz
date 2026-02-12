@@ -110,10 +110,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         {/* End Google Tag Manager (noscript) */}
 
-        {/* Ringba call tracking script */}
+        {/* Ringba call tracking script - loaded early for dynamic number swap */}
         <Script
           src="https://b-js.ringba.com/CAec88b51adf8b437d8e159c668629b896"
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
         />
         {/* Cleanup script to remove unwanted elements */}
         <CleanupScript />
