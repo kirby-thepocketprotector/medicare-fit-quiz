@@ -215,3 +215,4 @@ If you encounter issues:
 **Integration Created:** 2026-02-12
 **File Location:** `/src/utils/xano.ts`
 **Called From:** `/src/utils/analytics.ts` → `trackUserAge()`
+
