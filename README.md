@@ -14,5 +14,4 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 You can deploy your app by running [`webflow cloud deploy`](https://developers.webflow.com/webflow-cloud/environment).# medicare-fit-quiz
 
-
 ## First Commit
