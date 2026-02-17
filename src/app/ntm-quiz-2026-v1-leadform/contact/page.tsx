@@ -71,6 +71,19 @@ function ContactForm() {
     return numbers.length === 10;
   };
 
+  const formatPhoneForAPI = (phone: string): string => {
+    // Remove all non-numeric characters
+    const numbers = phone.replace(/\D/g, '');
+
+    // Format as +1 (XXX) XXX-XXXX
+    if (numbers.length === 10) {
+      return `+1 (${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(6)}`;
+    }
+
+    // Fallback to original if not 10 digits
+    return phone;
+  };
+
   const handleSubmit = async () => {
     const newErrors: typeof errors = {};
 
@@ -113,7 +126,7 @@ function ContactForm() {
       await syncLeadToXano({
         first_name: firstName.trim(),
         last_name: lastName.trim(),
-        phone: phone.replace(/\D/g, ''),
+        phone: formatPhoneForAPI(phone),
         email: email.trim() || undefined,
         medicare_ab: medicareAB,
         recommended_plan: recommendedPlan,
@@ -125,7 +138,7 @@ function ContactForm() {
       sendLeadToHubSpot({
         firstname: firstName.trim(),
         lastname: lastName.trim(),
-        phone: phone.replace(/\D/g, ''),
+        phone: formatPhoneForAPI(phone),
         email: email.trim() || undefined,
         medicare_ab: medicareAB,
         recommended_plan: recommendedPlan,
