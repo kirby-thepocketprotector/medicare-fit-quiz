@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Check } from 'lucide-react';
 import { useQuiz } from '@/contexts/QuizContext';
 
-export default function ThankYouPage() {
+function ThankYouContent() {
   const searchParams = useSearchParams();
   const { contactInfo } = useQuiz();
 
@@ -207,5 +207,22 @@ export default function ThankYouPage() {
         </a>
       </div>
     </div>
+  );
+}
+
+export default function ThankYouPage() {
+  return (
+    <Suspense fallback={
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+        <div>Loading...</div>
+      </div>
+    }>
+      <ThankYouContent />
+    </Suspense>
   );
 }

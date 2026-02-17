@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ContinueButton from '@/components/ContinueButton';
 import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
@@ -8,7 +8,7 @@ import { useQuiz } from '@/contexts/QuizContext';
 import { syncLeadToXano, mapResultIdToRecommendedPlan, sendLeadToHubSpot } from '@/utils/xano';
 import { trackLeadSubmission } from '@/utils/analytics';
 
-export default function ContactPage() {
+function ContactForm() {
   const router = useNavigateWithUTM();
   const searchParams = useSearchParams();
   const resultId = searchParams.get('result');
@@ -372,5 +372,22 @@ export default function ContactPage() {
         />
       </div>
     </div>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+        <div>Loading...</div>
+      </div>
+    }>
+      <ContactForm />
+    </Suspense>
   );
 }
