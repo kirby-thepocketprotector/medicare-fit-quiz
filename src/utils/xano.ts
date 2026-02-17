@@ -112,6 +112,10 @@ interface XanoLeadData {
   recommended_plan: string;
   result_id: string;
   quiz_session_id: string;
+  birth_month: string;
+  birth_year: string;
+  age: number;
+  age_group: string;
 }
 
 /**
@@ -238,6 +242,10 @@ export async function syncLeadToXano(
         recommended_plan: data.recommended_plan,
         result_id: data.result_id,
         quiz_session_id: data.quiz_session_id,
+        birth_month: data.birth_month,
+        birth_year: data.birth_year,
+        age: data.age,
+        age_group: data.age_group,
         timestamp: new Date().toISOString(),
       }),
     });

@@ -6,7 +6,7 @@ import ContinueButton from '@/components/ContinueButton';
 import { useNavigateWithUTM } from '@/hooks/useNavigateWithUTM';
 import { useQuiz } from '@/contexts/QuizContext';
 import { syncLeadToXano, mapResultIdToRecommendedPlan, sendLeadToHubSpot } from '@/utils/xano';
-import { trackLeadSubmission } from '@/utils/analytics';
+import { trackLeadSubmission, calculateAge, getAgeGroup } from '@/utils/analytics';
 
 function ContactForm() {
   const router = useNavigateWithUTM();
@@ -122,6 +122,12 @@ function ContactForm() {
       const sessionId = typeof window !== 'undefined' ? (window as any).ntmSessionId : null;
       const medicareAB = answers.hasPartAB || false;
 
+      // Calculate age and age_group from birth data
+      const birthMonth = answers.birthMonth || '';
+      const birthYear = answers.birthYear || '';
+      const age = calculateAge(birthMonth, birthYear);
+      const ageGroup = getAgeGroup(age);
+
       // Send to Xano database
       await syncLeadToXano({
         first_name: firstName.trim(),
@@ -132,6 +138,10 @@ function ContactForm() {
         recommended_plan: recommendedPlan,
         result_id: resultId,
         quiz_session_id: sessionId || 'unknown',
+        birth_month: birthMonth,
+        birth_year: birthYear,
+        age: age,
+        age_group: ageGroup,
       });
 
       // Send to HubSpot via Xano (fire and forget - non-blocking)

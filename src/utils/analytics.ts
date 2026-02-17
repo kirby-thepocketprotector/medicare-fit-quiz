@@ -306,7 +306,7 @@ export function trackQuizRestart() {
 /**
  * Calculate age from birth month and year
  */
-function calculateAge(birthMonth: string, birthYear: string): number {
+export function calculateAge(birthMonth: string, birthYear: string): number {
   const monthIndex = MONTHS.indexOf(birthMonth);
   const birthDate = new Date(parseInt(birthYear, 10), monthIndex, 1);
   const today = new Date();
@@ -387,7 +387,7 @@ export async function trackUserAge(birthMonth: string, birthYear: string) {
 /**
  * Get age group for demographic segmentation
  */
-function getAgeGroup(age: number): string {
+export function getAgeGroup(age: number): string {
   if (age < 60) return 'under_60';
   if (age >= 60 && age <= 63) return '60-63';
   if (age === 64) return '64';
