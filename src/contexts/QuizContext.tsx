@@ -4,14 +4,23 @@ import { createContext, useContext, useState, useCallback, ReactNode, useEffect 
 import { QuizAnswers, initialQuizAnswers, calculateIsInIEP, determineResult, ResultScreenId } from '@/constants/quiz-data';
 import { clearAllTrackingGuards } from '@/utils/analytics';
 
+interface ContactInfo {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+}
+
 interface QuizContextType {
   answers: QuizAnswers;
   currentStep: number;
   totalSteps: number;
+  contactInfo: ContactInfo | null;
   setCurrentStep: (step: number) => void;
   updateAnswer: <K extends keyof QuizAnswers>(key: K, value: QuizAnswers[K]) => void;
   setBirthDate: (month: string, year: string) => void;
   toggleVAPreference: (preferenceId: string) => void;
+  setContactInfo: (info: ContactInfo) => void;
   getResult: () => ResultScreenId;
   resetQuiz: () => void;
 }
@@ -20,6 +29,7 @@ const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
 const STORAGE_KEY = 'medicare-quiz-answers';
 const STEP_STORAGE_KEY = 'medicare-quiz-step';
+const CONTACT_STORAGE_KEY = 'medicare-quiz-contact';
 
 // Helper function to safely access localStorage
 const getStoredAnswers = (): QuizAnswers | null => {
@@ -44,11 +54,23 @@ const getStoredStep = (): number => {
   }
 };
 
+const getStoredContact = (): ContactInfo | null => {
+  if (typeof window === 'undefined') return null;
+  try {
+    const stored = localStorage.getItem(CONTACT_STORAGE_KEY);
+    return stored ? JSON.parse(stored) : null;
+  } catch (error) {
+    console.error('Error reading contact from localStorage:', error);
+    return null;
+  }
+};
+
 export function QuizProvider({ children }: { children: ReactNode }) {
   const [answers, setAnswers] = useState<QuizAnswers>(() => {
     return getStoredAnswers() || initialQuizAnswers;
   });
   const [currentStep, setCurrentStepState] = useState(() => getStoredStep());
+  const [contactInfo, setContactInfoState] = useState<ContactInfo | null>(() => getStoredContact());
   const [totalSteps] = useState(10);
 
   // Persist answers to localStorage asynchronously (non-blocking)
@@ -82,6 +104,22 @@ export function QuizProvider({ children }: { children: ReactNode }) {
       return () => clearTimeout(timeoutId);
     }
   }, [currentStep]);
+
+  // Persist contact info to localStorage asynchronously (non-blocking)
+  useEffect(() => {
+    if (typeof window !== 'undefined' && contactInfo) {
+      // Use setTimeout to make localStorage write non-blocking
+      const timeoutId = setTimeout(() => {
+        try {
+          localStorage.setItem(CONTACT_STORAGE_KEY, JSON.stringify(contactInfo));
+        } catch (error) {
+          console.error('Error saving contact to localStorage:', error);
+        }
+      }, 0);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [contactInfo]);
 
   const setCurrentStep = useCallback((step: number) => {
     setCurrentStepState(step);
@@ -127,6 +165,10 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const setContactInfo = useCallback((info: ContactInfo) => {
+    setContactInfoState(info);
+  }, []);
+
   const getResult = useCallback((): ResultScreenId => {
     return determineResult(answers);
   }, [answers]);
@@ -134,6 +176,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   const resetQuiz = useCallback(() => {
     setAnswers(initialQuizAnswers);
     setCurrentStepState(0);
+    setContactInfoState(null);
 
     // Clear analytics tracking guards so events can fire again
     clearAllTrackingGuards();
@@ -143,6 +186,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
       try {
         localStorage.removeItem(STORAGE_KEY);
         localStorage.removeItem(STEP_STORAGE_KEY);
+        localStorage.removeItem(CONTACT_STORAGE_KEY);
       } catch (error) {
         console.error('Error clearing localStorage:', error);
       }
@@ -155,10 +199,12 @@ export function QuizProvider({ children }: { children: ReactNode }) {
         answers,
         currentStep,
         totalSteps,
+        contactInfo,
         setCurrentStep,
         updateAnswer,
         setBirthDate,
         toggleVAPreference,
+        setContactInfo,
         getResult,
         resetQuiz,
       }}

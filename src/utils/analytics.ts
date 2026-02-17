@@ -755,3 +755,37 @@ function getCurrentStepCount(answers: QuizAnswers): number {
 
   return count;
 }
+
+/**
+ * Track lead submission (contact form completed)
+ *
+ * @param recommendedPlan - The recommended plan based on quiz results
+ * @param medicareAB - Whether user has Medicare Parts A & B
+ */
+export function trackLeadSubmission(
+  recommendedPlan: string,
+  medicareAB: boolean
+): void {
+  console.log('📊 Tracking lead submission:', { recommendedPlan, medicareAB });
+
+  // Push to dataLayer for GA4 (via GTM)
+  pushToDataLayer({
+    event: 'ntm_quiz_lead',
+    recommended_plan: recommendedPlan,
+    medicare_ab: medicareAB,
+  });
+
+  // Track in PostHog
+  if (typeof window !== 'undefined' && (window as any).posthog) {
+    const posthog = (window as any).posthog;
+
+    try {
+      posthog.capture('ntm_quiz_lead', {
+        recommended_plan: recommendedPlan,
+        medicare_ab: medicareAB,
+      });
+    } catch (error) {
+      console.warn('PostHog tracking failed:', error);
+    }
+  }
+}
