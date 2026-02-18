@@ -16,19 +16,19 @@ function ContactForm() {
   const { setContactInfo, answers } = useQuiz();
 
   const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [zipcode, setZipcode] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [errors, setErrors] = useState<{
     firstName?: string;
-    lastName?: string;
-    phone?: string;
+    zipcode?: string;
     email?: string;
+    phone?: string;
   }>({});
 
   useEffect(() => {
     // Prefetch the thank you page
-    router.prefetch('/ntm-quiz-2026-v1-leadform/thank-you');
+    router.prefetch('/ntm-quiz-2026-v2-leadform/thank-you');
   }, [router]);
 
   const formatPhoneNumber = (value: string): string => {
@@ -58,8 +58,25 @@ function ContactForm() {
     }
   };
 
+  const handleZipcodeChange = (value: string) => {
+    // Only allow numeric input and limit to 5 digits
+    const numbers = value.replace(/\D/g, '').slice(0, 5);
+    setZipcode(numbers);
+
+    // Clear zipcode error when user starts typing
+    if (errors.zipcode) {
+      setErrors({ ...errors, zipcode: undefined });
+    }
+  };
+
+  const validateZipcode = (zip: string): boolean => {
+    // Must be exactly 5 digits
+    return /^\d{5}$/.test(zip);
+  };
+
   const validateEmail = (email: string): boolean => {
-    if (email === '') return true; // Email is optional
+    // Email is required in V2
+    if (email === '') return false;
 
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -67,6 +84,9 @@ function ContactForm() {
   };
 
   const validatePhone = (phone: string): boolean => {
+    // Phone is optional in V2, but if provided must be valid
+    if (phone === '') return true;
+
     // Remove formatting and check if we have exactly 10 digits
     const numbers = phone.replace(/\D/g, '');
     return numbers.length === 10;
@@ -92,16 +112,18 @@ function ContactForm() {
     if (!firstName.trim()) {
       newErrors.firstName = 'First name is required';
     }
-    if (!lastName.trim()) {
-      newErrors.lastName = 'Last name is required';
+    if (!zipcode.trim()) {
+      newErrors.zipcode = 'ZIP code is required';
+    } else if (!validateZipcode(zipcode)) {
+      newErrors.zipcode = 'Please enter a valid 5-digit ZIP code';
     }
-    if (!phone.trim()) {
-      newErrors.phone = 'Phone number is required';
-    } else if (!validatePhone(phone)) {
-      newErrors.phone = 'Please enter a valid 10-digit phone number';
-    }
-    if (email && !validateEmail(email)) {
+    if (!email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!validateEmail(email)) {
       newErrors.email = 'Please enter a valid email address';
+    }
+    if (phone && !validatePhone(phone)) {
+      newErrors.phone = 'Please enter a valid 10-digit phone number';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -112,9 +134,9 @@ function ContactForm() {
     // Save contact info to context
     setContactInfo({
       firstName: firstName.trim(),
-      lastName: lastName.trim(),
-      phone: phone.replace(/\D/g, ''), // Store unformatted
+      zipcode: zipcode.trim(),
       email: email.trim(),
+      phone: phone ? phone.replace(/\D/g, '') : undefined,
     });
 
     // Send contact/lead data to Xano and HubSpot
@@ -135,9 +157,10 @@ function ContactForm() {
       // Send to Xano database
       await syncLeadToXano({
         first_name: firstName.trim(),
-        last_name: lastName.trim(),
-        phone: formatPhoneForAPI(phone),
-        email: email.trim() || undefined,
+        // No last_name in V2
+        phone: phone ? formatPhoneForAPI(phone) : undefined,
+        email: email.trim(),
+        zipcode: zipcode.trim(),
         medicare_ab: medicareAB,
         recommended_plan: recommendedPlan,
         result_id: resultId,
@@ -146,7 +169,7 @@ function ContactForm() {
         birth_year: birthYear,
         age: age,
         age_group: ageGroup,
-        url_slug: 'ntm-quiz-2026-v1-leadform',
+        url_slug: 'ntm-quiz-2026-v2-leadform',
         utm_source: utmParams.utm_source,
         utm_campaign: utmParams.utm_campaign,
         utm_content: utmParams.utm_content,
@@ -156,13 +179,14 @@ function ContactForm() {
       // Send to HubSpot via Xano (fire and forget - non-blocking)
       sendLeadToHubSpot({
         firstname: firstName.trim(),
-        lastname: lastName.trim(),
-        phone: formatPhoneForAPI(phone),
-        email: email.trim() || undefined,
+        // No lastname in V2
+        phone: phone ? formatPhoneForAPI(phone) : undefined,
+        email: email.trim(),
+        zipcode: zipcode.trim(),
         medicare_ab: medicareAB,
         recommended_plan: recommendedPlan,
-        submit_location: 'ntm_quiz_v1_2026',
-        url_slug: 'ntm-quiz-2026-v1-leadform',
+        submit_location: 'ntm_quiz_v1_2026', // Keep as V1
+        url_slug: 'ntm-quiz-2026-v2-leadform',
         birth_year: birthYear,
         birth_month: birthMonth,
         age: age,
@@ -179,14 +203,14 @@ function ContactForm() {
     }
 
     // Navigate to thank you page with first name
-    router.push(`/ntm-quiz-2026-v1-leadform/thank-you?name=${encodeURIComponent(firstName.trim())}&result=${resultId}`);
+    router.push(`/ntm-quiz-2026-v2-leadform/thank-you?name=${encodeURIComponent(firstName.trim())}&result=${resultId}`);
   };
 
   const isValid =
     firstName.trim() !== '' &&
-    lastName.trim() !== '' &&
-    validatePhone(phone) &&
-    (email === '' || validateEmail(email));
+    validateZipcode(zipcode) &&
+    validateEmail(email) &&
+    validatePhone(phone);
 
   return (
     <div style={{
@@ -209,29 +233,42 @@ function ContactForm() {
           fontSize: '24px',
           fontWeight: '700',
           lineHeight: '32px',
-          marginBottom: '32px',
+          marginBottom: '12px',
           textAlign: 'center',
         }}>
-          Last Step — Where Should We Send Your Results?
+          Your Recommendation is Almost Ready
         </h1>
+
+        {/* Subtitle */}
+        <p style={{
+          color: '#5B6B7F',
+          fontSize: '16px',
+          lineHeight: '24px',
+          textAlign: 'center',
+          marginBottom: '8px',
+        }}>
+          We'll review your answers and email you a recommendation built around your situation — not a generic template.
+        </p>
+
+        {/* Note about phone being optional */}
+        <p style={{
+          color: '#5B6B7F',
+          fontSize: '14px',
+          lineHeight: '20px',
+          textAlign: 'center',
+          marginBottom: '32px',
+        }}>
+          If you'd like an advisor to walk you through it, you can add your phone number, but that is totally optional. (We'll never spam you or sell your info to anyone)
+        </p>
 
         {/* Form */}
         <div style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '20px',
+          gap: '16px',
         }}>
           {/* First Name */}
           <div>
-            <label style={{
-              display: 'block',
-              color: '#1A1F2C',
-              fontSize: '15px',
-              fontWeight: '500',
-              marginBottom: '8px',
-            }}>
-              First name
-            </label>
             <input
               type="text"
               placeholder="First name"
@@ -265,105 +302,44 @@ function ContactForm() {
             )}
           </div>
 
-          {/* Last Name */}
+          {/* Zip Code */}
           <div>
-            <label style={{
-              display: 'block',
-              color: '#1A1F2C',
-              fontSize: '15px',
-              fontWeight: '500',
-              marginBottom: '8px',
-            }}>
-              Last name
-            </label>
             <input
               type="text"
-              placeholder="Last name"
-              value={lastName}
-              onChange={(e) => {
-                setLastName(e.target.value);
-                if (errors.lastName) {
-                  setErrors({ ...errors, lastName: undefined });
-                }
-              }}
-              style={{
-                width: '100%',
-                padding: '16px',
-                fontSize: '17px',
-                color: '#1A1F2C',
-                backgroundColor: '#FFFFFF',
-                border: `1px solid ${errors.lastName ? '#DC2626' : '#E5E7EB'}`,
-                borderRadius: '12px',
-                fontWeight: '400',
-                outline: 'none',
-              }}
-            />
-            {errors.lastName && (
-              <p style={{
-                color: '#DC2626',
-                fontSize: '13px',
-                marginTop: '4px',
-              }}>
-                {errors.lastName}
-              </p>
-            )}
-          </div>
-
-          {/* Phone */}
-          <div>
-            <label style={{
-              display: 'block',
-              color: '#1A1F2C',
-              fontSize: '15px',
-              fontWeight: '500',
-              marginBottom: '8px',
-            }}>
-              Phone
-            </label>
-            <input
-              type="tel"
               inputMode="numeric"
-              placeholder="(555) 123-4567"
-              value={phone}
-              onChange={(e) => handlePhoneChange(e.target.value)}
+              placeholder="Zip code"
+              value={zipcode}
+              onChange={(e) => handleZipcodeChange(e.target.value)}
+              maxLength={5}
               style={{
                 width: '100%',
                 padding: '16px',
                 fontSize: '17px',
                 color: '#1A1F2C',
                 backgroundColor: '#FFFFFF',
-                border: `1px solid ${errors.phone ? '#DC2626' : '#E5E7EB'}`,
+                border: `1px solid ${errors.zipcode ? '#DC2626' : '#E5E7EB'}`,
                 borderRadius: '12px',
                 fontWeight: '400',
                 outline: 'none',
               }}
             />
-            {errors.phone && (
+            {errors.zipcode && (
               <p style={{
                 color: '#DC2626',
                 fontSize: '13px',
                 marginTop: '4px',
               }}>
-                {errors.phone}
+                {errors.zipcode}
               </p>
             )}
           </div>
 
           {/* Email */}
           <div>
-            <label style={{
-              display: 'block',
-              color: '#1A1F2C',
-              fontSize: '15px',
-              fontWeight: '500',
-              marginBottom: '8px',
-            }}>
-              Email (optional)
-            </label>
             <input
               type="email"
               inputMode="email"
-              placeholder="you@example.com"
+              placeholder="Email"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -394,11 +370,42 @@ function ContactForm() {
             )}
           </div>
 
+          {/* Phone (optional) */}
+          <div>
+            <input
+              type="tel"
+              inputMode="numeric"
+              placeholder="Phone (optional)"
+              value={phone}
+              onChange={(e) => handlePhoneChange(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '16px',
+                fontSize: '17px',
+                color: '#1A1F2C',
+                backgroundColor: '#FFFFFF',
+                border: `1px solid ${errors.phone ? '#DC2626' : '#E5E7EB'}`,
+                borderRadius: '12px',
+                fontWeight: '400',
+                outline: 'none',
+              }}
+            />
+            {errors.phone && (
+              <p style={{
+                color: '#DC2626',
+                fontSize: '13px',
+                marginTop: '4px',
+              }}>
+                {errors.phone}
+              </p>
+            )}
+          </div>
+
           {/* Submit Button */}
           <ContinueButton
             onPress={handleSubmit}
             disabled={!isValid}
-            label="Get My Personalized Recommendation"
+            label="Get My Free Recommendation"
           />
         </div>
       </div>

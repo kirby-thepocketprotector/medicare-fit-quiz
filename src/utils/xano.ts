@@ -105,9 +105,10 @@ export async function syncQuizResultsToXano(data: any): Promise<any | null> {
 
 interface XanoLeadData {
   first_name: string;
-  last_name: string;
-  phone: string;
+  last_name?: string;   // Optional for V2
+  phone?: string;       // Optional for V2
   email?: string;
+  zipcode?: string;     // New for V2
   medicare_ab: boolean;
   recommended_plan: string;
   result_id: string;
@@ -116,6 +117,11 @@ interface XanoLeadData {
   birth_year: string;
   age: number;
   age_group: string;
+  url_slug?: string;    // New for V2 - URL slug the form was submitted from
+  utm_source?: string;  // New for V2 - UTM source from URL
+  utm_campaign?: string; // New for V2 - UTM campaign from URL
+  utm_content?: string;  // New for V2 - UTM content from URL
+  utm_creative?: string; // New - UTM creative from URL
 }
 
 /**
@@ -145,12 +151,20 @@ export function shouldStoreLeadForResult(resultId: string): boolean {
 
 interface XanoHubSpotData {
   firstname: string;
-  lastname: string;
-  phone: string;
+  lastname?: string;    // Optional for V2
+  phone?: string;       // Optional for V2
   email?: string;
+  zipcode?: string;     // New for V2
   medicare_ab: boolean;
   recommended_plan: string;
   submit_location: string;
+  url_slug?: string;    // New - URL slug
+  birth_year?: string;  // New - Birth year
+  birth_month?: string; // New - Birth month
+  age?: number;         // New - Calculated age
+  utm_source?: string;  // New - UTM source
+  utm_campaign?: string; // New - UTM campaign
+  utm_creative?: string; // New - UTM creative
 }
 
 /**
@@ -179,12 +193,20 @@ export async function sendLeadToHubSpot(
       },
       body: JSON.stringify({
         firstname: data.firstname,
-        lastname: data.lastname,
-        phone: data.phone,
+        lastname: data.lastname || null,
+        phone: data.phone || null,
         email: data.email || null,
+        zipcode: data.zipcode || null,
         medicare_ab: data.medicare_ab,
         recommended_plan: data.recommended_plan,
         submit_location: data.submit_location,
+        url_slug: data.url_slug || null,
+        birth_year: data.birth_year || null,
+        birth_month: data.birth_month || null,
+        age: data.age || null,
+        utm_source: data.utm_source || null,
+        utm_campaign: data.utm_campaign || null,
+        utm_creative: data.utm_creative || null,
         timestamp: new Date().toISOString(),
       }),
     });
@@ -235,9 +257,10 @@ export async function syncLeadToXano(
       },
       body: JSON.stringify({
         first_name: data.first_name,
-        last_name: data.last_name,
-        phone: data.phone,
+        last_name: data.last_name || null,
+        phone: data.phone || null,
         email: data.email || null,
+        zipcode: data.zipcode || null,
         medicare_ab: data.medicare_ab,
         recommended_plan: data.recommended_plan,
         result_id: data.result_id,
@@ -246,6 +269,11 @@ export async function syncLeadToXano(
         birth_year: data.birth_year,
         age: data.age,
         age_group: data.age_group,
+        url_slug: data.url_slug || null,
+        utm_source: data.utm_source || null,
+        utm_campaign: data.utm_campaign || null,
+        utm_content: data.utm_content || null,
+        utm_creative: data.utm_creative || null,
         timestamp: new Date().toISOString(),
       }),
     });

@@ -6,9 +6,10 @@ import { clearAllTrackingGuards } from '@/utils/analytics';
 
 interface ContactInfo {
   firstName: string;
-  lastName: string;
-  phone: string;
+  lastName?: string;    // Optional for V2
+  phone?: string;       // Optional for V2
   email: string;
+  zipcode?: string;     // New for V2
 }
 
 interface QuizContextType {
