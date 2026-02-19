@@ -447,7 +447,7 @@ export default function DrugPriceChecker() {
           </a>
           <a
             href="/drug-lookup"
-            style={{ textDecoration: 'none' }}
+            style={{ textDecoration: 'none', display: 'none' }}
             className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-green-600 bg-white border-2 border-green-600 rounded-lg hover:bg-green-50 transition-all"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
