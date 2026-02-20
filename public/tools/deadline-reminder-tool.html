@@ -55,18 +55,35 @@ body { font-family: var(--font-body); color: var(--tpp-black); background: var(-
 .intro-features { display: flex; flex-direction: column; gap: .55rem; margin: 0 auto 2rem; max-width: 360px; text-align: left; }
 .intro-feature { display: flex; align-items: center; gap: .75rem; background: var(--tpp-white); border: 1.5px solid var(--tpp-green-light); border-radius: 10px; padding: .65rem 1rem; font-size: .87rem; font-weight: 500; color: var(--tpp-gray-800); }
 .intro-feature svg { width: 18px; height: 18px; fill: var(--tpp-green); flex-shrink: 0; }
+/* ─── OPTION CARDS ─── */
+/* Base styles */
 .option-card { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: var(--tpp-white); border: 2px solid var(--tpp-gray-200); border-radius: 12px; cursor: pointer; transition: all .2s ease; margin-bottom: .65rem; }
-.option-card:hover { border-color: var(--tpp-green); background: var(--tpp-green-subtle); transform: translateX(3px); }
+
+/* Selected state - works on all devices */
 .option-card.selected { border-color: var(--tpp-green); background: var(--tpp-green-light); }
+
 .option-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--tpp-green-light); display: grid; place-items: center; flex-shrink: 0; transition: background .2s; }
-.option-card:hover .option-icon, .option-card.selected .option-icon { background: var(--tpp-green); }
+.option-card.selected .option-icon { background: var(--tpp-green); }
+
 .option-icon svg { width: 22px; height: 22px; fill: var(--tpp-green); transition: fill .2s; }
-.option-card:hover .option-icon svg, .option-card.selected .option-icon svg { fill: white; }
+.option-card.selected .option-icon svg { fill: white; }
+
 .option-icon-text { width: 42px; height: 42px; border-radius: 10px; background: var(--tpp-green-light); display: grid; place-items: center; flex-shrink: 0; font-size: 1.3rem; font-weight: 700; color: var(--tpp-green); transition: background .2s, color .2s; }
-.option-card:hover .option-icon-text, .option-card.selected .option-icon-text { background: var(--tpp-green); color: white; }
+.option-card.selected .option-icon-text { background: var(--tpp-green); color: white; }
+
 .option-text { font-size: .9rem; font-weight: 500; color: var(--tpp-gray-800); line-height: 1.5; flex: 1; }
+
 .option-chevron { flex-shrink: 0; color: var(--tpp-gray-400); transition: color .2s, transform .2s; display: flex; align-items: center; }
-.option-card:hover .option-chevron, .option-card.selected .option-chevron { color: var(--tpp-green); transform: translateX(2px); }
+.option-card.selected .option-chevron { color: var(--tpp-green); transform: translateX(2px); }
+
+/* Hover effects - desktop/mouse only */
+@media (hover: hover) and (pointer: fine) {
+  .option-card:hover { border-color: var(--tpp-green); background: var(--tpp-green-subtle); transform: translateX(3px); }
+  .option-card:hover .option-icon { background: var(--tpp-green); }
+  .option-card:hover .option-icon svg { fill: white; }
+  .option-card:hover .option-icon-text { background: var(--tpp-green); color: white; }
+  .option-card:hover .option-chevron { color: var(--tpp-green); transform: translateX(2px); }
+}
 .option-chevron svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 .form-group { margin-bottom: 1.5rem; }
 .form-label { display: block; font-size: .85rem; font-weight: 600; color: var(--tpp-gray-800); margin-bottom: .5rem; }
@@ -89,10 +106,16 @@ body { font-family: var(--font-body); color: var(--tpp-black); background: var(-
 .btn-start svg { width: 18px; height: 18px; fill: white; }
 .skip-link { display: block; text-align: center; margin-top: .75rem; font-size: .85rem; color: var(--tpp-gray-400); cursor: pointer; transition: color .2s; text-decoration: none; }
 .skip-link:hover { color: var(--tpp-green); }
+/* ─── INTENSITY OPTIONS ─── */
 .intensity-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: .5rem; }
+
 .intensity-option { border: 2px solid var(--tpp-gray-200); border-radius: 12px; padding: 1rem 1.25rem; cursor: pointer; transition: all .2s; text-align: center; background: var(--tpp-white); }
-.intensity-option:hover { border-color: var(--tpp-green); background: var(--tpp-green-subtle); }
 .intensity-option.selected { border-color: var(--tpp-green); background: var(--tpp-green-light); }
+
+/* Hover effects - desktop/mouse only */
+@media (hover: hover) and (pointer: fine) {
+  .intensity-option:hover { border-color: var(--tpp-green); background: var(--tpp-green-subtle); }
+}
 .int-icon { font-size: 1.5rem; margin-bottom: .4rem; }
 .int-label { font-size: .88rem; font-weight: 600; color: var(--tpp-gray-800); }
 .int-desc { font-size: .75rem; color: var(--tpp-gray-600); margin-top: .2rem; line-height: 1.4; }

@@ -155,6 +155,7 @@ body {
 }
 
 /* ─── OPTION CARDS (single select) ─── */
+/* Base styles */
 .option-card {
   display: flex; align-items: center; gap: 1rem;
   padding: 1rem 1.25rem;
@@ -166,15 +167,13 @@ body {
   margin-bottom: .65rem;
   position: relative;
 }
-.option-card:hover {
-  border-color: var(--tpp-green);
-  background: var(--tpp-green-subtle);
-  transform: translateX(3px);
-}
+
+/* Selected state - works on all devices */
 .option-card.selected {
   border-color: var(--tpp-green);
   background: var(--tpp-green-light);
 }
+
 .option-icon {
   width: 42px; height: 42px;
   border-radius: 10px;
@@ -183,47 +182,48 @@ body {
   flex-shrink: 0;
   transition: background .2s;
 }
-.option-card:hover .option-icon,
 .option-card.selected .option-icon {
   background: var(--tpp-green);
 }
+
 .option-icon svg {
   width: 22px; height: 22px;
   fill: var(--tpp-green);
   color: var(--tpp-green);
   transition: fill .2s, color .2s;
 }
-.option-card:hover .option-icon svg,
 .option-card.selected .option-icon svg {
   fill: white;
   color: white;
 }
+
 .option-text {
   font-size: .9rem; font-weight: 500;
   color: var(--tpp-gray-800);
   line-height: 1.5;
   flex: 1;
 }
+
 .option-chevron {
   flex-shrink: 0;
   color: var(--tpp-gray-400);
   transition: color .2s, transform .2s;
   display: flex; align-items: center;
 }
-.option-card:hover .option-chevron,
 .option-card.selected .option-chevron {
   color: var(--tpp-green);
   transform: translateX(2px);
 }
+
 .option-icon-text {
   font-size: 1.3rem; font-weight: 700;
   color: var(--tpp-green);
   transition: color .2s;
 }
-.option-card:hover .option-icon-text,
 .option-card.selected .option-icon-text {
   color: white;
 }
+
 .option-chevron svg {
   width: 18px; height: 18px;
   fill: none;
@@ -233,7 +233,31 @@ body {
   stroke-linejoin: round;
 }
 
+/* Hover effects - desktop/mouse only */
+@media (hover: hover) and (pointer: fine) {
+  .option-card:hover {
+    border-color: var(--tpp-green);
+    background: var(--tpp-green-subtle);
+    transform: translateX(3px);
+  }
+  .option-card:hover .option-icon {
+    background: var(--tpp-green);
+  }
+  .option-card:hover .option-icon svg {
+    fill: white;
+    color: white;
+  }
+  .option-card:hover .option-chevron {
+    color: var(--tpp-green);
+    transform: translateX(2px);
+  }
+  .option-card:hover .option-icon-text {
+    color: white;
+  }
+}
+
 /* ─── CHECKBOX CARDS (multi select) ─── */
+/* Base styles */
 .checkbox-card {
   display: flex; align-items: center; gap: 1rem;
   padding: 1rem 1.25rem;
@@ -245,15 +269,13 @@ body {
   margin-bottom: .65rem;
   position: relative;
 }
-.checkbox-card:hover {
-  border-color: var(--tpp-green);
-  background: var(--tpp-green-subtle);
-  transform: translateX(3px);
-}
+
+/* Selected state - works on all devices */
 .checkbox-card.selected {
   border-color: var(--tpp-green);
   background: var(--tpp-green-light);
 }
+
 .checkbox-icon {
   width: 42px; height: 42px;
   border-radius: 10px;
@@ -262,21 +284,21 @@ body {
   flex-shrink: 0;
   transition: background .2s;
 }
-.checkbox-card:hover .checkbox-icon,
 .checkbox-card.selected .checkbox-icon {
   background: var(--tpp-green);
 }
+
 .checkbox-icon svg {
   width: 22px; height: 22px;
   fill: var(--tpp-green);
   color: var(--tpp-green);
   transition: fill .2s, color .2s;
 }
-.checkbox-card:hover .checkbox-icon svg,
 .checkbox-card.selected .checkbox-icon svg {
   fill: white;
   color: white;
 }
+
 .checkbox-selected-dot {
   width: 10px; height: 10px;
   border-radius: 50%;
@@ -288,6 +310,22 @@ body {
 }
 .checkbox-card.selected .checkbox-selected-dot {
   opacity: 1;
+}
+
+/* Hover effects - desktop/mouse only */
+@media (hover: hover) and (pointer: fine) {
+  .checkbox-card:hover {
+    border-color: var(--tpp-green);
+    background: var(--tpp-green-subtle);
+    transform: translateX(3px);
+  }
+  .checkbox-card:hover .checkbox-icon {
+    background: var(--tpp-green);
+  }
+  .checkbox-card:hover .checkbox-icon svg {
+    fill: white;
+    color: white;
+  }
 }
 
 /* ─── FORM INPUTS ─── */

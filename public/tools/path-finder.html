@@ -107,6 +107,7 @@ body {
 /* ─── CHOICE CARDS ─── */
 .choices { display: flex; flex-direction: column; gap: .75rem; }
 
+/* Main flow choice cards */
 .choice-card {
   display: flex; align-items: center; gap: 1.1rem;
   background: var(--white);
@@ -119,11 +120,15 @@ body {
   width: 100%;
   font-family: var(--font);
 }
-.choice-card:hover {
-  border-color: var(--green);
-  background: var(--green-subtle);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(27,122,61,.1);
+
+/* Hover effects - desktop/mouse only */
+@media (hover: hover) and (pointer: fine) {
+  .choice-card:hover {
+    border-color: var(--green);
+    background: var(--green-subtle);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(27,122,61,.1);
+  }
 }
 
 .choice-icon {
@@ -144,7 +149,11 @@ body {
 
 .choice-arrow { flex-shrink: 0; }
 .choice-arrow svg { width: 18px; height: 18px; fill: none; stroke: var(--gray-400); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke .2s, transform .2s; }
-.choice-card:hover .choice-arrow svg { stroke: var(--green); transform: translateX(3px); }
+
+/* Hover effects - desktop/mouse only */
+@media (hover: hover) and (pointer: fine) {
+  .choice-card:hover .choice-arrow svg { stroke: var(--green); transform: translateX(3px); }
+}
 
 /* ─── INFO / DESTINATION SCREENS ─── */
 .info-card {
@@ -272,7 +281,7 @@ body {
   --tpp-blue: #1D4ED8;
   --tpp-blue-light: #EFF6FF;
   --font-body: 'Poppins', sans-serif;
-}*{ margin: 0; padding: 0; box-sizing: border-box; }.cal-overlay{ font-family: var(--font-body); color: var(--tpp-black); background: var(--tpp-white); -webkit-font-smoothing: antialiased; min-height: 100vh; }.cal-overlay .nav{ position: sticky; top: 0; z-index: 100; background: var(--tpp-white); border-bottom: 1px solid var(--tpp-gray-200); padding: 0 2rem; height: 64px; display: flex; align-items: center; }.cal-overlay .nav-logo{ display: flex; align-items: center; text-decoration: none; }.cal-overlay .progress-bar-wrapper{ max-width: 680px; margin: 0 auto; padding: 2rem 2rem 0; }.cal-overlay .progress-steps{ display: flex; align-items: center; justify-content: space-between; position: relative; }.cal-overlay .progress-steps::before{ content: ''; position: absolute; top: 16px; left: 24px; right: 24px; height: 2px; background: var(--tpp-gray-200); z-index: 0; }.cal-overlay .progress-fill{ position: absolute; top: 16px; left: 24px; height: 2px; background: var(--tpp-green); z-index: 1; transition: width .5s cubic-bezier(.4,0,.2,1); }.cal-overlay .progress-step{ display: flex; flex-direction: column; align-items: center; gap: .5rem; position: relative; z-index: 2; }.cal-overlay .progress-dot{ width: 32px; height: 32px; border-radius: 50%; background: var(--tpp-white); border: 2px solid var(--tpp-gray-200); display: grid; place-items: center; font-size: .75rem; font-weight: 700; color: var(--tpp-gray-400); transition: all .3s ease; }.cal-overlay .progress-step.active .progress-dot{ border-color: var(--tpp-green); color: var(--tpp-green); }.cal-overlay .progress-step.completed .progress-dot{ background: var(--tpp-green); border-color: var(--tpp-green); color: var(--tpp-white); }.cal-overlay .progress-label{ font-size: .7rem; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; color: var(--tpp-gray-400); transition: color .3s; }.cal-overlay .progress-step.active .progress-label, .cal-overlay .progress-step.completed .progress-label{ color: var(--tpp-green); }.cal-overlay .wizard-container{ max-width: 680px; margin: 0 auto; padding: 2rem; min-height: calc(100vh - 200px); }.cal-overlay .step{ display: none; animation: fadeIn .35s ease; }.cal-overlay .step.active{ display: block; }@keyframes fadeIn{ from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }.cal-overlay .step-subtitle{ font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--tpp-green); margin-bottom: .5rem; }.cal-overlay .step-title{ font-size: 1.75rem; font-weight: 600; line-height: 1.3; letter-spacing: -.01em; margin-bottom: .5rem; }.cal-overlay .step-description{ font-size: .95rem; color: var(--tpp-gray-600); line-height: 1.6; margin-bottom: 2rem; }.cal-overlay .intro-card{ background: var(--tpp-green-subtle); border: 2px solid var(--tpp-green-light); border-radius: 16px; padding: 2.5rem 2rem; text-align: center; margin-bottom: 2rem; }.cal-overlay .intro-icon{ width: 72px; height: 72px; background: var(--tpp-green-light); border-radius: 50%; display: grid; place-items: center; margin: 0 auto 1.5rem; }.cal-overlay .intro-icon svg{ width: 36px; height: 36px; fill: var(--tpp-green); }.cal-overlay .intro-card h1{ font-size: 1.9rem; font-weight: 700; line-height: 1.25; letter-spacing: -.02em; margin-bottom: .75rem; }.cal-overlay .intro-card p{ font-size: 1rem; color: var(--tpp-gray-600); line-height: 1.7; max-width: 440px; margin: 0 auto 2rem; }.cal-overlay .intro-features{ display: flex; flex-direction: column; gap: .55rem; margin: 0 auto 2rem; max-width: 360px; text-align: left; }.cal-overlay .intro-feature{ display: flex; align-items: center; gap: .75rem; background: var(--tpp-white); border: 1.5px solid var(--tpp-green-light); border-radius: 10px; padding: .65rem 1rem; font-size: .87rem; font-weight: 500; color: var(--tpp-gray-800); }.cal-overlay .intro-feature svg{ width: 18px; height: 18px; fill: var(--tpp-green); flex-shrink: 0; }.cal-overlay .option-card{ display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: var(--tpp-white); border: 2px solid var(--tpp-gray-200); border-radius: 12px; cursor: pointer; transition: all .2s ease; margin-bottom: .65rem; }.cal-overlay .option-card:hover{ border-color: var(--tpp-green); background: var(--tpp-green-subtle); transform: translateX(3px); }.cal-overlay .option-card.selected{ border-color: var(--tpp-green); background: var(--tpp-green-light); }.cal-overlay .option-icon{ width: 42px; height: 42px; border-radius: 10px; background: var(--tpp-green-light); display: grid; place-items: center; flex-shrink: 0; transition: background .2s; }.cal-overlay .option-card:hover .option-icon, .cal-overlay .option-card.selected .option-icon{ background: var(--tpp-green); }.cal-overlay .option-icon svg{ width: 22px; height: 22px; fill: var(--tpp-green); transition: fill .2s; }.cal-overlay .option-card:hover .option-icon svg, .cal-overlay .option-card.selected .option-icon svg{ fill: white; }.cal-overlay .option-icon-text{ width: 42px; height: 42px; border-radius: 10px; background: var(--tpp-green-light); display: grid; place-items: center; flex-shrink: 0; font-size: 1.3rem; font-weight: 700; color: var(--tpp-green); transition: background .2s, color .2s; }.cal-overlay .option-card:hover .option-icon-text, .cal-overlay .option-card.selected .option-icon-text{ background: var(--tpp-green); color: white; }.cal-overlay .option-text{ font-size: .9rem; font-weight: 500; color: var(--tpp-gray-800); line-height: 1.5; flex: 1; }.cal-overlay .option-chevron{ flex-shrink: 0; color: var(--tpp-gray-400); transition: color .2s, transform .2s; display: flex; align-items: center; }.cal-overlay .option-card:hover .option-chevron, .cal-overlay .option-card.selected .option-chevron{ color: var(--tpp-green); transform: translateX(2px); }.cal-overlay .option-chevron svg{ width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }.cal-overlay .form-group{ margin-bottom: 1.5rem; }.cal-overlay .form-label{ display: block; font-size: .85rem; font-weight: 600; color: var(--tpp-gray-800); margin-bottom: .5rem; }.cal-overlay .form-label .req{ color: var(--tpp-green); }.cal-overlay .form-input{ width: 100%; padding: .85rem 1rem; border: 2px solid var(--tpp-gray-200); border-radius: 10px; font-family: var(--font-body); font-size: .9rem; color: var(--tpp-black); transition: border-color .2s; outline: none; background: var(--tpp-white); }.cal-overlay .form-input:focus{ border-color: var(--tpp-green); }.cal-overlay .form-input::placeholder{ color: var(--tpp-gray-400); }.cal-overlay .form-error{ font-size: .78rem; color: #c0392b; margin-top: .35rem; display: none; }.cal-overlay .form-error.visible{ display: block; }.cal-overlay .form-hint{ font-size: .78rem; color: var(--tpp-gray-400); margin-top: .35rem; }.cal-overlay .sub-question{ margin-top: 1rem; padding: 1.25rem; background: var(--tpp-green-subtle); border-left: 3px solid var(--tpp-green); border-radius: 0 10px 10px 0; display: none; animation: fadeIn .3s ease; }.cal-overlay .sub-question.visible{ display: block; }.cal-overlay .btn-row{ display: flex; gap: 1rem; margin-top: 2.5rem; padding-bottom: 2rem; }.cal-overlay .btn-next{ flex: 1; background: var(--tpp-green); color: var(--tpp-white); border: none; padding: 1rem; border-radius: 10px; font-family: var(--font-body); font-weight: 600; font-size: .95rem; cursor: pointer; transition: background .2s, transform .1s; }.cal-overlay .btn-next:hover{ background: var(--tpp-green-dark); transform: translateY(-1px); }.cal-overlay .btn-back{ padding: 1rem 1.5rem; background: transparent; color: var(--tpp-gray-600); border: 2px solid var(--tpp-gray-200); border-radius: 10px; font-family: var(--font-body); font-weight: 600; font-size: .95rem; cursor: pointer; transition: all .2s; }.cal-overlay .btn-back:hover{ border-color: var(--tpp-gray-400); color: var(--tpp-black); }.cal-overlay .btn-start{ width: 100%; max-width: 320px; background: var(--tpp-green); color: var(--tpp-white); border: none; padding: 1.1rem 2rem; border-radius: 12px; font-family: var(--font-body); font-weight: 600; font-size: 1rem; cursor: pointer; transition: background .2s, transform .1s; display: inline-flex; align-items: center; justify-content: center; gap: .6rem; }.cal-overlay .btn-start:hover{ background: var(--tpp-green-dark); transform: translateY(-2px); }.cal-overlay .btn-start svg{ width: 18px; height: 18px; fill: white; }.cal-overlay .skip-link{ display: block; text-align: center; margin-top: .75rem; font-size: .85rem; color: var(--tpp-gray-400); cursor: pointer; transition: color .2s; text-decoration: none; }.cal-overlay .skip-link:hover{ color: var(--tpp-green); }.cal-overlay .intensity-toggle{ display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: .5rem; }.cal-overlay .intensity-option{ border: 2px solid var(--tpp-gray-200); border-radius: 12px; padding: 1rem 1.25rem; cursor: pointer; transition: all .2s; text-align: center; background: var(--tpp-white); }.cal-overlay .intensity-option:hover{ border-color: var(--tpp-green); background: var(--tpp-green-subtle); }.cal-overlay .intensity-option.selected{ border-color: var(--tpp-green); background: var(--tpp-green-light); }.cal-overlay .int-icon{ font-size: 1.5rem; margin-bottom: .4rem; }.cal-overlay .int-label{ font-size: .88rem; font-weight: 600; color: var(--tpp-gray-800); }.cal-overlay .int-desc{ font-size: .75rem; color: var(--tpp-gray-600); margin-top: .2rem; line-height: 1.4; }.cal-overlay .results-header{ text-align: center; padding-bottom: 2rem; border-bottom: 2px solid var(--tpp-gray-200); margin-bottom: 2rem; }.cal-overlay .results-label{ font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--tpp-green); margin-bottom: .6rem; }.cal-overlay .results-title{ font-size: 2rem; font-weight: 700; line-height: 1.25; letter-spacing: -.02em; margin-bottom: .75rem; }.cal-overlay .results-summary{ font-size: .95rem; color: var(--tpp-gray-600); line-height: 1.7; max-width: 500px; margin: 0 auto; }.cal-overlay .timeline-window{ margin-bottom: 1.5rem; }.cal-overlay .timeline-window-header{ display: flex; align-items: center; gap: .75rem; margin-bottom: .85rem; }.cal-overlay .timeline-window-icon{ width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; flex-shrink: 0; }.cal-overlay .timeline-window-icon svg{ width: 20px; height: 20px; }.cal-overlay .window-iep .timeline-window-icon{ background: var(--tpp-green-light); }.cal-overlay .window-iep .timeline-window-icon svg{ fill: var(--tpp-green); }.cal-overlay .window-sep .timeline-window-icon{ background: var(--tpp-amber-light); }.cal-overlay .window-sep .timeline-window-icon svg{ fill: var(--tpp-amber); }.cal-overlay .window-aep .timeline-window-icon{ background: var(--tpp-blue-light); }.cal-overlay .window-aep .timeline-window-icon svg{ fill: var(--tpp-blue); }.cal-overlay .window-now .timeline-window-icon{ background: #F3E8FF; }.cal-overlay .window-now .timeline-window-icon svg{ fill: #7C3AED; }.cal-overlay .timeline-window-label{ font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }.cal-overlay .window-iep .timeline-window-label{ color: var(--tpp-green); }.cal-overlay .window-sep .timeline-window-label{ color: var(--tpp-amber); }.cal-overlay .window-aep .timeline-window-label{ color: var(--tpp-blue); }.cal-overlay .window-now .timeline-window-label{ color: #7C3AED; }.cal-overlay .timeline-window-date{ font-size: .82rem; font-weight: 500; color: var(--tpp-gray-600); margin-top: .1rem; }.cal-overlay .timeline-item{ display: flex; gap: 1rem; align-items: flex-start; padding: 1.1rem 1.25rem; background: var(--tpp-white); border: 2px solid var(--tpp-gray-200); border-radius: 12px; margin-bottom: .65rem; transition: border-color .2s, background .2s; }.cal-overlay .timeline-item:hover{ border-color: var(--tpp-green-light); background: var(--tpp-green-subtle); }.cal-overlay .window-sep .timeline-item:hover{ border-color: #FDE68A; background: #FFFBEB; }.cal-overlay .window-aep .timeline-item:hover{ border-color: #BFDBFE; background: #EFF6FF; }.cal-overlay .window-now .timeline-item:hover{ border-color: #DDD6FE; background: #F5F3FF; }.cal-overlay .ti-dot{ width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }.cal-overlay .window-iep .ti-dot, .cal-overlay .window-now .ti-dot{ background: var(--tpp-green); }.cal-overlay .window-sep .ti-dot{ background: var(--tpp-amber); }.cal-overlay .window-aep .ti-dot{ background: var(--tpp-blue); }.cal-overlay .window-now .ti-dot{ background: #7C3AED; }.cal-overlay .ti-body{ flex: 1; }.cal-overlay .ti-action{ font-size: .9rem; font-weight: 600; color: var(--tpp-black); line-height: 1.4; margin-bottom: .35rem; }.cal-overlay .ti-why{ font-size: .82rem; color: var(--tpp-gray-600); line-height: 1.6; }.cal-overlay .ti-tag{ display: inline-block; margin-top: .5rem; font-size: .7rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: .2rem .65rem; border-radius: 99px; }.cal-overlay .tag-urgent{ background: #FEE2E2; color: #991B1B; }.cal-overlay .tag-important{ background: var(--tpp-amber-light); color: var(--tpp-amber); }.cal-overlay .tag-annual{ background: var(--tpp-blue-light); color: var(--tpp-blue); }.cal-overlay .tag-info{ background: var(--tpp-green-light); color: var(--tpp-green); }.cal-overlay .notice-box{ border-radius: 12px; padding: 1.1rem 1.25rem; margin-bottom: .85rem; font-size: .88rem; line-height: 1.6; display: flex; gap: .85rem; align-items: flex-start; }.cal-overlay .notice-box svg{ width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; }.cal-overlay .notice-box strong{ display: block; margin-bottom: .3rem; font-size: .9rem; }.cal-overlay .notice-medicaid{ background: #F5F3FF; border: 1.5px solid #DDD6FE; color: #4C1D95; }.cal-overlay .notice-medicaid svg{ fill: #7C3AED; }.cal-overlay .notice-va{ background: #EFF6FF; border: 1.5px solid #BFDBFE; color: #1E3A8A; }.cal-overlay .notice-va svg{ fill: #1D4ED8; }.cal-overlay .notice-caution{ background: var(--tpp-amber-light); border: 1.5px solid #FDE68A; color: #78350F; }.cal-overlay .notice-caution svg{ fill: var(--tpp-amber); }.cal-overlay .result-cta-section{ margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--tpp-gray-200); text-align: center; }.cal-overlay .result-cta-section h3{ font-size: 1.1rem; font-weight: 600; margin-bottom: .4rem; }.cal-overlay .result-cta-section p{ font-size: .88rem; color: var(--tpp-gray-600); margin-bottom: 1.5rem; }.cal-overlay .cta-buttons{ display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; }.cal-overlay .cta-btn-primary{ background: var(--tpp-green); color: white; border: none; padding: .9rem 1.75rem; border-radius: 10px; font-family: var(--font-body); font-weight: 600; font-size: .9rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: .5rem; transition: background .2s, transform .1s; }.cal-overlay .cta-btn-primary:hover{ background: var(--tpp-green-dark); transform: translateY(-1px); }.cal-overlay .cta-btn-primary svg{ width: 16px; height: 16px; fill: white; }.cal-overlay .cta-btn-secondary{ background: transparent; color: var(--tpp-green); border: 2px solid var(--tpp-green); padding: .9rem 1.75rem; border-radius: 10px; font-family: var(--font-body); font-weight: 600; font-size: .9rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: .5rem; transition: all .2s; }.cal-overlay .cta-btn-secondary:hover{ background: var(--tpp-green-light); }.cal-overlay .cta-btn-secondary svg{ width: 16px; height: 16px; fill: var(--tpp-green); }.cal-overlay .cta-link{ display: flex; align-items: center; gap: .4rem; color: var(--tpp-gray-600); font-size: .88rem; font-weight: 500; text-decoration: none; cursor: pointer; transition: color .2s; padding: .5rem 0; justify-content: center; }.cal-overlay .cta-link:hover{ color: var(--tpp-green); }.cal-overlay .cta-link svg{ width: 14px; height: 14px; fill: currentColor; }.cal-overlay .print-bar{ display: flex; justify-content: flex-end; margin-bottom: 1.5rem; }.cal-overlay .btn-print{ display: inline-flex; align-items: center; gap: .5rem; background: var(--tpp-gray-100); color: var(--tpp-gray-800); border: 1.5px solid var(--tpp-gray-200); border-radius: 8px; padding: .55rem 1rem; font-family: var(--font-body); font-size: .82rem; font-weight: 600; cursor: pointer; transition: all .2s; }.cal-overlay .btn-print:hover{ border-color: var(--tpp-gray-400); background: var(--tpp-gray-200); }.cal-overlay .btn-print svg{ width: 15px; height: 15px; fill: var(--tpp-gray-600); }@media print{.cal-overlay .nav, .cal-overlay .progress-bar-wrapper, .cal-overlay .print-bar, .cal-overlay .result-cta-section{ display: none !important; }.cal-overlay #step1, .cal-overlay #step2, .cal-overlay #step3, .cal-overlay #step4, .cal-overlay #step5, .cal-overlay #step6, .cal-overlay #step7{ display: none !important; }.cal-overlay #step8{ display: block !important; }.cal-overlay{ background: white; }.cal-overlay .wizard-container{ padding: 0; max-width: 100%; }
+}*{ margin: 0; padding: 0; box-sizing: border-box; }.cal-overlay{ font-family: var(--font-body); color: var(--tpp-black); background: var(--tpp-white); -webkit-font-smoothing: antialiased; min-height: 100vh; }.cal-overlay .nav{ position: sticky; top: 0; z-index: 100; background: var(--tpp-white); border-bottom: 1px solid var(--tpp-gray-200); padding: 0 2rem; height: 64px; display: flex; align-items: center; }.cal-overlay .nav-logo{ display: flex; align-items: center; text-decoration: none; }.cal-overlay .progress-bar-wrapper{ max-width: 680px; margin: 0 auto; padding: 2rem 2rem 0; }.cal-overlay .progress-steps{ display: flex; align-items: center; justify-content: space-between; position: relative; }.cal-overlay .progress-steps::before{ content: ''; position: absolute; top: 16px; left: 24px; right: 24px; height: 2px; background: var(--tpp-gray-200); z-index: 0; }.cal-overlay .progress-fill{ position: absolute; top: 16px; left: 24px; height: 2px; background: var(--tpp-green); z-index: 1; transition: width .5s cubic-bezier(.4,0,.2,1); }.cal-overlay .progress-step{ display: flex; flex-direction: column; align-items: center; gap: .5rem; position: relative; z-index: 2; }.cal-overlay .progress-dot{ width: 32px; height: 32px; border-radius: 50%; background: var(--tpp-white); border: 2px solid var(--tpp-gray-200); display: grid; place-items: center; font-size: .75rem; font-weight: 700; color: var(--tpp-gray-400); transition: all .3s ease; }.cal-overlay .progress-step.active .progress-dot{ border-color: var(--tpp-green); color: var(--tpp-green); }.cal-overlay .progress-step.completed .progress-dot{ background: var(--tpp-green); border-color: var(--tpp-green); color: var(--tpp-white); }.cal-overlay .progress-label{ font-size: .7rem; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; color: var(--tpp-gray-400); transition: color .3s; }.cal-overlay .progress-step.active .progress-label, .cal-overlay .progress-step.completed .progress-label{ color: var(--tpp-green); }.cal-overlay .wizard-container{ max-width: 680px; margin: 0 auto; padding: 2rem; min-height: calc(100vh - 200px); }.cal-overlay .step{ display: none; animation: fadeIn .35s ease; }.cal-overlay .step.active{ display: block; }@keyframes fadeIn{ from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }.cal-overlay .step-subtitle{ font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--tpp-green); margin-bottom: .5rem; }.cal-overlay .step-title{ font-size: 1.75rem; font-weight: 600; line-height: 1.3; letter-spacing: -.01em; margin-bottom: .5rem; }.cal-overlay .step-description{ font-size: .95rem; color: var(--tpp-gray-600); line-height: 1.6; margin-bottom: 2rem; }.cal-overlay .intro-card{ background: var(--tpp-green-subtle); border: 2px solid var(--tpp-green-light); border-radius: 16px; padding: 2.5rem 2rem; text-align: center; margin-bottom: 2rem; }.cal-overlay .intro-icon{ width: 72px; height: 72px; background: var(--tpp-green-light); border-radius: 50%; display: grid; place-items: center; margin: 0 auto 1.5rem; }.cal-overlay .intro-icon svg{ width: 36px; height: 36px; fill: var(--tpp-green); }.cal-overlay .intro-card h1{ font-size: 1.9rem; font-weight: 700; line-height: 1.25; letter-spacing: -.02em; margin-bottom: .75rem; }.cal-overlay .intro-card p{ font-size: 1rem; color: var(--tpp-gray-600); line-height: 1.7; max-width: 440px; margin: 0 auto 2rem; }.cal-overlay .intro-features{ display: flex; flex-direction: column; gap: .55rem; margin: 0 auto 2rem; max-width: 360px; text-align: left; }.cal-overlay .intro-feature{ display: flex; align-items: center; gap: .75rem; background: var(--tpp-white); border: 1.5px solid var(--tpp-green-light); border-radius: 10px; padding: .65rem 1rem; font-size: .87rem; font-weight: 500; color: var(--tpp-gray-800); }.cal-overlay .intro-feature svg{ width: 18px; height: 18px; fill: var(--tpp-green); flex-shrink: 0; }.cal-overlay .option-card{ display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: var(--tpp-white); border: 2px solid var(--tpp-gray-200); border-radius: 12px; cursor: pointer; transition: all .2s ease; margin-bottom: .65rem; }.cal-overlay .option-card.selected{ border-color: var(--tpp-green); background: var(--tpp-green-light); }.cal-overlay .option-icon{ width: 42px; height: 42px; border-radius: 10px; background: var(--tpp-green-light); display: grid; place-items: center; flex-shrink: 0; transition: background .2s; }.cal-overlay .option-card.selected .option-icon{ background: var(--tpp-green); }.cal-overlay .option-icon svg{ width: 22px; height: 22px; fill: var(--tpp-green); transition: fill .2s; }.cal-overlay .option-card.selected .option-icon svg{ fill: white; }.cal-overlay .option-icon-text{ width: 42px; height: 42px; border-radius: 10px; background: var(--tpp-green-light); display: grid; place-items: center; flex-shrink: 0; font-size: 1.3rem; font-weight: 700; color: var(--tpp-green); transition: background .2s, color .2s; }.cal-overlay .option-card.selected .option-icon-text{ background: var(--tpp-green); color: white; }.cal-overlay .option-text{ font-size: .9rem; font-weight: 500; color: var(--tpp-gray-800); line-height: 1.5; flex: 1; }.cal-overlay .option-chevron{ flex-shrink: 0; color: var(--tpp-gray-400); transition: color .2s, transform .2s; display: flex; align-items: center; }.cal-overlay .option-card.selected .option-chevron{ color: var(--tpp-green); transform: translateX(2px); }.cal-overlay .option-chevron svg{ width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }@media (hover: hover) and (pointer: fine){.cal-overlay .option-card:hover{ border-color: var(--tpp-green); background: var(--tpp-green-subtle); transform: translateX(3px); }.cal-overlay .option-card:hover .option-icon{ background: var(--tpp-green); }.cal-overlay .option-card:hover .option-icon svg{ fill: white; }.cal-overlay .option-card:hover .option-icon-text{ background: var(--tpp-green); color: white; }.cal-overlay .option-card:hover .option-chevron{ color: var(--tpp-green); transform: translateX(2px); }}.cal-overlay .form-group{ margin-bottom: 1.5rem; }.cal-overlay .form-label{ display: block; font-size: .85rem; font-weight: 600; color: var(--tpp-gray-800); margin-bottom: .5rem; }.cal-overlay .form-label .req{ color: var(--tpp-green); }.cal-overlay .form-input{ width: 100%; padding: .85rem 1rem; border: 2px solid var(--tpp-gray-200); border-radius: 10px; font-family: var(--font-body); font-size: .9rem; color: var(--tpp-black); transition: border-color .2s; outline: none; background: var(--tpp-white); }.cal-overlay .form-input:focus{ border-color: var(--tpp-green); }.cal-overlay .form-input::placeholder{ color: var(--tpp-gray-400); }.cal-overlay .form-error{ font-size: .78rem; color: #c0392b; margin-top: .35rem; display: none; }.cal-overlay .form-error.visible{ display: block; }.cal-overlay .form-hint{ font-size: .78rem; color: var(--tpp-gray-400); margin-top: .35rem; }.cal-overlay .sub-question{ margin-top: 1rem; padding: 1.25rem; background: var(--tpp-green-subtle); border-left: 3px solid var(--tpp-green); border-radius: 0 10px 10px 0; display: none; animation: fadeIn .3s ease; }.cal-overlay .sub-question.visible{ display: block; }.cal-overlay .btn-row{ display: flex; gap: 1rem; margin-top: 2.5rem; padding-bottom: 2rem; }.cal-overlay .btn-next{ flex: 1; background: var(--tpp-green); color: var(--tpp-white); border: none; padding: 1rem; border-radius: 10px; font-family: var(--font-body); font-weight: 600; font-size: .95rem; cursor: pointer; transition: background .2s, transform .1s; }.cal-overlay .btn-next:hover{ background: var(--tpp-green-dark); transform: translateY(-1px); }.cal-overlay .btn-back{ padding: 1rem 1.5rem; background: transparent; color: var(--tpp-gray-600); border: 2px solid var(--tpp-gray-200); border-radius: 10px; font-family: var(--font-body); font-weight: 600; font-size: .95rem; cursor: pointer; transition: all .2s; }.cal-overlay .btn-back:hover{ border-color: var(--tpp-gray-400); color: var(--tpp-black); }.cal-overlay .btn-start{ width: 100%; max-width: 320px; background: var(--tpp-green); color: var(--tpp-white); border: none; padding: 1.1rem 2rem; border-radius: 12px; font-family: var(--font-body); font-weight: 600; font-size: 1rem; cursor: pointer; transition: background .2s, transform .1s; display: inline-flex; align-items: center; justify-content: center; gap: .6rem; }.cal-overlay .btn-start:hover{ background: var(--tpp-green-dark); transform: translateY(-2px); }.cal-overlay .btn-start svg{ width: 18px; height: 18px; fill: white; }.cal-overlay .skip-link{ display: block; text-align: center; margin-top: .75rem; font-size: .85rem; color: var(--tpp-gray-400); cursor: pointer; transition: color .2s; text-decoration: none; }.cal-overlay .skip-link:hover{ color: var(--tpp-green); }.cal-overlay .intensity-toggle{ display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: .5rem; }.cal-overlay .intensity-option{ border: 2px solid var(--tpp-gray-200); border-radius: 12px; padding: 1rem 1.25rem; cursor: pointer; transition: all .2s; text-align: center; background: var(--tpp-white); }.cal-overlay .intensity-option.selected{ border-color: var(--tpp-green); background: var(--tpp-green-light); }@media (hover: hover) and (pointer: fine){.cal-overlay .intensity-option:hover{ border-color: var(--tpp-green); background: var(--tpp-green-subtle); }}.cal-overlay .int-icon{ font-size: 1.5rem; margin-bottom: .4rem; }.cal-overlay .int-label{ font-size: .88rem; font-weight: 600; color: var(--tpp-gray-800); }.cal-overlay .int-desc{ font-size: .75rem; color: var(--tpp-gray-600); margin-top: .2rem; line-height: 1.4; }.cal-overlay .results-header{ text-align: center; padding-bottom: 2rem; border-bottom: 2px solid var(--tpp-gray-200); margin-bottom: 2rem; }.cal-overlay .results-label{ font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--tpp-green); margin-bottom: .6rem; }.cal-overlay .results-title{ font-size: 2rem; font-weight: 700; line-height: 1.25; letter-spacing: -.02em; margin-bottom: .75rem; }.cal-overlay .results-summary{ font-size: .95rem; color: var(--tpp-gray-600); line-height: 1.7; max-width: 500px; margin: 0 auto; }.cal-overlay .timeline-window{ margin-bottom: 1.5rem; }.cal-overlay .timeline-window-header{ display: flex; align-items: center; gap: .75rem; margin-bottom: .85rem; }.cal-overlay .timeline-window-icon{ width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; flex-shrink: 0; }.cal-overlay .timeline-window-icon svg{ width: 20px; height: 20px; }.cal-overlay .window-iep .timeline-window-icon{ background: var(--tpp-green-light); }.cal-overlay .window-iep .timeline-window-icon svg{ fill: var(--tpp-green); }.cal-overlay .window-sep .timeline-window-icon{ background: var(--tpp-amber-light); }.cal-overlay .window-sep .timeline-window-icon svg{ fill: var(--tpp-amber); }.cal-overlay .window-aep .timeline-window-icon{ background: var(--tpp-blue-light); }.cal-overlay .window-aep .timeline-window-icon svg{ fill: var(--tpp-blue); }.cal-overlay .window-now .timeline-window-icon{ background: #F3E8FF; }.cal-overlay .window-now .timeline-window-icon svg{ fill: #7C3AED; }.cal-overlay .timeline-window-label{ font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }.cal-overlay .window-iep .timeline-window-label{ color: var(--tpp-green); }.cal-overlay .window-sep .timeline-window-label{ color: var(--tpp-amber); }.cal-overlay .window-aep .timeline-window-label{ color: var(--tpp-blue); }.cal-overlay .window-now .timeline-window-label{ color: #7C3AED; }.cal-overlay .timeline-window-date{ font-size: .82rem; font-weight: 500; color: var(--tpp-gray-600); margin-top: .1rem; }.cal-overlay .timeline-item{ display: flex; gap: 1rem; align-items: flex-start; padding: 1.1rem 1.25rem; background: var(--tpp-white); border: 2px solid var(--tpp-gray-200); border-radius: 12px; margin-bottom: .65rem; transition: border-color .2s, background .2s; }.cal-overlay .timeline-item:hover{ border-color: var(--tpp-green-light); background: var(--tpp-green-subtle); }.cal-overlay .window-sep .timeline-item:hover{ border-color: #FDE68A; background: #FFFBEB; }.cal-overlay .window-aep .timeline-item:hover{ border-color: #BFDBFE; background: #EFF6FF; }.cal-overlay .window-now .timeline-item:hover{ border-color: #DDD6FE; background: #F5F3FF; }.cal-overlay .ti-dot{ width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }.cal-overlay .window-iep .ti-dot, .cal-overlay .window-now .ti-dot{ background: var(--tpp-green); }.cal-overlay .window-sep .ti-dot{ background: var(--tpp-amber); }.cal-overlay .window-aep .ti-dot{ background: var(--tpp-blue); }.cal-overlay .window-now .ti-dot{ background: #7C3AED; }.cal-overlay .ti-body{ flex: 1; }.cal-overlay .ti-action{ font-size: .9rem; font-weight: 600; color: var(--tpp-black); line-height: 1.4; margin-bottom: .35rem; }.cal-overlay .ti-why{ font-size: .82rem; color: var(--tpp-gray-600); line-height: 1.6; }.cal-overlay .ti-tag{ display: inline-block; margin-top: .5rem; font-size: .7rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: .2rem .65rem; border-radius: 99px; }.cal-overlay .tag-urgent{ background: #FEE2E2; color: #991B1B; }.cal-overlay .tag-important{ background: var(--tpp-amber-light); color: var(--tpp-amber); }.cal-overlay .tag-annual{ background: var(--tpp-blue-light); color: var(--tpp-blue); }.cal-overlay .tag-info{ background: var(--tpp-green-light); color: var(--tpp-green); }.cal-overlay .notice-box{ border-radius: 12px; padding: 1.1rem 1.25rem; margin-bottom: .85rem; font-size: .88rem; line-height: 1.6; display: flex; gap: .85rem; align-items: flex-start; }.cal-overlay .notice-box svg{ width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; }.cal-overlay .notice-box strong{ display: block; margin-bottom: .3rem; font-size: .9rem; }.cal-overlay .notice-medicaid{ background: #F5F3FF; border: 1.5px solid #DDD6FE; color: #4C1D95; }.cal-overlay .notice-medicaid svg{ fill: #7C3AED; }.cal-overlay .notice-va{ background: #EFF6FF; border: 1.5px solid #BFDBFE; color: #1E3A8A; }.cal-overlay .notice-va svg{ fill: #1D4ED8; }.cal-overlay .notice-caution{ background: var(--tpp-amber-light); border: 1.5px solid #FDE68A; color: #78350F; }.cal-overlay .notice-caution svg{ fill: var(--tpp-amber); }.cal-overlay .result-cta-section{ margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--tpp-gray-200); text-align: center; }.cal-overlay .result-cta-section h3{ font-size: 1.1rem; font-weight: 600; margin-bottom: .4rem; }.cal-overlay .result-cta-section p{ font-size: .88rem; color: var(--tpp-gray-600); margin-bottom: 1.5rem; }.cal-overlay .cta-buttons{ display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; }.cal-overlay .cta-btn-primary{ background: var(--tpp-green); color: white; border: none; padding: .9rem 1.75rem; border-radius: 10px; font-family: var(--font-body); font-weight: 600; font-size: .9rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: .5rem; transition: background .2s, transform .1s; }.cal-overlay .cta-btn-primary:hover{ background: var(--tpp-green-dark); transform: translateY(-1px); }.cal-overlay .cta-btn-primary svg{ width: 16px; height: 16px; fill: white; }.cal-overlay .cta-btn-secondary{ background: transparent; color: var(--tpp-green); border: 2px solid var(--tpp-green); padding: .9rem 1.75rem; border-radius: 10px; font-family: var(--font-body); font-weight: 600; font-size: .9rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: .5rem; transition: all .2s; }.cal-overlay .cta-btn-secondary:hover{ background: var(--tpp-green-light); }.cal-overlay .cta-btn-secondary svg{ width: 16px; height: 16px; fill: var(--tpp-green); }.cal-overlay .cta-link{ display: flex; align-items: center; gap: .4rem; color: var(--tpp-gray-600); font-size: .88rem; font-weight: 500; text-decoration: none; cursor: pointer; transition: color .2s; padding: .5rem 0; justify-content: center; }.cal-overlay .cta-link:hover{ color: var(--tpp-green); }.cal-overlay .cta-link svg{ width: 14px; height: 14px; fill: currentColor; }.cal-overlay .print-bar{ display: flex; justify-content: flex-end; margin-bottom: 1.5rem; }.cal-overlay .btn-print{ display: inline-flex; align-items: center; gap: .5rem; background: var(--tpp-gray-100); color: var(--tpp-gray-800); border: 1.5px solid var(--tpp-gray-200); border-radius: 8px; padding: .55rem 1rem; font-family: var(--font-body); font-size: .82rem; font-weight: 600; cursor: pointer; transition: all .2s; }.cal-overlay .btn-print:hover{ border-color: var(--tpp-gray-400); background: var(--tpp-gray-200); }.cal-overlay .btn-print svg{ width: 15px; height: 15px; fill: var(--tpp-gray-600); }@media print{.cal-overlay .nav, .cal-overlay .progress-bar-wrapper, .cal-overlay .print-bar, .cal-overlay .result-cta-section{ display: none !important; }.cal-overlay #step1, .cal-overlay #step2, .cal-overlay #step3, .cal-overlay #step4, .cal-overlay #step5, .cal-overlay #step6, .cal-overlay #step7{ display: none !important; }.cal-overlay #step8{ display: block !important; }.cal-overlay{ background: white; }.cal-overlay .wizard-container{ padding: 0; max-width: 100%; }
 }@media (max-width: 600px){.cal-overlay .wizard-container{ padding: 1.5rem 1rem; }.cal-overlay .step-title{ font-size: 1.4rem; }.cal-overlay .progress-label{ display: none; }.cal-overlay .results-title{ font-size: 1.6rem; }.cal-overlay .intensity-toggle{ grid-template-columns: 1fr; }.cal-overlay .cta-buttons{ flex-direction: column; align-items: center; }
 }.cal-overlay /* ─── ADVISOR CONTACT FORM ─── */
 .result-cta-section{ margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--tpp-gray-200); }.cal-overlay .advisor-cta-card{ background: var(--tpp-green-subtle); border: 2px solid var(--tpp-green-light); border-radius: 16px; padding: 2rem; text-align: center; }.cal-overlay .advisor-cta-icon{ width: 52px; height: 52px; background: var(--tpp-green-light); border-radius: 50%; display: grid; place-items: center; margin: 0 auto 1.25rem; }.cal-overlay .advisor-cta-icon svg{ width: 26px; height: 26px; fill: var(--tpp-green); }.cal-overlay .advisor-cta-card h3{ font-size: 1.2rem; font-weight: 700; margin-bottom: .4rem; letter-spacing: -.01em; }.cal-overlay .advisor-cta-card p{ font-size: .9rem; color: var(--tpp-gray-600); margin-bottom: 1.5rem; line-height: 1.6; }.cal-overlay .advisor-form{ max-width: 400px; margin: 0 auto; text-align: left; }.cal-overlay .advisor-field{ margin-bottom: 1rem; }.cal-overlay .advisor-label{ display: block; font-size: .82rem; font-weight: 600; color: var(--tpp-gray-800); margin-bottom: .4rem; }.cal-overlay .cta-submit-btn{ width: 100%; background: var(--tpp-green); color: white; border: none; padding: 1rem; border-radius: 10px; font-family: var(--font-body); font-weight: 600; font-size: .95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: .6rem; transition: background .2s, transform .1s; margin-top: 1.25rem; }.cal-overlay .cta-submit-btn:hover{ background: var(--tpp-green-dark); transform: translateY(-1px); }.cal-overlay .cta-submit-btn svg{ width: 18px; height: 18px; fill: white; }.cal-overlay /* ─── THANK YOU PAGE ─── */
@@ -430,56 +439,88 @@ body {
   transition: all .2s ease;
   margin-bottom: .65rem;
   position: relative;
-}.mm-overlay .option-card:hover{
-  border-color: var(--tpp-green);
-  background: var(--tpp-green-subtle);
-  transform: translateX(3px);
-}.mm-overlay .option-card.selected{
+}
+
+/* Selected state - works on all devices */
+.mm-overlay .option-card.selected{
   border-color: var(--tpp-green);
   background: var(--tpp-green-light);
-}.mm-overlay .option-icon{
+}
+.mm-overlay .option-icon{
   width: 42px; height: 42px;
   border-radius: 10px;
   background: var(--tpp-green-light);
   display: grid; place-items: center;
   flex-shrink: 0;
   transition: background .2s;
-}.mm-overlay .option-card:hover .option-icon, .mm-overlay .option-card.selected .option-icon{
+}
+.mm-overlay .option-card.selected .option-icon{
   background: var(--tpp-green);
-}.mm-overlay .option-icon svg{
+}
+.mm-overlay .option-icon svg{
   width: 22px; height: 22px;
   fill: var(--tpp-green);
   color: var(--tpp-green);
   transition: fill .2s, color .2s;
-}.mm-overlay .option-card:hover .option-icon svg, .mm-overlay .option-card.selected .option-icon svg{
+}
+.mm-overlay .option-card.selected .option-icon svg{
   fill: white;
   color: white;
-}.mm-overlay .option-text{
+}
+.mm-overlay .option-text{
   font-size: .9rem; font-weight: 500;
   color: var(--tpp-gray-800);
   line-height: 1.5;
   flex: 1;
-}.mm-overlay .option-chevron{
+}
+.mm-overlay .option-chevron{
   flex-shrink: 0;
   color: var(--tpp-gray-400);
   transition: color .2s, transform .2s;
   display: flex; align-items: center;
-}.mm-overlay .option-card:hover .option-chevron, .mm-overlay .option-card.selected .option-chevron{
+}
+.mm-overlay .option-card.selected .option-chevron{
   color: var(--tpp-green);
   transform: translateX(2px);
-}.mm-overlay .option-icon-text{
+}
+.mm-overlay .option-icon-text{
   font-size: 1.3rem; font-weight: 700;
   color: var(--tpp-green);
   transition: color .2s;
-}.mm-overlay .option-card:hover .option-icon-text, .mm-overlay .option-card.selected .option-icon-text{
+}
+.mm-overlay .option-card.selected .option-icon-text{
   color: white;
-}.mm-overlay .option-chevron svg{
+}
+.mm-overlay .option-chevron svg{
   width: 18px; height: 18px;
   fill: none;
   stroke: currentColor;
   stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+/* Hover effects - desktop/mouse only */
+@media (hover: hover) and (pointer: fine){
+  .mm-overlay .option-card:hover{
+    border-color: var(--tpp-green);
+    background: var(--tpp-green-subtle);
+    transform: translateX(3px);
+  }
+  .mm-overlay .option-card:hover .option-icon{
+    background: var(--tpp-green);
+  }
+  .mm-overlay .option-card:hover .option-icon svg{
+    fill: white;
+    color: white;
+  }
+  .mm-overlay .option-card:hover .option-chevron{
+    color: var(--tpp-green);
+    transform: translateX(2px);
+  }
+  .mm-overlay .option-card:hover .option-icon-text{
+    color: white;
+  }
 }.mm-overlay /* ─── CHECKBOX CARDS (multi select) ─── */
 .checkbox-card{
   display: flex; align-items: center; gap: 1rem;
@@ -491,31 +532,35 @@ body {
   transition: all .2s ease;
   margin-bottom: .65rem;
   position: relative;
-}.mm-overlay .checkbox-card:hover{
-  border-color: var(--tpp-green);
-  background: var(--tpp-green-subtle);
-  transform: translateX(3px);
-}.mm-overlay .checkbox-card.selected{
+}
+
+/* Selected state - works on all devices */
+.mm-overlay .checkbox-card.selected{
   border-color: var(--tpp-green);
   background: var(--tpp-green-light);
-}.mm-overlay .checkbox-icon{
+}
+.mm-overlay .checkbox-icon{
   width: 42px; height: 42px;
   border-radius: 10px;
   background: var(--tpp-green-light);
   display: grid; place-items: center;
   flex-shrink: 0;
   transition: background .2s;
-}.mm-overlay .checkbox-card:hover .checkbox-icon, .mm-overlay .checkbox-card.selected .checkbox-icon{
+}
+.mm-overlay .checkbox-card.selected .checkbox-icon{
   background: var(--tpp-green);
-}.mm-overlay .checkbox-icon svg{
+}
+.mm-overlay .checkbox-icon svg{
   width: 22px; height: 22px;
   fill: var(--tpp-green);
   color: var(--tpp-green);
   transition: fill .2s, color .2s;
-}.mm-overlay .checkbox-card:hover .checkbox-icon svg, .mm-overlay .checkbox-card.selected .checkbox-icon svg{
+}
+.mm-overlay .checkbox-card.selected .checkbox-icon svg{
   fill: white;
   color: white;
-}.mm-overlay .checkbox-selected-dot{
+}
+.mm-overlay .checkbox-selected-dot{
   width: 10px; height: 10px;
   border-radius: 50%;
   background: var(--tpp-green);
@@ -523,8 +568,25 @@ body {
   margin-left: auto;
   opacity: 0;
   transition: opacity .2s;
-}.mm-overlay .checkbox-card.selected .checkbox-selected-dot{
+}
+.mm-overlay .checkbox-card.selected .checkbox-selected-dot{
   opacity: 1;
+}
+
+/* Hover effects - desktop/mouse only */
+@media (hover: hover) and (pointer: fine){
+  .mm-overlay .checkbox-card:hover{
+    border-color: var(--tpp-green);
+    background: var(--tpp-green-subtle);
+    transform: translateX(3px);
+  }
+  .mm-overlay .checkbox-card:hover .checkbox-icon{
+    background: var(--tpp-green);
+  }
+  .mm-overlay .checkbox-card:hover .checkbox-icon svg{
+    fill: white;
+    color: white;
+  }
 }.mm-overlay /* ─── FORM INPUTS ─── */
 .form-group{
   margin-bottom: 1.5rem;
@@ -704,7 +766,9 @@ body {
   text-decoration: none;
   cursor: pointer;
   transition: color .2s;
-}.mm-overlay .skip-link:hover{ color: var(--tpp-green); }.mm-overlay /* ─── RESPONSIVE ─── */
+}.mm-overlay .skip-link:hover{ color: var(--tpp-green); }
+
+/* ─── RESPONSIVE ─── */
 @media (max-width: 600px){
   .wizard-container { padding: 1.5rem 1rem; }
   .step-title { font-size: 1.4rem; }

@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   basePath: "/app",
   async rewrites() {
     return [
+      // Clean URLs (without .html extension)
       {
         source: '/client-success-stories',
         destination: '/tools/client-success-stories.html',
@@ -18,6 +19,23 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/path-finder',
+        destination: '/tools/path-finder.html',
+      },
+      // Support /tools/ paths without .html extension
+      {
+        source: '/tools/client-success-stories',
+        destination: '/tools/client-success-stories.html',
+      },
+      {
+        source: '/tools/deadline-reminder-tool',
+        destination: '/tools/deadline-reminder-tool.html',
+      },
+      {
+        source: '/tools/match-an-advisor',
+        destination: '/tools/match-an-advisor.html',
+      },
+      {
+        source: '/tools/path-finder',
         destination: '/tools/path-finder.html',
       },
     ];
