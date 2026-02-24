@@ -21,8 +21,32 @@
     }
     select option { color: #111; }
   </style>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PNR7578Q');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Google tag (gtag.js)-->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XWRC8436T9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XWRC8436T9', { anonymize_ip: true });
+    gtag('set', 'debug_mode', true);
+  </script>
+  <!-- Google tag (gtag.js)-->
+
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PNR7578Q"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript)-->
+
   <div id="root"></div>
   <script type="text/babel">
     const { useState } = React;
@@ -116,7 +140,19 @@
       };
 
       const handleSubmit = () => {
-        if (validate()) setSubmitted(true);
+        if (validate()) {
+          setSubmitted(true);
+          
+          // Fire Google Analytics event on successful submission
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            event: "tpp_tool_event",
+            tool_name: "doctorcheck",
+            tool_step: "submit",
+            event_name: "View_Doctor_Submit",
+            url_slug: window.location.pathname
+          });
+        }
       };
 
       const inputStyle = (field) => ({

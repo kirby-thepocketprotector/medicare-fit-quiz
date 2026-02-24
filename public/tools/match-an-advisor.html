@@ -571,8 +571,36 @@ body {
   .contact-methods { justify-content: center; }
 }
 </style>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PNR7578Q');</script>
+<!-- End Google Tag Manager -->
+
+
+<!-- Google tag (gtag.js)-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XWRC8436T9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XWRC8436T9', { anonymize_ip: true });
+    gtag('set', 'debug_mode', true);
+
+</script>
+<!-- Google tag (gtag.js)-->
+
+
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PNR7578Q"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript)-->
+
+
 
 <!-- NAV -->
 <nav class="nav">
@@ -870,7 +898,7 @@ const AGENTS = {
     title: "Senior Medicare Advisor",
     stats: [
       { value: "USAF", label: "Veteran" },
-      { value: "25+", label: "Years Serving Seniors" }
+      { value: "25+", label: "Years Serving Seniors" },
     ],
     phone: "https://meetings-na2.hubspot.com/megan-lengerich",
     video: "https://meetings-na2.hubspot.com/megan-lengerich/video-call",
@@ -881,7 +909,7 @@ const AGENTS = {
     title: "Medicare Attorney & Senior Advisor",
     stats: [
       { value: "JD", label: "Medicare Attorney" },
-      { value: "10+", label: "Years in Medicare" }
+      { value: "10+", label: "Years in Medicare" },
     ],
     phone: "https://calendly.com/MIKE-CALENDLY-LINK",
     video: "https://calendly.com/MIKE-CALENDLY-LINK",
@@ -1005,10 +1033,176 @@ let selectedContactMethod = null;
 
 // ─── STEP 1: SITUATION SELECTION ───
 function selectSituation(el) {
-  document.querySelectorAll('#step1 .option-card').forEach(c => c.classList.remove('selected'));
+  const value = el.dataset.value;
+  selectedSituation = value;
+  
+  // Highlight selected card
+  document.querySelectorAll('#step1 .option-card').forEach(card => card.classList.remove('selected'));
   el.classList.add('selected');
-  selectedSituation = el.dataset.value;
-  setTimeout(() => goToStep(2), 220);
+  
+  // Move to next step
+  setTimeout(() => goToStep(2), 200);
+}
+
+
+
+const XANO_CONFIG = {
+  // Create endpoint (obfuscated)
+  _p1: atob('aHR0cHM6Ly94OGtpLWxldGwtdHdtdC5uNy54YW5v'),
+  _p2: atob('LmlvL2FwaTpndE5pbHZNSC90cHBfbWF0Y2htYWtlcl9zdWJtaXQ='),
+
+  // Update endpoint (obfuscated)
+  _p1_update: atob('aHR0cHM6Ly94OGtpLWxldGwtdHdtdC5uNy54YW5v'),
+  _p2_update: atob('LmlvL2FwaTpndE5pbHZNSC90cHBfbWF0Y2htYWtlcl9zdWJtaXRfdXBkYXRl'),
+
+  // Reconstruct create endpoint at runtime
+  getEndpoint: function() {
+    // Basic anti-tampering check
+    if (typeof this._p1 === 'undefined' || typeof this._p2 === 'undefined') {
+      return null;
+    }
+    return this._p1 + this._p2;
+  },
+
+  // Reconstruct update endpoint at runtime
+  getUpdateEndpoint: function() {
+    // Basic anti-tampering check
+    if (typeof this._p1_update === 'undefined' || typeof this._p2_update === 'undefined') {
+      return null;
+    }
+    return this._p1_update + this._p2_update;
+  },
+
+  // Generate request signature
+  getSignature: function() {
+    const timestamp = Date.now();
+    const checksum = (timestamp % 97) + 13; // Simple checksum
+    return btoa(`${timestamp}:${checksum}`);
+  },
+
+  // Validate origin
+  validateOrigin: function() {
+    const allowedDomains = ['thepocketprotector.com', 'localhost'];
+    const hostname = window.location.hostname;
+    return allowedDomains.some(domain => hostname.includes(domain));
+  }
+};
+
+// ─── XANO API SUBMISSION (SECURED) ───
+function formatAdvisorPreferences(preferencesSet) {
+  // Convert Set to semicolon-separated string
+  if (!preferencesSet || preferencesSet.size === 0) {
+    return "";
+  }
+  return Array.from(preferencesSet).map(pref => `preference_${pref}`).join(';');
+}
+
+function submitToXano(formData, assignedAgent, isRetry = false, contactId = null) {
+  // Validate origin before submission
+  if (!XANO_CONFIG.validateOrigin()) {
+    console.error('Invalid origin');
+    return Promise.resolve(null);
+  }
+
+  // Get appropriate endpoint based on retry status
+  const endpoint = isRetry ? XANO_CONFIG.getUpdateEndpoint() : XANO_CONFIG.getEndpoint();
+
+  if (!endpoint) {
+    console.error('Configuration error');
+    return Promise.resolve(null);
+  }
+
+// Get current URL parameters
+const urlParams = new URLSearchParams(window.location.search);
+
+// Helper function to safely get UTM param
+const getUTM = (param) => urlParams.get(param) || null;
+
+const payload = {
+  firstname: formData.firstName,
+  lastname: formData.lastName,
+  email: formData.email,
+  phone: formData.phone,
+  postalcode: formData.zipCode,
+  matchmaker_medicare_situation: formData.medicareSituation,
+  matchmaker_advisor_preference: formData.advisorPreferences,
+  matchmaker_contact_preference: formData.contactPreference,
+  matchmaker_assigned_agent: assignedAgent,
+  url_slug: window.location.pathname,
+  submit_location: "tpp_homepage_matchmaker",
+  submitted_at: new Date().toISOString(),
+
+  // ✅ UTM Tracking
+  utm_source: getUTM("utm_source"),
+  utm_medium: getUTM("utm_medium"),
+  utm_campaign: getUTM("utm_campaign"),
+  utm_creative: getUTM("utm_creative"),
+  utm_placement: getUTM("utm_placement")
+};
+
+  // Add contactID if this is a retry/update
+  if (isRetry && contactId) {
+    payload.contactID = contactId;
+  }
+
+  return fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-Request-Signature': XANO_CONFIG.getSignature()
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(response => {
+    // Always parse JSON first to check for duplicate error
+    return response.json().then(data => {
+      return { response, data };
+    });
+  })
+  .then(({ response, data }) => {
+    // Check for duplicate contact error (409 or error in response)
+    if (data && data.tpp_ && data.tpp_.response && data.tpp_.response.result) {
+      const result = data.tpp_.response.result;
+
+      // Check if it's a "Contact already exists" error
+      if (result.status === "error" &&
+          result.message &&
+          result.message.includes("Existing ID:")) {
+
+        // Extract the existing contact ID from error message
+        const existingId = result.message.split("Existing ID:")[1].trim();
+
+        if (window.location.hostname === 'localhost') {
+          console.log('Contact already exists. Updating contact ID:', existingId);
+        }
+
+        // Retry with update endpoint if this wasn't already a retry
+        if (!isRetry && existingId) {
+          return submitToXano(formData, assignedAgent, true, existingId);
+        }
+      }
+    }
+
+    // Check HTTP response status
+    if (!response.ok) {
+      throw new Error(`API submission failed: ${response.status}`);
+    }
+
+    // Log success only on localhost
+    if (window.location.hostname === 'localhost') {
+      console.log('Submission successful:', data);
+    }
+
+    return data;
+  })
+  .catch(error => {
+    // Generic error message
+    if (window.location.hostname === 'localhost') {
+      console.error('Submission error:', error);
+    }
+    return null;
+  });
 }
 
 // ─── STEP 2: PREFERENCE TOGGLES (max 3) ───
@@ -1078,6 +1272,75 @@ function selectContactMethod(el) {
   selectedContactMethod = el.dataset.value;
 }
 
+
+
+// ─── PHONE NUMBER FORMATTING ───
+function formatPhoneNumber(value) {
+  // Remove all non-digit characters
+  const digits = value.replace(/\D/g, '');
+
+  // Limit to 10 digits
+  const limited = digits.substring(0, 10);
+
+  // Format based on length
+  if (limited.length === 0) {
+    return '';
+  } else if (limited.length <= 3) {
+    return `(${limited}`;
+  } else if (limited.length <= 6) {
+    return `(${limited.slice(0, 3)}) ${limited.slice(3)}`;
+  } else {
+    return `(${limited.slice(0, 3)}) ${limited.slice(3, 6)}-${limited.slice(6)}`;
+  }
+}
+
+// Attach phone formatter to input
+document.addEventListener('DOMContentLoaded', function() {
+  const phoneInput = document.getElementById('phone');
+  if (phoneInput) {
+    phoneInput.addEventListener('input', function(e) {
+      const formatted = formatPhoneNumber(e.target.value);
+      e.target.value = formatted;
+    });
+  }
+});
+
+// ─── GOOGLE ANALYTICS TRACKING ───
+function trackStepView(step) {
+  const stepConfig = {
+    1: {
+      tool_step: "medicare_situation",
+      event_name: "View_Matchmaker_Medicare_Situation"
+    },
+    2: {
+      tool_step: "advisor_preferences",
+      event_name: "View_Matchmaker_Advisor_Preferences"
+    },
+    3: {
+      tool_step: "contact_info",
+      event_name: "View_Matchmaker_Contact_Info"
+    },
+    4: {
+      tool_step: "match_result",
+      event_name: "View_Matchmaker_Match_Result"
+    }
+  };
+
+  const config = stepConfig[step];
+  if (config) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      //event: "tpp_tool_event",
+      event: config.event_name,
+      tool_name: "matchmaker",
+      tool_step: config.tool_step,
+      //event_name: config.event_name,
+      url_slug: window.location.pathname
+    });
+  }
+}
+
+
 // ─── NAVIGATION ───
 function goToStep(step) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
@@ -1097,6 +1360,9 @@ function goToStep(step) {
   fill.style.width = `calc(${pct}% - ${pct === 100 ? 0 : 0}px)`;
 
   currentStep = step;
+
+  // Track step view in Google Analytics
+  trackStepView(step);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -1105,6 +1371,7 @@ function submitAndMatch() {
   const firstName = document.getElementById('firstName').value.trim();
   const lastName = document.getElementById('lastName').value.trim();
   const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
   const zip = document.getElementById('zipCode').value.trim();
   const zipError = document.getElementById('zipError');
 
@@ -1130,6 +1397,22 @@ function submitAndMatch() {
   const result = runMatchEngine(state, firstName);
   renderResult(result, firstName);
   goToStep(4);
+
+  // Submit to Xano only if we have a successful agent match
+  if (result.type !== 'unlicensed_state' && result.type !== 'online_only' && result.agent) {
+    const formData = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+      zipCode: zip,
+      medicareSituation: selectedSituation,
+      advisorPreferences: formatAdvisorPreferences(selectedPreferences),
+      contactPreference: selectedContactMethod
+    };
+
+    submitToXano(formData, result.agent);
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1503,6 +1786,11 @@ function renderResult(result, firstName) {
     </div>
   `;
 }
+
+// Track initial step view on page load
+document.addEventListener("DOMContentLoaded", function() {
+  trackStepView(1);
+});
 </script>
 
 <!-- UTM Script  -->
@@ -1555,6 +1843,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
 </script>
 
 </body>

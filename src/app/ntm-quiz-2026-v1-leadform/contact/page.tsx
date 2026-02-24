@@ -19,6 +19,7 @@ function ContactForm() {
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{
     firstName?: string;
     lastName?: string;
@@ -109,77 +110,85 @@ function ContactForm() {
       return;
     }
 
-    // Save contact info to context
-    setContactInfo({
-      firstName: firstName.trim(),
-      lastName: lastName.trim(),
-      phone: phone.replace(/\D/g, ''), // Store unformatted
-      email: email.trim(),
-    });
+    // Set loading state
+    setIsLoading(true);
 
-    // Send contact/lead data to Xano and HubSpot
-    if (resultId) {
-      const recommendedPlan = mapResultIdToRecommendedPlan(resultId);
-      const sessionId = typeof window !== 'undefined' ? (window as any).ntmSessionId : null;
-      const medicareAB = answers.hasPartAB || false;
-
-      // Calculate age and age_group from birth data
-      const birthMonth = answers.birthMonth || '';
-      const birthYear = answers.birthYear || '';
-      const age = calculateAge(birthMonth, birthYear);
-      const ageGroup = getAgeGroup(age);
-
-      // Capture UTM parameters from URL
-      const utmParams = getAllUTMParams();
-
-      // Send to Xano database
-      await syncLeadToXano({
-        first_name: firstName.trim(),
-        last_name: lastName.trim(),
-        phone: formatPhoneForAPI(phone),
-        email: email.trim() || undefined,
-        medicare_ab: medicareAB,
-        recommended_plan: recommendedPlan,
-        result_id: resultId,
-        quiz_session_id: sessionId || 'unknown',
-        birth_month: birthMonth,
-        birth_year: birthYear,
-        age: age,
-        age_group: ageGroup,
-        url_slug: 'ntm-quiz-2026-v1-leadform',
-        utm_source: utmParams.utm_source,
-        utm_campaign: utmParams.utm_campaign,
-        utm_content: utmParams.utm_content,
-        utm_creative: utmParams.utm_creative,
+    try {
+      // Save contact info to context
+      setContactInfo({
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        phone: phone.replace(/\D/g, ''), // Store unformatted
+        email: email.trim(),
       });
 
-      // Send to HubSpot via Xano (fire and forget - non-blocking)
-      sendLeadToHubSpot({
-        firstname: firstName.trim(),
-        lastname: lastName.trim(),
-        phone: formatPhoneForAPI(phone),
-        email: email.trim() || undefined,
-        medicare_ab: medicareAB,
-        recommended_plan: recommendedPlan,
-        submit_location: 'ntm_quiz_v1_2026',
-        url_slug: 'ntm-quiz-2026-v1-leadform',
-        birth_year: birthYear,
-        birth_month: birthMonth,
-        age: age,
-        utm_source: utmParams.utm_source,
-        utm_campaign: utmParams.utm_campaign,
-        utm_creative: utmParams.utm_creative,
-      }).catch((error) => {
-        // Silent fail - already logged in sendLeadToHubSpot
-        console.debug('HubSpot submission failed:', error);
-      });
+      // Send contact/lead data to Xano and HubSpot
+      if (resultId) {
+        const recommendedPlan = mapResultIdToRecommendedPlan(resultId);
+        const sessionId = typeof window !== 'undefined' ? (window as any).ntmSessionId : null;
+        const medicareAB = answers.hasPartAB || false;
 
-      // Track lead submission in GA4
-      trackLeadSubmission(recommendedPlan, medicareAB);
+        // Calculate age and age_group from birth data
+        const birthMonth = answers.birthMonth || '';
+        const birthYear = answers.birthYear || '';
+        const age = calculateAge(birthMonth, birthYear);
+        const ageGroup = getAgeGroup(age);
+
+        // Capture UTM parameters from URL
+        const utmParams = getAllUTMParams();
+
+        // Send to Xano database
+        await syncLeadToXano({
+          first_name: firstName.trim(),
+          last_name: lastName.trim(),
+          phone: formatPhoneForAPI(phone),
+          email: email.trim() || undefined,
+          medicare_ab: medicareAB,
+          recommended_plan: recommendedPlan,
+          result_id: resultId,
+          quiz_session_id: sessionId || 'unknown',
+          birth_month: birthMonth,
+          birth_year: birthYear,
+          age: age,
+          age_group: ageGroup,
+          url_slug: 'ntm-quiz-2026-v1-leadform',
+          utm_source: utmParams.utm_source,
+          utm_campaign: utmParams.utm_campaign,
+          utm_content: utmParams.utm_content,
+          utm_creative: utmParams.utm_creative,
+        });
+
+        // Send to HubSpot via Xano (fire and forget - non-blocking)
+        sendLeadToHubSpot({
+          firstname: firstName.trim(),
+          lastname: lastName.trim(),
+          phone: formatPhoneForAPI(phone),
+          email: email.trim() || undefined,
+          medicare_ab: medicareAB,
+          recommended_plan: recommendedPlan,
+          submit_location: 'ntm_quiz_v1_2026',
+          url_slug: 'ntm-quiz-2026-v1-leadform',
+          birth_year: birthYear,
+          birth_month: birthMonth,
+          age: age,
+          utm_source: utmParams.utm_source,
+          utm_campaign: utmParams.utm_campaign,
+          utm_creative: utmParams.utm_creative,
+        }).catch((error) => {
+          // Silent fail - already logged in sendLeadToHubSpot
+          console.debug('HubSpot submission failed:', error);
+        });
+
+        // Track lead submission in GA4
+        trackLeadSubmission(recommendedPlan, medicareAB);
+      }
+
+      // Navigate to thank you page with first name
+      router.push(`/ntm-quiz-2026-v1-leadform/thank-you?name=${encodeURIComponent(firstName.trim())}&result=${resultId}`);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setIsLoading(false);
     }
-
-    // Navigate to thank you page with first name
-    router.push(`/ntm-quiz-2026-v1-leadform/thank-you?name=${encodeURIComponent(firstName.trim())}&result=${resultId}`);
   };
 
   const isValid =
@@ -398,6 +407,7 @@ function ContactForm() {
           <ContinueButton
             onPress={handleSubmit}
             disabled={!isValid}
+            loading={isLoading}
             label="Get My Personalized Recommendation"
           />
         </div>
