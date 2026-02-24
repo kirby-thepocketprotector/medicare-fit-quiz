@@ -531,6 +531,110 @@ const XANO_CONFIG = {
 };
 
 // ═══════════════════════════════════════════════════════════════
+// CALENDAR RESULT STORAGE
+// ═══════════════════════════════════════════════════════════════
+
+// Generate unique ID for calendar results
+function generateUniqueId() {
+  const timestamp = Date.now();
+  const random = Math.random().toString(36).substring(2, 9);
+  return `cal_${timestamp}_${random}`;
+}
+
+// Generate human-readable summary from calendar data
+function generateHumanReadableSummary(calendarData) {
+  var summary = [];
+  var userInfo = calendarData.user_info || {};
+  var windows = calendarData.windows || [];
+  var notices = calendarData.notices || [];
+
+  // User Info Section
+  summary.push('=== USER PROFILE ===');
+  summary.push('Age: ' + (userInfo.age || 'N/A'));
+  summary.push('Enrollment Status: ' + (userInfo.enrolled === 'yes' ? 'Already enrolled in Medicare' :
+                                        userInfo.enrolled === 'no' ? 'Not yet enrolled' :
+                                        'Unknown'));
+  summary.push('ZIP Code: ' + (userInfo.zip || 'N/A'));
+  summary.push('Detail Preference: ' + (userInfo.intensity === 'full' ? 'Full details' : 'Essential only'));
+  summary.push('');
+
+  // Windows Section
+  summary.push('=== ENROLLMENT WINDOWS & KEY DATES ===');
+  windows.forEach(function(window) {
+    summary.push('');
+    summary.push('── ' + window.label.toUpperCase() + ' ──');
+    summary.push('Timeline: ' + window.dateLabel);
+    summary.push('');
+
+    if (window.items && window.items.length > 0) {
+      window.items.forEach(function(item, index) {
+        var prefix = item.tag === 'urgent' ? '[URGENT] ' :
+                    item.tag === 'important' ? '[IMPORTANT] ' :
+                    item.tag === 'annual' ? '[ANNUAL] ' : '';
+        summary.push((index + 1) + '. ' + prefix + item.action);
+        summary.push('   Date: ' + item.dateLabel);
+        summary.push('   Why: ' + item.why);
+        summary.push('');
+      });
+    }
+  });
+
+  // Notices Section
+  if (notices.length > 0) {
+    summary.push('');
+    summary.push('=== IMPORTANT NOTICES ===');
+    notices.forEach(function(notice, index) {
+      summary.push('');
+      summary.push((index + 1) + '. ' + notice.title);
+      summary.push('   ' + notice.body);
+    });
+  }
+
+  summary.push('');
+  summary.push('=== END OF SUMMARY ===');
+  summary.push('Generated: ' + new Date().toLocaleString());
+
+  return summary.join('\n');
+}
+
+// Save calendar result to Xano
+function saveCalendarResultToXano(calendarData) {
+  const endpoint = 'https://x8ki-letl-twmt.n7.xano.io/api:gtNilvMH/tpp_calendar_results';
+  const uniqueSlug = generateUniqueId();
+
+  const payload = {
+    slug: uniqueSlug,
+    result: calendarData
+  };
+
+  return fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-Request-Signature': XANO_CONFIG.getSignature()
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (window.location.hostname === 'localhost') {
+      console.log('Calendar result saved to Xano:', data);
+    }
+    return {
+      slug: uniqueSlug,
+      url: `https://x8ki-letl-twmt.n7.xano.io/api:gtNilvMH/tpp_calendar_results?id=${uniqueSlug}`
+    };
+  })
+  .catch(error => {
+    if (window.location.hostname === 'localhost') {
+      console.error('Failed to save calendar result:', error);
+    }
+    return null;
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
 // XANO API SUBMISSION (SECURED)
 // ═══════════════════════════════════════════════════════════════
 function submitToXano(formData, isRetry, contactId) {
@@ -622,6 +726,9 @@ function submitToXano(formData, isRetry, contactId) {
     is_a_veteran: toBooleanOrNull(formData.va),
     is_a_veteran_hubspot: toHubSpotYesNo(formData.va),
     calendar_detail_preference: formData.intensity || null,
+    calendar_output_summary: formData.calendarSummary || null,
+    calendar_output_summary_hubspot: formData.calendarSummaryHubspot || null,
+    calendar_output_url: formData.calendarUrl || null,
     submit_location: "tpp_homepage_calendartool",
     url_slug: window.location.pathname,
     submitted_at: new Date().toISOString(),
@@ -1280,18 +1387,50 @@ function submitAdvisorForm() {
   answers.contactEmail = email;
   answers.contactPhone = phone;
 
-  // Submit to Xano with HubSpot integration
-  submitToXano({
-    dob: answers.dob,
-    zip: answers.zip,
-    email: email,
-    phone: phone,
-    enrolled: answers.enrolled,
-    retire: answers.retire,
-    coverageEnd: answers.coverageEnd,
-    medicaid: answers.medicaid,
-    va: answers.va,
-    intensity: answers.intensity
+  // Build calendar timeline data for storage
+  var calendarData = buildTimeline();
+  var calendarOutput = {
+    windows: calendarData.windows,
+    notices: calendarData.notices,
+    user_info: {
+      age: calendarData.ageToday,
+      enrolled: calendarData.enrolled,
+      birth_date: answers.dob ? answers.dob.toISOString().split('T')[0] : null,
+      zip: answers.zip,
+      intensity: answers.intensity
+    },
+    generated_at: new Date().toISOString()
+  };
+
+  // Generate human-readable summary for HubSpot
+  var calendarSummaryHubspot = generateHumanReadableSummary(calendarOutput);
+
+  // Save calendar result to Xano and get the URL
+  saveCalendarResultToXano(calendarOutput).then(function(calendarResult) {
+    var calendarSummary = null;
+    var calendarUrl = null;
+
+    if (calendarResult) {
+      calendarSummary = JSON.stringify(calendarOutput);
+      calendarUrl = calendarResult.url;
+    }
+
+    // Submit to Xano with HubSpot integration including calendar data
+    return submitToXano({
+      dob: answers.dob,
+      zip: answers.zip,
+      email: email,
+      phone: phone,
+      enrolled: answers.enrolled,
+      retire: answers.retire,
+      coverageEnd: answers.coverageEnd,
+      medicaid: answers.medicaid,
+      va: answers.va,
+      intensity: answers.intensity,
+      calendarSummary: calendarSummary,
+      calendarSummaryHubspot: calendarSummaryHubspot,
+      calendarUrl: calendarUrl
+    });
   }).then(function() {
     // Navigate to thank you page after submission
     goToStep(9);
