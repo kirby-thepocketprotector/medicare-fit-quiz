@@ -137,8 +137,12 @@ function ContactForm() {
         // Capture UTM parameters from URL
         const utmParams = getAllUTMParams();
 
-        // Send to Xano database
-        await syncLeadToXano({
+        // IMPORTANT: Track conversion in GA4 FIRST before any async operations
+        // This ensures the conversion event fires immediately for accurate tracking
+        trackLeadSubmission(recommendedPlan, medicareAB);
+
+        // Send to Xano database (fire and forget - non-blocking with keepalive)
+        syncLeadToXano({
           first_name: firstName.trim(),
           last_name: lastName.trim(),
           phone: formatPhoneForAPI(phone),
@@ -156,9 +160,12 @@ function ContactForm() {
           utm_campaign: utmParams.utm_campaign,
           utm_content: utmParams.utm_content,
           utm_creative: utmParams.utm_creative,
+        }).catch((error) => {
+          // Silent fail - data is logged in syncLeadToXano
+          console.debug('Xano submission failed:', error);
         });
 
-        // Send to HubSpot via Xano (fire and forget - non-blocking)
+        // Send to HubSpot via Xano (fire and forget - non-blocking with keepalive)
         sendLeadToHubSpot({
           firstname: firstName.trim(),
           lastname: lastName.trim(),
@@ -178,12 +185,10 @@ function ContactForm() {
           // Silent fail - already logged in sendLeadToHubSpot
           console.debug('HubSpot submission failed:', error);
         });
-
-        // Track lead submission in GA4
-        trackLeadSubmission(recommendedPlan, medicareAB);
       }
 
-      // Navigate to thank you page with first name
+      // Navigate to thank you page immediately for instant user feedback
+      // The keepalive flag ensures API calls complete even after navigation
       router.push(`/ntm-quiz-2026-v1-leadform/thank-you?name=${encodeURIComponent(firstName.trim())}&result=${resultId}`);
     } catch (error) {
       console.error('Error submitting form:', error);

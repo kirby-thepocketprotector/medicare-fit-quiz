@@ -191,6 +191,7 @@ export async function sendLeadToHubSpot(
       headers: {
         'Content-Type': 'application/json',
       },
+      keepalive: true,
       body: JSON.stringify({
         firstname: data.firstname,
         lastname: data.lastname || null,
@@ -255,6 +256,7 @@ export async function syncLeadToXano(
       headers: {
         'Content-Type': 'application/json',
       },
+      keepalive: true,
       body: JSON.stringify({
         first_name: data.first_name,
         last_name: data.last_name || null,
