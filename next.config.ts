@@ -46,19 +46,19 @@ const nextConfig: NextConfig = {
       // Advisor pages
       {
         source: '/advisors/scott-martin',
-        destination: '/advisor/scott-martin.html',
+        destination: '/advisors/scott-martin.html',
       },
       {
         source: '/advisors/mike-boshardy',
-        destination: '/advisor/mike-boshardy.html',
+        destination: '/advisors/mike-boshardy.html',
       },
       {
         source: '/advisors/megan-lengerich',
-        destination: '/advisor/megan-lengerich.html',
+        destination: '/advisors/megan-lengerich.html',
       },
       {
         source: '/advisors/chris-okieffe',
-        destination: '/advisor/chris-okieffe.html',
+        destination: '/advisors/chris-okieffe.html',
       },
     ];
   },
