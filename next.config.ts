@@ -38,6 +38,11 @@ const nextConfig: NextConfig = {
         source: '/tools/path-finder',
         destination: '/tools/path-finder.html',
       },
+      // NTM Quiz v3 leadform
+      {
+        source: '/ntm-quiz-2026-v3-leadform',
+        destination: '/tools/ntm-quiz-2026-v3-leadform.html',
+      },
     ];
   },
 };

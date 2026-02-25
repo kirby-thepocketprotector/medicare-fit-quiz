@@ -177,6 +177,7 @@ export async function sendLeadToHubSpot(
   data: XanoHubSpotData
 ): Promise<any | null> {
   const xanoEndpoint = process.env.NEXT_PUBLIC_XANO_HUBSPOT_ENDPOINT;
+  const xanoUpdateEndpoint = process.env.NEXT_PUBLIC_XANO_HUBSPOT_UPDATE_ENDPOINT;
 
   if (!xanoEndpoint) {
     console.warn(
@@ -185,41 +186,95 @@ export async function sendLeadToHubSpot(
     return null;
   }
 
+  // Prepare the payload
+  const payload = {
+    firstname: data.firstname,
+    lastname: data.lastname || null,
+    phone: data.phone || null,
+    email: data.email || null,
+    zipcode: data.zipcode || null,
+    medicare_ab: data.medicare_ab,
+    recommended_plan: data.recommended_plan,
+    submit_location: data.submit_location,
+    url_slug: data.url_slug || null,
+    birth_year: data.birth_year || null,
+    birth_month: data.birth_month || null,
+    age: data.age || null,
+    utm_source: data.utm_source || null,
+    utm_campaign: data.utm_campaign || null,
+    utm_creative: data.utm_creative || null,
+    timestamp: new Date().toISOString(),
+  };
+
   try {
+    console.log('Starting HubSpot submission...');
+
+    // Try create endpoint first
     const response = await fetch(xanoEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       keepalive: true,
-      body: JSON.stringify({
-        firstname: data.firstname,
-        lastname: data.lastname || null,
-        phone: data.phone || null,
-        email: data.email || null,
-        zipcode: data.zipcode || null,
-        medicare_ab: data.medicare_ab,
-        recommended_plan: data.recommended_plan,
-        submit_location: data.submit_location,
-        url_slug: data.url_slug || null,
-        birth_year: data.birth_year || null,
-        birth_month: data.birth_month || null,
-        age: data.age || null,
-        utm_source: data.utm_source || null,
-        utm_campaign: data.utm_campaign || null,
-        utm_creative: data.utm_creative || null,
-        timestamp: new Date().toISOString(),
-      }),
+      body: JSON.stringify(payload),
     });
 
-    if (!response.ok) {
-      console.error('Xano HubSpot API error:', response.status, response.statusText);
-      return null;
-    }
-
     const result = await response.json();
-    console.log('✓ Lead data sent to HubSpot via Xano:', result);
-    return result;
+    console.log('Create endpoint response:', result);
+
+    // Check for nested error structure from Xano (result.tpp_.response.result)
+    const errorData = result.tpp_?.response?.result || result;
+    const isError = errorData.status === 'error' || result.tpp_?.response?.status === 409;
+    const errorMessage = errorData.message || '';
+
+    console.log('Error data:', errorData);
+    console.log('Is error:', isError);
+    console.log('Error message:', errorMessage);
+
+    // Check if contact already exists
+    if (isError && errorMessage.toLowerCase().includes('already exists')) {
+      console.log('⚠️ Contact already exists, switching to update endpoint');
+
+      if (!xanoUpdateEndpoint) {
+        console.warn('Update endpoint not configured. Set NEXT_PUBLIC_XANO_HUBSPOT_UPDATE_ENDPOINT in your .env file.');
+        return result;
+      }
+
+      // Extract contact ID from message
+      const idMatch = errorMessage.match(/ID:\s*(\d+)/i);
+      const existingId = idMatch ? idMatch[1] : null;
+
+      console.log('Extracted contact ID:', existingId);
+
+      // Prepare update payload with existing ID
+      const updatePayload: any = { ...payload };
+      if (existingId) {
+        updatePayload.contactID = existingId;
+      }
+
+      console.log('Calling UPDATE endpoint:', xanoUpdateEndpoint);
+      console.log('Update payload:', updatePayload);
+
+      // Call update endpoint
+      const updateResponse = await fetch(xanoUpdateEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        keepalive: true,
+        body: JSON.stringify(updatePayload),
+      });
+
+      const updateResult = await updateResponse.json();
+      console.log('✓ Lead updated in HubSpot:', updateResult);
+      return updateResult;
+    } else if (isError) {
+      console.error('❌ HubSpot create error:', errorData);
+      return null;
+    } else {
+      console.log('✓ Lead created in HubSpot:', result);
+      return result;
+    }
   } catch (error) {
     console.error('Failed to send lead data to HubSpot:', error);
     return null;
