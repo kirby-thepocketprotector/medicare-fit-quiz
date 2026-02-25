@@ -816,8 +816,10 @@ const XANO_CONFIG={
   _p1:atob('aHR0cHM6Ly94OGtpLWxldGwtdHdtdC5uNy54YW5v'),
   _p2_hubspot_create:atob('LmlvL2FwaTpndE5pbHZNSC90cHBfcXVpel9sZWFkc19zZW5kX3RvX2h1YnNwb3Q='),
   _p2_hubspot_update:atob('LmlvL2FwaTpndE5pbHZNSC90cHBfcXVpel9sZWFkc19zZW5kX3RvX2h1YnNwb3RfdXBkYXRl'),
+  _p2_quiz_lead:atob('LmlvL2FwaTpndE5pbHZNSC90cHBfbnRtX3F1aXpfbGVhZA=='),
   getHubSpotEndpoint:function(){return this._p1+this._p2_hubspot_create;},
-  getHubSpotUpdateEndpoint:function(){return this._p1+this._p2_hubspot_update;}
+  getHubSpotUpdateEndpoint:function(){return this._p1+this._p2_hubspot_update;},
+  getQuizLeadEndpoint:function(){return this._p1+this._p2_quiz_lead;}
 };
 
 // Determine result ID based on quiz answers (matches V1 logic)
@@ -1044,6 +1046,43 @@ function submit(){
   })
   .catch(error=>{
     console.error('❌ HubSpot submission error:',error);
+  });
+
+  // Send quiz lead data to Xano tpp_ntm_quiz_lead endpoint
+  const quizLeadPayload={
+    first_name:fn,
+    last_name:ln,
+    phone:formatPhoneAPI(ph),
+    email:em||null,
+    medicare_ab:medicareAB,
+    recommended_plan:recommendedPlan,
+    result_id:resultId,
+    quiz_session_id:sessionId,
+    birth_month:MO[S.bm],
+    birth_year:S.by,
+    age:age,
+    age_group:ageGroup,
+    url_slug:'ntm-quiz-2026-v3-leadform',
+    utm_source:utm.utm_source,
+    utm_campaign:utm.utm_campaign,
+    utm_content:utm.utm_content,
+    utm_creative:utm.utm_creative,
+    timestamp:new Date().toISOString()
+  };
+
+  console.log('Sending quiz lead data to Xano...');
+  fetch(XANO_CONFIG.getQuizLeadEndpoint(),{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    keepalive:true,
+    body:JSON.stringify(quizLeadPayload)
+  })
+  .then(response=>response.json())
+  .then(result=>{
+    console.log('✓ Quiz lead data synced to Xano:',result);
+  })
+  .catch(error=>{
+    console.error('❌ Quiz lead submission error:',error);
   });
 
   go('s-result');
