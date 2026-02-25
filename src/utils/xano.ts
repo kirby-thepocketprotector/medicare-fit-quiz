@@ -219,13 +219,13 @@ export async function sendLeadToHubSpot(
       body: JSON.stringify(payload),
     });
 
-    const result = await response.json();
+    const result: any = await response.json();
     console.log('Create endpoint response:', result);
 
     // Check for nested error structure from Xano (result.tpp_.response.result)
-    const errorData = result.tpp_?.response?.result || result;
-    const isError = errorData.status === 'error' || result.tpp_?.response?.status === 409;
-    const errorMessage = errorData.message || '';
+    const errorData: any = result.tpp_?.response?.result || result;
+    const isError: boolean = errorData.status === 'error' || result.tpp_?.response?.status === 409;
+    const errorMessage: string = errorData.message || '';
 
     console.log('Error data:', errorData);
     console.log('Is error:', isError);
@@ -265,7 +265,7 @@ export async function sendLeadToHubSpot(
         body: JSON.stringify(updatePayload),
       });
 
-      const updateResult = await updateResponse.json();
+      const updateResult: any = await updateResponse.json();
       console.log('✓ Lead updated in HubSpot:', updateResult);
       return updateResult;
     } else if (isError) {
