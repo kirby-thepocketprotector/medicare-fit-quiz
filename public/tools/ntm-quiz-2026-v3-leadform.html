@@ -1233,5 +1233,58 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
 });
 </script>
+
+<!-- UTM Script  -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Get all current URL params
+  const currentParams = new URLSearchParams(window.location.search);
+
+  // If no query params exist, exit
+  if ([...currentParams].length === 0) return;
+
+  // Function to merge current params into a URL string
+  function mergeParams(urlStr) {
+    try {
+      const url = new URL(urlStr, window.location.origin);
+      currentParams.forEach((value, key) => {
+        if (!url.searchParams.has(key)) {
+          url.searchParams.set(key, value);
+        }
+      });
+      return url.toString();
+    } catch (e) {
+      return urlStr; // Return original if invalid
+    }
+  }
+
+  // 1️⃣ Update all <a> links
+  document.querySelectorAll("a[href]").forEach(link => {
+    const href = link.getAttribute("href");
+    if (href.startsWith("#") || href.startsWith("javascript:")) return;
+    link.href = mergeParams(href);
+  });
+
+  // 2️⃣ Update buttons or elements with onclick modifying window.location.href
+  document.querySelectorAll("[onclick]").forEach(el => {
+    const onclickCode = el.getAttribute("onclick");
+
+    // Check if onclick sets window.location.href
+    if (/window\.location\.href\s*=\s*['"`]/.test(onclickCode)) {
+      el.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // Extract the URL from the onclick string
+        const urlMatch = onclickCode.match(/window\.location\.href\s*=\s*['"`](.*?)['"`]/);
+        if (!urlMatch) return;
+
+        const updatedUrl = mergeParams(urlMatch[1]);
+        window.location.href = updatedUrl;
+      });
+    }
+  });
+});
+</script>
+
 </body>
 </html>

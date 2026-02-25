@@ -43,6 +43,23 @@ const nextConfig: NextConfig = {
         source: '/ntm-quiz-2026-v3-leadform',
         destination: '/tools/ntm-quiz-2026-v3-leadform.html',
       },
+      // Advisor pages
+      {
+        source: '/advisors/scott-martin',
+        destination: '/advisor/scott-martin.html',
+      },
+      {
+        source: '/advisors/mike-boshardy',
+        destination: '/advisor/mike-boshardy.html',
+      },
+      {
+        source: '/advisors/megan-lengerich',
+        destination: '/advisor/megan-lengerich.html',
+      },
+      {
+        source: '/advisors/chris-okieffe',
+        destination: '/advisor/chris-okieffe.html',
+      },
     ];
   },
 };
