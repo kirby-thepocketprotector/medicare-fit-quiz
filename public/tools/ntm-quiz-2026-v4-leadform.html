@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medicare Fit Quiz | The Pocket Protector</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PNR7578Q');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google tag (gtag.js)-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XWRC8436T9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XWRC8436T9', { anonymize_ip: true });
+</script>
+<!-- Google tag (gtag.js)-->
+
+<style>
+:root {
+  --green: #1B7A3D;
+  --green-dk: #145C2E;
+  --green-lt: #E8F5EC;
+  --green-sub: #F4FAF6;
+  --black: #111;
+  --white: #FFF;
+  --g100: #F8F8F8;
+  --g200: #E5E5E5;
+  --g400: #999;
+  --g600: #666;
+  --g800: #333;
+  --red: #D94F4F;
+  --blue: #2563EB;
+  --blue-lt: #EFF6FF;
+  --amber: #D97706;
+  --amber-lt: #FFFBEB;
+  --teal: #0F766E;
+  --teal-lt: #F0FDFA;
+  --fd: 'Poppins', -apple-system, sans-serif;
+  --fb: 'Poppins', -apple-system, sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:var(--fb);color:var(--black);background:var(--g100);-webkit-font-smoothing:antialiased;min-height:100vh;}
+
+/* Nav */
+.nav{background:var(--white);border-bottom:1px solid var(--g200);padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:center;}
+.nav-logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--black);}
+.nav-ico{width:30px;height:30px;background:var(--green);border-radius:7px;display:grid;place-items:center;}
+.nav-ico svg{width:16px;height:16px;fill:var(--white);}
+.nav-txt{font-weight:700;font-size:.85rem;}
+
+/* Container */
+.qc{max-width:620px;margin:0 auto;padding:1.75rem 1.15rem 3.5rem;}
+
+/* Progress */
+.pb{width:100%;height:5px;background:var(--g200);border-radius:99px;margin-bottom:1.75rem;overflow:hidden;}
+.pf{height:100%;background:var(--green);border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+
+.sl{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-bottom:.4rem;}
+
+/* Screens */
+.sc{display:none;animation:fi .35s ease;}
+.sc.active{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+.si{width:44px;height:44px;background:var(--green-lt);border-radius:11px;display:grid;place-items:center;margin-bottom:.8rem;}
+.si svg{width:21px;height:21px;fill:var(--green);}
+.si.teal{background:var(--teal-lt);}
+.si.teal svg{fill:var(--teal);}
+
+.st{font-family:var(--fd);font-size:1.45rem;font-weight:600;line-height:1.25;letter-spacing:-.02em;margin-bottom:.35rem;}
+.ss{font-size:.88rem;color:var(--g600);line-height:1.55;margin-bottom:1.35rem;}
+
+/* Option cards */
+.oc{background:var(--white);border:2px solid var(--g200);border-radius:11px;padding:.95rem 1.1rem;margin-bottom:.6rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.8rem;}
+.oc:hover{border-color:var(--green);background:var(--green-sub);}
+.oc:active{transform:scale(.985);}
+.oc.selected{border-color:var(--green);background:var(--green-sub);}
+.oc-c{flex:1;}
+.oc-l{font-weight:600;font-size:.91rem;}
+.oc-d{font-size:.78rem;color:var(--g600);line-height:1.4;margin-top:.05rem;}
+.oc-a{color:var(--g400);font-size:1.1rem;flex-shrink:0;transition:transform .2s;}
+.oc:hover .oc-a{transform:translateX(3px);color:var(--green);}
+
+/* Back */
+.bb{display:inline-flex;align-items:center;gap:.3rem;background:none;border:none;color:var(--g600);font-family:var(--fb);font-size:.8rem;font-weight:500;cursor:pointer;padding:.4rem 0;margin-top:.9rem;transition:color .2s;}
+.bb:hover{color:var(--black);}
+.bb svg{width:15px;height:15px;}
+
+/* Select */
+.sg{display:flex;gap:.6rem;margin-bottom:.75rem;}
+.sw{flex:1;position:relative;}
+.fs{width:100%;padding:.75rem 2.4rem .75rem .9rem;border:2px solid var(--g200);border-radius:10px;font-family:var(--fb);font-size:.88rem;color:var(--black);background:var(--white);appearance:none;cursor:pointer;transition:border-color .2s;outline:none;}
+.fs:focus{border-color:var(--green);}
+.sa{position:absolute;right:11px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--g400);}
+
+/* Info box */
+.ib{background:var(--green-sub);border-radius:9px;padding:.85rem .95rem;margin-bottom:1.15rem;}
+.ib-t{font-size:.75rem;font-weight:700;color:var(--green);display:flex;align-items:center;gap:.3rem;margin-bottom:.2rem;}
+.ib-t svg{width:14px;height:14px;fill:var(--green);}
+.ib p{font-size:.78rem;color:var(--g800);line-height:1.5;}
+
+/* Buttons */
+.btn{width:100%;padding:.9rem;background:var(--green);color:var(--white);border:none;border-radius:10px;font-family:var(--fb);font-size:.93rem;font-weight:600;cursor:pointer;transition:background .2s,transform .1s;text-align:center;text-decoration:none;display:block;}
+.btn:hover{background:var(--green-dk);}
+.btn:active{transform:scale(.985);}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+.btn.sec{background:transparent;color:var(--green);border:2px solid var(--green);margin-top:.45rem;}
+.btn.sec:hover{background:var(--green-lt);}
+
+/* ─── STORY INTRO ─── */
+.sv{display:flex;align-items:center;justify-content:center;gap:1.3rem;margin:1.75rem 0 .5rem;}
+.sp{text-align:center;}
+.pa{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;margin:0 auto .4rem;}
+.pa.sam{background:var(--teal-lt);}
+.pa.alex{background:var(--green-lt);}
+.pa svg{width:26px;height:26px;opacity:.6;}
+.pa.sam svg{fill:var(--teal);}
+.pa.alex svg{fill:var(--green);}
+.pn{font-weight:700;font-size:.9rem;}
+.pp{font-size:.72rem;color:var(--g600);}
+.vs{font-size:.78rem;color:var(--g400);font-weight:500;}
+.stag{text-align:center;font-size:.9rem;color:var(--g600);margin-bottom:1.75rem;line-height:1.5;}
+.stag strong{color:var(--black);}
+
+/* ─── STORY CARD ─── */
+.scard{background:var(--white);border-radius:13px;border:1px solid var(--g200);overflow:hidden;margin-bottom:1.15rem;}
+.sch{padding:.95rem 1.1rem;display:flex;align-items:center;gap:.65rem;}
+.sch.sam{background:var(--teal-lt);}
+.sch.alex{background:var(--green-sub);}
+.sca{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;}
+.sca.sam{background:var(--teal);}
+.sca.alex{background:var(--green);}
+.sca svg{width:19px;height:19px;fill:var(--white);}
+.scn{font-weight:700;font-size:.88rem;}
+.scp{font-size:.72rem;font-weight:600;}
+.sch.sam .scp{color:var(--teal);}
+.sch.alex .scp{color:var(--green);}
+
+.scb{padding:1.1rem;}
+.scb p{font-size:.85rem;line-height:1.55;color:var(--g800);margin-bottom:.6rem;}
+.scb p:last-child{margin-bottom:0;}
+.slb{font-weight:700;font-size:.83rem;color:var(--black);margin-bottom:.45rem;}
+
+.tl{display:flex;flex-direction:column;gap:.5rem;margin:.6rem 0;}
+.ti{display:flex;gap:.55rem;align-items:flex-start;}
+.tn{width:23px;height:23px;border-radius:50%;display:grid;place-items:center;font-size:.66rem;font-weight:700;color:var(--white);flex-shrink:0;}
+.tn.sam{background:var(--teal);}
+.tn.alex{background:var(--green);}
+.tt{font-size:.82rem;color:var(--g800);line-height:1.4;padding-top:.08rem;}
+
+.ob{border-radius:8px;padding:.7rem .8rem;margin-bottom:.45rem;}
+.ob.n{background:var(--g100);}
+.ob.bad{background:#FEF2F2;}
+.ob.good{background:var(--green-sub);}
+.ob-t{font-weight:700;font-size:.78rem;display:flex;align-items:center;gap:.3rem;margin-bottom:.12rem;}
+.ob-x{font-size:.8rem;color:var(--g800);line-height:1.45;}
+
+/* ─── TRADEOFF SECTION ─── */
+.tf{background:var(--white);border-radius:11px;padding:1.05rem;border:1px solid var(--g200);margin-bottom:.6rem;}
+.tf-h{font-weight:700;font-size:.88rem;margin-bottom:.08rem;}
+.tf-sub{font-size:.7rem;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.4rem;}
+.tf p{font-size:.82rem;color:var(--g800);line-height:1.5;margin-bottom:.45rem;}
+.tf-bul{font-size:.78rem;color:var(--g600);line-height:1.6;}
+.tf-bold{font-weight:600;font-size:.8rem;}
+.bq{background:var(--green-sub);border-radius:9px;padding:.8rem .95rem;margin-bottom:1rem;}
+.bq p{font-size:.83rem;color:var(--g800);line-height:1.5;font-weight:500;}
+
+/* ─── IEP BANNER ─── */
+.iep{border-radius:9px;padding:.8rem .95rem;margin-bottom:.9rem;}
+.iep.urg{background:#FEF2F2;border:1px solid #FECACA;}
+.iep.act{background:var(--amber-lt);border:1px solid #FDE68A;}
+.iep.plan{background:var(--green-sub);border:1px solid var(--green-lt);}
+.iep-t{font-weight:700;font-size:.8rem;margin-bottom:.15rem;display:flex;align-items:center;gap:.3rem;}
+.iep.urg .iep-t{color:var(--red);}
+.iep.act .iep-t{color:var(--amber);}
+.iep.plan .iep-t{color:var(--green);}
+.iep-x{font-size:.78rem;color:var(--g800);line-height:1.5;}
+
+/* ─── RESULT REC CARD ─── */
+.rc{background:var(--white);border:2px solid var(--green);border-radius:13px;padding:1.15rem;margin-bottom:.9rem;}
+.rc-badge{display:inline-block;background:var(--green);color:var(--white);font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.25rem .6rem;border-radius:99px;margin-bottom:.55rem;}
+.rc-t{font-family:var(--fd);font-size:1.2rem;font-weight:600;margin-bottom:.3rem;line-height:1.25;}
+.rc-d{font-size:.84rem;color:var(--g600);line-height:1.5;margin-bottom:.7rem;}
+.rc-h{display:flex;flex-direction:column;gap:.3rem;}
+.rc-hi{display:flex;align-items:flex-start;gap:.35rem;font-size:.8rem;color:var(--g800);line-height:1.35;}
+.rc-ck{color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;}
+
+/* ─── VETERAN NOTE ─── */
+.vn{background:var(--teal-lt);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:.7rem .85rem;margin-bottom:.9rem;}
+.vn-t{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--teal);margin-bottom:.15rem;}
+.vn-x{font-size:.8rem;color:var(--g800);line-height:1.5;}
+
+/* ─── ADVISOR CARD ─── */
+.mc{background:var(--white);border-radius:13px;border:2px solid var(--green-lt);overflow:hidden;margin-bottom:1.15rem;}
+.mch{background:linear-gradient(135deg,var(--green),var(--green-dk));padding:.8rem 1.05rem;display:flex;align-items:center;gap:.45rem;}
+.mch svg{width:17px;height:17px;fill:var(--white);}
+.mch-t{color:var(--white);font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;}
+.mcb{padding:1.05rem;}
+.ar{display:flex;gap:.95rem;align-items:flex-start;}
+.aph{width:68px;height:68px;border-radius:50%;background:linear-gradient(145deg,var(--green-lt),#d4edda);display:grid;place-items:center;flex-shrink:0;border:3px solid var(--green-lt);}
+.aph svg{width:30px;height:30px;fill:var(--green);opacity:.4;}
+.ai{flex:1;}
+.an{font-family:var(--fd);font-size:1.1rem;font-weight:600;}
+.atx{font-size:.72rem;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:.04em;margin-top:.03rem;}
+.ast{display:flex;gap:.7rem;margin-top:.35rem;flex-wrap:wrap;}
+.as{font-size:.7rem;color:var(--g600);display:flex;align-items:center;gap:.2rem;}
+.as svg{width:11px;height:11px;fill:var(--green);}
+.mr{background:var(--green-sub);border-left:3px solid var(--green);padding:.65rem .8rem;margin-top:.9rem;border-radius:0 7px 7px 0;}
+.mr-l{font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin-bottom:.15rem;}
+.mr-x{font-size:.8rem;color:var(--g800);line-height:1.5;}
+.ap{margin-top:.9rem;display:flex;flex-direction:column;gap:.3rem;}
+.pi{display:flex;align-items:flex-start;gap:.35rem;font-size:.78rem;color:var(--g800);line-height:1.35;}
+.pc{width:15px;height:15px;background:var(--green);border-radius:50%;display:grid;place-items:center;flex-shrink:0;margin-top:1px;}
+.pc svg{width:8px;height:8px;fill:var(--white);}
+
+/* ─── FORM ─── */
+.fg{margin-bottom:.7rem;}
+.fl{display:block;font-size:.78rem;font-weight:600;color:var(--g800);margin-bottom:.25rem;}
+.fi{width:100%;padding:.7rem .85rem;border:2px solid var(--g200);border-radius:9px;font-family:var(--fb);font-size:.88rem;color:var(--black);background:var(--white);transition:border-color .2s;outline:none;}
+.fi:focus{border-color:var(--green);}
+.fi::placeholder{color:var(--g400);}
+.fo{font-size:.68rem;color:var(--g400);font-weight:400;}
+.ft{text-align:center;font-size:.7rem;color:var(--g400);margin-top:.55rem;display:flex;align-items:center;justify-content:center;gap:.25rem;}
+.ft svg{width:11px;height:11px;fill:var(--g400);}
+
+/* ─── KICKOUT ─── */
+.kc{background:var(--white);border-radius:13px;border:1px solid var(--g200);padding:1.25rem;text-align:center;}
+.ki{width:50px;height:50px;background:var(--green-lt);border-radius:50%;display:grid;place-items:center;margin:0 auto .8rem;}
+.ki svg{width:24px;height:24px;fill:var(--green);}
+.kt{font-family:var(--fd);font-size:1.2rem;font-weight:600;margin-bottom:.35rem;}
+.kx{font-size:.86rem;color:var(--g600);line-height:1.55;margin-bottom:1.15rem;}
+
+/* ─── CONFIRMATION ─── */
+.ci{width:52px;height:52px;background:var(--green-lt);border-radius:50%;display:grid;place-items:center;margin:0 auto .9rem;}
+.ci svg{width:26px;height:26px;fill:var(--green);}
+.ct{font-family:var(--fd);font-size:1.45rem;font-weight:600;text-align:center;margin-bottom:.3rem;}
+.cs{text-align:center;color:var(--g600);font-size:.88rem;margin-bottom:1.35rem;line-height:1.5;}
+.ns{background:var(--white);border-radius:11px;border:1px solid var(--g200);padding:1rem;margin-bottom:1rem;}
+.ns-t{font-weight:700;font-size:.83rem;margin-bottom:.7rem;}
+.nx{display:flex;gap:.6rem;margin-bottom:.6rem;align-items:flex-start;}
+.nx:last-child{margin-bottom:0;}
+.nm{width:23px;height:23px;background:var(--green);color:var(--white);border-radius:50%;display:grid;place-items:center;font-size:.68rem;font-weight:700;flex-shrink:0;}
+.nxt{font-size:.81rem;color:var(--g800);line-height:1.45;padding-top:.08rem;}
+.ami{display:flex;align-items:center;gap:.6rem;background:var(--green-sub);border-radius:9px;padding:.7rem .85rem;}
+.amip{width:38px;height:38px;border-radius:50%;background:linear-gradient(145deg,var(--green-lt),#d4edda);display:grid;place-items:center;flex-shrink:0;}
+.amip svg{width:17px;height:17px;fill:var(--green);opacity:.4;}
+.amin{font-weight:600;font-size:.81rem;}
+.amit{font-size:.68rem;color:var(--g600);}
+
+/* ─── BRIDGE STEPS ─── */
+.bs{display:flex;gap:.6rem;align-items:flex-start;}
+.bs-n{width:24px;height:24px;background:var(--green);color:var(--white);border-radius:50%;display:grid;place-items:center;font-size:.68rem;font-weight:700;flex-shrink:0;}
+.bs-t{font-size:.82rem;color:var(--g800);line-height:1.4;padding-top:.1rem;}
+.bs-t strong{color:var(--black);}
+
+@media(max-width:600px){
+  .qc{padding:1.15rem .9rem 3rem;}
+  .st{font-size:1.3rem;}
+  .ar{flex-direction:column;align-items:center;text-align:center;}
+  .ast{justify-content:center;}
+  .mr,.vn{text-align:left;}
+  .ap{align-items:flex-start;text-align:left;}
+  .sg{flex-direction:column;gap:.45rem;}
+  .sv{gap:1rem;}
+  .pa{width:52px;height:52px;}
+  .pa svg{width:22px;height:22px;}
+}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PNR7578Q"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript)-->
+
+<nav class="nav">
+  <a href="https://www.thepocketprotector.com" class="nav-logo"><img src="data:image/png;base64,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" alt="The Pocket Protector" style="height:36px;"></a>
+</nav>
+
+<div class="qc">
+<div class="pb"><div class="pf" id="pf" style="width:0%"></div></div>
+
+<!-- ═══ WELCOME ═══ -->
+<div class="sc active" id="s-welcome">
+  <div class="sl">Medicare Fit Quiz</div>
+  <h1 class="st">Medigap vs. Medicare Advantage</h1>
+  <p class="ss">It's one of the most important Medicare decisions you'll make. This 2-minute assessment helps you understand the trade-offs before you choose.</p>
+  <div style="background:var(--white);border-radius:11px;padding:1rem;margin-bottom:1.15rem;border:1px solid var(--g200);">
+    <div style="font-weight:600;font-size:.84rem;margin-bottom:.55rem;">In 2 minutes, you'll learn:</div>
+    <div style="display:flex;flex-direction:column;gap:.35rem;">
+      <div class="pi"><div class="pc"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span>Which path better fits your doctors, budget, and lifestyle</span></div>
+      <div class="pi"><div class="pc"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span>What you might actually pay each year under each option</span></div>
+      <div class="pi"><div class="pc"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span>Whether you're in or near your enrollment window — and why it matters</span></div>
+    </div>
+  </div>
+  <button class="btn" onclick="go('s-dob')">Get My Personalized Recommendation</button>
+</div>
+
+<!-- ═══ DOB ═══ -->
+<div class="sc" id="s-dob">
+  <div class="si"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg></div>
+  <div class="sl">Step 1 of 7</div>
+  <h2 class="st">What month and year were you born?</h2>
+  <div class="sg">
+    <div class="sw"><select class="fs" id="bm"><option value="" disabled selected>Select month</option><option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option></select><span class="sa">▾</span></div>
+    <div class="sw"><select class="fs" id="by"><option value="" disabled selected>Select year</option></select><span class="sa">▾</span></div>
+  </div>
+  <div class="ib">
+    <div class="ib-t"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg> Why We Ask</div>
+    <p>This tells us if you're in or close to your Initial Enrollment Period (IEP), a critical time when MediGap providers cannot ask health questions, upcharge you, or deny you. This is a very important one-time window. If you miss it, getting MediGap later can be difficult or even impossible.</p>
+  </div>
+  <button class="btn" id="dobBtn" onclick="submitDOB()" disabled>Continue</button>
+  <button class="bb" onclick="go('s-welcome')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Back</button>
+</div>
+
+<!-- ═══ IEP INTERSTITIAL (shown if in 7-month window) ═══ -->
+<div class="sc" id="s-iep-int">
+  <div class="si"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg></div>
+  <h2 class="st" style="margin-bottom:1rem;">You're in a very important enrollment window</h2>
+  <div style="border-left:3px solid var(--g200);padding-left:.85rem;display:flex;flex-direction:column;gap:.75rem;margin-bottom:1rem;">
+    <p style="font-size:.84rem;color:var(--g800);line-height:1.6;">You're in your Initial Enrollment Period — a one-time window that lasts until 3 months after your 65th birthday when you have the most flexibility choosing Medicare coverage.</p>
+    <p style="font-size:.84rem;color:var(--g800);line-height:1.6;">During this period, you can explore all types of plans, avoid late enrollment penalties, and lock in choices while your options are widest.</p>
+    <p style="font-size:.84rem;color:var(--g800);line-height:1.6;">It's also the only time Medigap plans must accept you as-is — no health questions, higher pricing, or denials. After this window, those protections often disappear.</p>
+  </div>
+  <div style="background:var(--white);border-radius:11px;border:1px solid var(--g200);padding:.85rem 1rem;margin-bottom:1.25rem;">
+    <p style="font-size:.84rem;color:var(--g800);line-height:1.6;margin:0;">That's why now is the best time to understand your options, even if you don't plan to enroll right away.</p>
+  </div>
+  <button class="btn" onclick="go('s-ab')">Continue</button>
+</div>
+
+<!-- ═══ PART A & B ═══ -->
+<div class="sc" id="s-ab">
+  <div class="si"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></div>
+  <div class="sl">Step 2 of 7</div>
+  <h2 class="st">Are you currently enrolled in both Medicare Part A and Part B?</h2>
+  <div class="oc" onclick="doAB('yes')"><div class="oc-c"><div class="oc-l">Yes</div></div><span class="oc-a">›</span></div>
+  <div class="oc" onclick="doAB('no')"><div class="oc-c"><div class="oc-l">No</div></div><span class="oc-a">›</span></div>
+  <button class="bb" onclick="go('s-dob')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Back</button>
+</div>
+
+<!-- ═══ CURRENT COVERAGE ═══ -->
+<div class="sc" id="s-cov">
+  <div class="si"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></div>
+  <div class="sl">Step 3 of 7</div>
+  <h2 class="st">What kind of Medicare coverage do you have right now?</h2>
+  <p class="ss">This helps us understand where you are in your Medicare journey. If you already have a plan, we can almost certainly save you money.</p>
+  <div class="oc" onclick="doCov('ab_only')"><div class="oc-c"><div class="oc-l">I just have Medicare Parts A and B</div><div class="oc-d">No additional plan yet</div></div><span class="oc-a">›</span></div>
+  <div class="oc" onclick="doCov('ma')"><div class="oc-c"><div class="oc-l">I already have a Medicare Advantage plan</div></div><span class="oc-a">›</span></div>
+  <div class="oc" onclick="doCov('medsup')"><div class="oc-c"><div class="oc-l">I already have a Medigap / Supplement plan</div></div><span class="oc-a">›</span></div>
+  <button class="bb" onclick="go('s-ab')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Back</button>
+</div>
+
+<!-- ═══ KICKOUT: MA ═══ -->
+<div class="sc" id="s-ko-ma">
+  <div class="kc">
+    <div class="ki"><svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/></svg></div>
+    <h2 class="kt">Great — let's review your current plan.</h2>
+    <p class="kx">Since you already have a Medicare Advantage plan, the best next step is to have one of our advisors review your current coverage. We'll compare it against every plan in your county and show you if there's a better option — or confirm you're already in the right place.</p>
+    <a href="tel:+18449170659" class="btn">Call Us to Review Your Plan</a>
+    <a href="https://www.thepocketprotector.com/app/tools/match-an-advisor" class="btn sec">Or Get Matched With an Advisor Online</a>
+  </div>
+</div>
+
+<!-- ═══ KICKOUT: MEDSUP ═══ -->
+<div class="sc" id="s-ko-ms">
+  <div class="kc">
+    <div class="ki"><svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/></svg></div>
+    <h2 class="kt">Smart choice — let's make sure you're getting the best rate.</h2>
+    <p class="kx">Carriers change pricing every year, and we can check if another carrier offers the same coverage at a lower premium. It takes about 5 minutes and could save you hundreds per year.</p>
+    <a href="tel:+18449170659" class="btn">Call Us for a Rate Review</a>
+    <a href="https://www.thepocketprotector.com/app/tools/match-an-advisor" class="btn sec">Or Get Matched With an Advisor Online</a>
+  </div>
+</div>
+
+<!-- ═══ VETERAN ═══ -->
+<div class="sc" id="s-vet">
+  <div class="si teal"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div>
+  <div class="sl">Step 4 of 7</div>
+  <h2 class="st">Are you a U.S. armed services Veteran?</h2>
+  <p class="ss">Veteran status doesn't automatically change what's best — but it can unlock additional benefits in plans specifically designed for veterans, like money back on your social security check every month. We'll factor this in as we go.</p>
+  <div class="oc" onclick="doVet('yes')"><div class="oc-c"><div class="oc-l">Yes</div></div><span class="oc-a">›</span></div>
+  <div class="oc" onclick="doVet('no')"><div class="oc-c"><div class="oc-l">No</div></div><span class="oc-a">›</span></div>
+  <button class="bb" id="vetBack"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Back</button>
+</div>
+
+<!-- ═══ Q03A: USES VA ═══ -->
+<div class="sc" id="s-uses-va">
+  <div class="si teal"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg></div>
+  <div class="sl">Step 4 of 7</div>
+  <h2 class="st">Do you see your doctor through the VA?</h2>
+  <p class="ss">Veterans use the VA in different ways. If the VA is where you get most of your care, Medicare can act more like a safety net. If you don't, your Medicare plan may need to do more of the heavy lifting.</p>
+  <div class="oc" onclick="doUsesVA('yes')"><div class="oc-c"><div class="oc-l">Yes</div><div class="oc-d">In this case, many people choose a Medicare plan that acts as backup—often with no added monthly cost. Some plans can even put money back on your social security check each month.</div></div><span class="oc-a">›</span></div>
+  <div class="oc" onclick="doUsesVA('no')"><div class="oc-c"><div class="oc-l">No</div><div class="oc-d">If you don't usually see doctors through the VA, your Medicare coverage will play a bigger role in where and how you get care.</div></div><span class="oc-a">›</span></div>
+  <button class="bb" onclick="go('s-vet')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Back</button>
+</div>
+
+<!-- ═══ Q03B: VA PREFERENCES ═══ -->
+<div class="sc" id="s-va-prefs">
+  <div class="si teal"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg></div>
+  <div class="sl">Step 5 of 7</div>
+  <h2 class="st">Do any of the following apply to you?</h2>
+  <p class="ss">This helps us understand whether your Medicare coverage should act mainly as backup to the VA, or give you broad access to doctors outside the VA if you need it.</p>
+  <div class="oc" data-va-pref="civilian_doctors" onclick="toggleVAPref('civilian_doctors')"><div class="oc-c"><div class="oc-l">I regularly see several civilian doctors or specialists</div></div><span class="oc-a">✓</span></div>
+  <div class="oc" data-va-pref="va_inconvenient" onclick="toggleVAPref('va_inconvenient')"><div class="oc-c"><div class="oc-l">The VA isn't very convenient or accessible where I live</div></div><span class="oc-a">✓</span></div>
+  <div class="oc" data-va-pref="travel_multiple_states" onclick="toggleVAPref('travel_multiple_states')"><div class="oc-c"><div class="oc-l">I travel or live in multiple states and don't rely on the VA much</div></div><span class="oc-a">✓</span></div>
+  <div class="oc" data-va-pref="none_apply" onclick="toggleVAPref('none_apply')"><div class="oc-c"><div class="oc-l">None of these really apply — the VA works well for me</div></div><span class="oc-a">✓</span></div>
+  <button class="btn" id="vaPrefsContinue" onclick="document.getElementById('medBack').onclick=()=>go('s-va-prefs');go('s-med')" disabled>Continue</button>
+  <button class="bb" onclick="go('s-uses-va')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Back</button>
+</div>
+
+<!-- ═══ MEDICAID ═══ -->
+<div class="sc" id="s-med">
+  <div class="si"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+  <div class="sl">Step 6 of 7</div>
+  <h2 class="st">Do you currently have Medicaid?</h2>
+  <p class="ss">Some Medicare plans are designed for people with Medicaid and can offer lower costs and extra benefits.</p>
+  <div class="oc" onclick="doMed('yes')"><div class="oc-c"><div class="oc-l">Yes, I have Medicaid</div></div><span class="oc-a">›</span></div>
+  <div class="oc" onclick="doMed('no')"><div class="oc-c"><div class="oc-l">No</div></div><span class="oc-a">›</span></div>
+  <button class="bb" id="medBack"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Back</button>
+</div>
+
+<!-- ═══ STORY INTRO ═══ -->
+<div class="sc" id="s-story-intro">
+  <h2 class="st" style="text-align:center;">Let's understand the cost and care tradeoffs between Medicare Advantage and Medigap.</h2>
+  <p style="text-align:center;font-size:.86rem;color:var(--g600);margin-bottom:.25rem;">Instead of theory, let's follow two real stories.</p>
+  <div class="sv">
+    <div class="sp"><div class="pa sam"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div><div class="pn">Sam</div><div class="pp">has Medicare Advantage</div></div>
+    <div class="vs">vs.</div>
+    <div class="sp"><div class="pa alex"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div><div class="pn">Alex</div><div class="pp">has Medigap</div></div>
+  </div>
+  <div class="stag">Same illness. Same age.<br><strong>Very different experiences.</strong></div>
+  <button class="btn" onclick="go('s-sam')">See Sam's Story</button>
+  <button class="bb" onclick="go('s-med')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Back</button>
+</div>
+
+<!-- ═══ SAM'S STORY ═══ -->
+<div class="sc" id="s-sam">
+  <div class="scard">
+    <div class="sch sam">
+      <div class="sca sam"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+      <div><div class="scn">Sam, 68 — Medicare Advantage</div><div class="scp">Pays $0 Monthly Premium</div></div>
+    </div>
+    <div class="scb">
+      <div class="slb">The problem:</div>
+      <p>Sam develops severe abdominal pain and needs a GI specialist. But Sam can't go directly.</p>
+      <div class="slb">Sam's timeline:</div>
+      <div class="tl">
+        <div class="ti"><div class="tn sam">1</div><div class="tt">Visits the primary care doctor.</div></div>
+        <div class="ti"><div class="tn sam">2</div><div class="tt">Primary care doctor issues referral for GI specialist.</div></div>
+        <div class="ti"><div class="tn sam">3</div><div class="tt">Sam needs to wait for the insurance to pre-authorize and approve the referral.</div></div>
+        <div class="ti"><div class="tn sam">4</div><div class="tt">Once approved, Sam has a limited number of options to choose from in-network.</div></div>
+      </div>
+      <div class="ob n"><div class="ob-t">⏱ Outcome</div><div class="ob-x">This all took 3 weeks, and care got delayed.</div></div>
+      <div class="ob bad"><div class="ob-t">💲 The Cost</div><div class="ob-x">By year-end, Sam has hit the plan's deductible and copay limit before the plan starts paying the rest. All in, this ends up costing Sam $7,000 out of pocket (the plan pays the rest)</div></div>
+      <div class="ob n"><div class="ob-t">📋 Bottom Line</div><div class="ob-x">Sam does not have to pay anything for the plan each month, and yes, Sam got care — but it took 3 weeks with more limited doctor options and real out of pocket costs.</div></div>
+    </div>
+  </div>
+  <button class="btn" onclick="go('s-alex')">See Alex's Story</button>
+  <button class="bb" onclick="go('s-story-intro')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Back</button>
+</div>
+
+<!-- ═══ ALEX'S STORY ═══ -->
+<div class="sc" id="s-alex">
+  <div class="scard">
+    <div class="sch alex">
+      <div class="sca alex"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+      <div><div class="scn">Alex, 68 — Original Medicare + Medigap</div><div class="scp">Pays $175 Monthly Premium</div></div>
+    </div>
+    <div class="scb">
+      <div class="slb">The problem:</div>
+      <p>Alex develops severe abdominal pain and needs a GI specialist. Alex can go directly to the GI specialist.</p>
+      <div class="slb">Alex's timeline:</div>
+      <div class="tl">
+        <div class="ti"><div class="tn alex">1</div><div class="tt">Does not need to see the primary care doctor.</div></div>
+        <div class="ti"><div class="tn alex">2</div><div class="tt">Alex can go directly to any GI specialist that takes Medicare.</div></div>
+        <div class="ti"><div class="tn alex">3</div><div class="tt">No waiting, preapprovals or referrals needed.</div></div>
+      </div>
+      <div class="ob good"><div class="ob-t">⚡ Outcome</div><div class="ob-x">Alex had care start immediately.</div></div>
+      <div class="ob good"><div class="ob-t">💲 The Cost</div><div class="ob-x">Alex paid the $514 deductible before her plan kicked in and paid the rest.</div></div>
+      <div class="ob n"><div class="ob-t">📋 Bottom Line</div><div class="ob-x">Alex pays a $175 monthly premium, but when Alex needed care, Alex got it immediately and was able to choose any doctor with very low out of pocket costs.</div></div>
+    </div>
+  </div>
+  <button class="btn" onclick="afterAlexStory()">Let's See What Fits You Best</button>
+  <button class="bb" onclick="go('s-sam')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Back</button>
+</div>
+
+<!-- ═══ DECISION ═══ -->
+<div class="sc" id="s-decide">
+  <h2 class="st">Let's bring this story home and decide on a direction.</h2>
+  <div class="tf">
+    <div class="tf-h">Medicare Advantage</div>
+    <div class="tf-sub">Monthly Premium Focus</div>
+    <p>You will save money every month by paying $0 premium. That's real savings. And many plans come with valuable benefits like $0 Rx coverage and $1,000+ dental allowances.</p>
+    <div class="tf-bold">But you trade that off against:</div>
+    <div class="tf-bul">— Restricted networks<br>— Possible care delays<br>— Copays up to ~$8,000 in a bad health year</div>
+  </div>
+  <div class="tf">
+    <div class="tf-h">Medigap</div>
+    <div class="tf-sub">Flexibility Focus</div>
+    <div class="tf-bul" style="margin-bottom:.4rem;">— Any Medicare doctor (~99% of ALL doctors in US)<br>— No delays<br>— Costs ~$500 in a bad health year</div>
+    <div class="tf-bold">But you pay:</div>
+    <div style="font-size:.82rem;color:var(--g800);">$150–$200 per month premium</div>
+  </div>
+  <div class="bq"><p>The Big question: Are you comfortable paying each month for the more robust coverage of MediGap, or do you want to save money every month and get help choosing the right $0 Medicare Advantage plan?</p></div>
+  <div class="oc" onclick="doBudget('more_flexibility')"><div class="oc-c"><div class="oc-l">I can pay $150–$200/mo for more flexibility</div></div><span class="oc-a">›</span></div>
+  <div class="oc" onclick="doBudget('lower_cost')"><div class="oc-c"><div class="oc-l">I prefer lower monthly costs with less flexibility</div></div><span class="oc-a">›</span></div>
+  <button class="bb" onclick="go('s-alex')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Back</button>
+</div>
+
+<!-- ═══ TEAM: Meet Scott & Chris ═══ -->
+<div class="sc" id="s-team">
+  <div class="sl">One Last Step</div>
+  <h2 class="st">Your recommendation is ready — we just wanted to thank you first.</h2>
+
+  <!-- Team photos + bios -->
+  <div style="background:var(--white);border-radius:11px;border:1px solid var(--g200);overflow:hidden;margin-bottom:.75rem;">
+    <div style="display:flex;gap:0;">
+      <div style="flex:1;padding:.95rem;border-right:1px solid var(--g200);">
+        <img src="data:image/jpeg;base64,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" alt="Scott Martin" style="width:56px;height:56px;border-radius:50%;object-fit:cover;margin:0 auto .4rem;display:block;">
+        <div style="text-align:center;margin-bottom:.4rem;">
+          <div style="font-weight:700;font-size:.84rem;">Scott Martin</div>
+          <div style="font-size:.68rem;color:var(--green);font-weight:600;">4,000+ SENIORS GUIDED</div>
+        </div>
+        <p style="font-size:.74rem;color:var(--g600);line-height:1.45;text-align:center;">Former nuclear systems engineer. Brings analytical precision to finding the right Medicare plan.</p>
+      </div>
+      <div style="flex:1;padding:.95rem;">
+        <img src="data:image/jpeg;base64,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" alt="Chris O'Kieffe" style="width:56px;height:56px;border-radius:50%;object-fit:cover;margin:0 auto .4rem;display:block;">
+        <div style="text-align:center;margin-bottom:.4rem;">
+          <div style="font-weight:700;font-size:.84rem;">Chris O'Kieffe</div>
+          <div style="font-size:.68rem;color:var(--green);font-weight:600;">15+ YEARS IN MEDICARE</div>
+        </div>
+        <p style="font-size:.74rem;color:var(--g600);line-height:1.45;text-align:center;">Top 10 nationally. Specializes in helping people find the best coverage at the lowest cost.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Their story -->
+  <div style="background:var(--white);border-radius:11px;border:1px solid var(--g200);padding:1.05rem;margin-bottom:.75rem;">
+    <p style="font-size:.84rem;color:var(--g800);line-height:1.6;margin-bottom:.55rem;">Thank you for taking the time to go through this quiz — we are two of the Pocket Protector Medicare professionals that helped design it, and it means a lot that you took a couple minutes out of your busy schedule to try us out.</p>
+    <p style="font-size:.84rem;color:var(--g800);line-height:1.6;margin-bottom:.55rem;">We spent years working in the call center world and saw how seniors were being treated — high-pressure sales tactics, quotas, and plans recommended based on commission instead of what actually fit.</p>
+    <p style="font-size:.84rem;color:var(--g800);line-height:1.6;margin-bottom:0;">We joined The Pocket Protector because we believe people like you deserve a better option — free tools to make your own informed decision, and real professionals standing by when you actually want help, not when a dialer decides to ring.</p>
+  </div>
+
+  <!-- The ask -->
+  <div style="background:var(--green-sub);border-radius:11px;padding:1rem;margin-bottom:.9rem;">
+    <div style="font-weight:700;font-size:.84rem;margin-bottom:.3rem;">Your result is 100% free — here's our only ask:</div>
+    <p style="font-size:.83rem;color:var(--g800);line-height:1.55;margin-bottom:0;">Let us match you with one of us to go over your recommendation together. We're paid the same whether you enroll or not — so if the best advice is to keep what you have, that's exactly what we'll say.</p>
+  </div>
+
+  <button class="btn" onclick="go('s-gate')">See What You'll Get →</button>
+  <button class="bb" id="teamBack"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Back</button>
+</div>
+
+<!-- ═══ GATE: What you get + form ═══ -->
+<div class="sc" id="s-gate">
+  <div class="sl">One Last Step</div>
+  <h2 class="st">Here's what you'll get:</h2>
+
+  <!-- What you get items -->
+  <div style="background:var(--white);border-radius:11px;border:1px solid var(--g200);padding:1.05rem;margin-bottom:.9rem;">
+    <div style="font-size:.78rem;color:var(--green);font-weight:600;margin-bottom:.55rem;">This is 100% free and included with your result.</div>
+    <div style="display:flex;flex-direction:column;gap:.35rem;" id="gateGetItems"></div>
+  </div>
+
+  <!-- Form -->
+  <div style="background:var(--white);border-radius:11px;padding:1.05rem;border:1px solid var(--g200);">
+    <div style="font-family:var(--fd);font-size:.95rem;font-weight:600;margin-bottom:.9rem;">Get your result</div>
+    <div class="fg"><label class="fl">First Name</label><input type="text" class="fi" id="fn" placeholder="Your first name"></div>
+    <div class="fg"><label class="fl">ZIP Code</label><input type="text" class="fi" id="zip" placeholder="60625" maxlength="5" inputmode="numeric"></div>
+    <div class="fg"><label class="fl">Email</label><input type="email" class="fi" id="em" placeholder="you@email.com"></div>
+    <div class="fg"><label class="fl">Phone <span class="fo">(optional)</span></label><input type="tel" class="fi" id="ph" placeholder="(555) 555-5555"></div>
+    <button class="btn" id="subBtn" onclick="submit()">See My Free Personalized Recommendation</button>
+    <div class="ft"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" fill="currentColor"/></svg> 100% free. No spam. No sales pressure.</div>
+  </div>
+  <button class="bb" onclick="go('s-team')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Back</button>
+</div>
+
+<!-- ═══ RESULT (post-submit payoff) ═══ -->
+<div class="sc" id="s-result">
+  <div class="ci"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+  <h2 class="ct" id="rTitle"></h2>
+  <p class="cs" id="rSub"></p>
+
+  <!-- IEP Banner -->
+  <div id="rIep"></div>
+
+  <!-- Recommendation card -->
+  <div id="rCard"></div>
+
+  <!-- Veteran note -->
+  <div id="rVet"></div>
+
+  <!-- What happens next (bridge) -->
+  <div style="background:var(--white);border-radius:11px;border:1px solid var(--g200);padding:1.05rem;margin-bottom:.9rem;">
+    <div style="font-weight:700;font-size:.84rem;margin-bottom:.1rem;" id="bridgeTitle"></div>
+    <div style="font-size:.78rem;color:var(--g600);margin-bottom:.65rem;line-height:1.4;" id="bridgeSub"></div>
+    <div style="display:flex;flex-direction:column;gap:.5rem;" id="bridgeSteps"></div>
+  </div>
+
+  <!-- Full advisor card with bio -->
+  <div style="background:var(--white);border:2px solid var(--green-lt);border-radius:11px;overflow:hidden;margin-bottom:.9rem;">
+    <div style="background:linear-gradient(135deg,var(--green),var(--green-dk));padding:.7rem .95rem;display:flex;align-items:center;gap:.4rem;">
+      <svg viewBox="0 0 24 24" style="width:15px;height:15px;fill:var(--white);"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <span style="color:var(--white);font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;">Your Matched Advisor</span>
+    </div>
+    <div style="padding:1rem;">
+      <div style="display:flex;gap:.85rem;align-items:center;">
+        <div id="advPhoto" class="aph"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+        <div style="flex:1;">
+          <div class="an" id="aN"></div>
+          <div class="atx">Senior Medicare Advisor</div>
+          <div class="ast" id="aS"></div>
+        </div>
+      </div>
+      <div class="mr" id="advBio"></div>
+      <div style="margin-top:.75rem;display:flex;flex-direction:column;gap:.25rem;">
+        <div class="pi"><div class="pc"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span>Paid the same no matter what plan you choose — no incentive to push one over another</span></div>
+        <div class="pi"><div class="pc"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span id="advPromise2"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><!-- /qc -->
+
+<script>
+const S={bm:null,by:null,iep:null,iepD:{},ab:null,cov:null,med:null,vet:null,budget:null,rec:null,adv:null};
+const MO=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+// Populate years
+(()=>{const s=document.getElementById('by'),n=new Date().getFullYear();for(let y=n-50;y>=n-95;y--){const o=document.createElement('option');o.value=y;o.textContent=y;s.appendChild(o);}})();
+document.getElementById('bm').onchange=document.getElementById('by').onchange=()=>{document.getElementById('dobBtn').disabled=!(document.getElementById('bm').value&&document.getElementById('by').value);};
+
+function calcIEP(m,y){
+  const now=new Date(),b65=new Date(+y+65,+m-1,1);
+  const is=new Date(b65);is.setMonth(is.getMonth()-3);
+  const ie=new Date(b65);ie.setMonth(ie.getMonth()+3);ie.setDate(0);
+  const me=new Date(b65);me.setMonth(me.getMonth()+6);me.setDate(0);
+  let st;if(now<is)st='pre';else if(now<=ie)st='in';else st='post';
+  const md=(b65.getFullYear()-now.getFullYear())*12+(b65.getMonth()-now.getMonth());
+  return{st,md,isF:MO[is.getMonth()]+' '+is.getFullYear(),ieF:MO[ie.getMonth()]+' '+ie.getFullYear(),b65F:MO[b65.getMonth()]+' '+b65.getFullYear(),meF:MO[me.getMonth()]+' '+me.getFullYear()};
+}
+
+const ADV={
+  scott:{name:'Scott Martin',first:'Scott',stats:['4,000+ seniors guided','4× President\'s Club'],
+    reasons:{ma:'Scott is a former nuclear systems engineer who brings analytical precision to plan selection. He\'ll compare every Medicare Advantage plan\'s doctor network, drug coverage, and cost structure in your county to find the one that actually fits — not the one that just looks good on paper.',
+    dsnp:'Scott specializes in helping people with both Medicare and Medicaid get the most out of their coverage. He\'ll analyze which plans in your area offer the best extra benefits — dental, vision, transportation, over-the-counter allowances — and make sure you\'re getting everything you qualify for.'}},
+  chris:{name:'Christopher O\'Kieffe',first:'Chris',stats:['15+ years Medicare experience','Top 10 nationally'],
+    reasons:{medsup:'Chris has over 15 years of Medicare experience and specializes in supplement plans. He\'ll compare carriers, explain the differences between plan levels, and make sure you lock in the best rate during your enrollment window — when it matters most.'}}
+};
+
+const PHOTOS={scott:'data:image/jpeg;base64,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',chris:'data:image/jpeg;base64,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'};
+const PM={
+  's-welcome':0,'s-dob':8,'s-iep-int':13,'s-ab':18,'s-cov':26,'s-vet':34,
+  's-uses-va':42,'s-va-prefs':50,'s-med':58,'s-story-intro':66,'s-sam':74,'s-alex':82,'s-decide':90,
+  's-team':92,'s-gate':96,'s-result':100,
+  's-ko-ma':26,'s-ko-ms':26
+};
+
+function go(id){
+  document.querySelectorAll('.sc').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('pf').style.width=(PM[id]||0)+'%';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function submitDOB(){
+  const m=document.getElementById('bm').value,y=document.getElementById('by').value;
+  if(!m||!y)return;
+  S.bm=+m;S.by=+y;const d=calcIEP(m,y);S.iep=d.st;S.iepD=d;
+  if(d.st==='in'){go('s-iep-int');}
+  else{go('s-ab');}
+}
+
+function doAB(v){
+  S.ab=v;
+  if(v==='yes'){go('s-cov');}
+  else{S.cov=null;document.getElementById('vetBack').onclick=()=>go('s-ab');go('s-vet');}
+}
+
+function doCov(v){
+  S.cov=v;
+  if(v==='ma'){go('s-ko-ma');return;}
+  if(v==='medsup'){go('s-ko-ms');return;}
+  document.getElementById('vetBack').onclick=()=>go('s-cov');
+  go('s-vet');
+}
+
+function doMed(v){
+  S.med=v;
+  // Everyone goes through budget stories, Medicaid routing happens after q05b
+  go('s-story-intro');
+}
+
+function doVet(v){
+  S.vet=v;
+  if(v==='yes'){
+    go('s-uses-va');
+  }else{
+    document.getElementById('medBack').onclick=()=>go('s-vet');
+    go('s-med');
+  }
+}
+
+function doUsesVA(v){
+  S.usesVA=v;
+  if(v==='yes'){
+    go('s-va-prefs');
+  }else{
+    document.getElementById('medBack').onclick=()=>go('s-uses-va');
+    go('s-med');
+  }
+}
+
+function toggleVAPref(id){
+  if(!S.vaPrefs)S.vaPrefs=[];
+  const idx=S.vaPrefs.indexOf(id);
+  if(id==='none_apply'){
+    if(idx===-1){S.vaPrefs=['none_apply'];}
+    else{S.vaPrefs=[];}
+  }else{
+    const noneIdx=S.vaPrefs.indexOf('none_apply');
+    if(noneIdx!==-1)S.vaPrefs.splice(noneIdx,1);
+    if(idx===-1){S.vaPrefs.push(id);}
+    else{S.vaPrefs.splice(idx,1);}
+  }
+  updateVAPrefUI();
+}
+
+function updateVAPrefUI(){
+  document.querySelectorAll('[data-va-pref]').forEach(el=>{
+    const id=el.getAttribute('data-va-pref');
+    if(S.vaPrefs&&S.vaPrefs.includes(id)){
+      el.classList.add('selected');
+    }else{
+      el.classList.remove('selected');
+    }
+    if(id!=='none_apply'&&S.vaPrefs&&S.vaPrefs.includes('none_apply')){
+      el.style.opacity='0.5';
+      el.style.pointerEvents='none';
+    }else{
+      el.style.opacity='1';
+      el.style.pointerEvents='auto';
+    }
+  });
+  const btn=document.getElementById('vaPrefsContinue');
+  if(btn){
+    btn.disabled=!S.vaPrefs||S.vaPrefs.length===0;
+  }
+}
+
+function afterAlexStory(){
+  // Check if user has Medicaid - if yes, route to D-SNP contact
+  if(S.med==='yes'){
+    S.rec='dsnp';S.adv='scott';
+    buildGate();go('s-team');
+  }else{
+    // Otherwise go to final decision screen
+    go('s-decide');
+  }
+}
+
+function doBudget(v){
+  S.budget=v;
+  if(v==='lower_cost'){S.rec='ma';S.adv='scott';}
+  else{S.rec='medsup';S.adv='chris';}
+  buildGate();go('s-team');
+}
+
+function buildGate(){
+  const r=S.rec;
+
+  // What you get items — contextual to their situation
+  let items='';
+  const ck='<div class="pc"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>';
+
+  items+=`<div class="pi">${ck}<span>Your personalized plan recommendation based on your quiz answers</span></div>`;
+  items+=`<div class="pi">${ck}<span>A comparison of every plan available in your county — narrowed down to the ones that actually fit your situation</span></div>`;
+  items+=`<div class="pi">${ck}<span>A clear breakdown of what you'd actually pay — not just what the plans advertise</span></div>`;
+
+  if(S.med==='yes'){
+    items+=`<div class="pi">${ck}<span>A review of the extra benefits you qualify for with Medicaid — many people don't realize what's available to them</span></div>`;
+  }
+
+  if(S.vet==='yes'){
+    items+=`<div class="pi">${ck}<span>Guidance on how your VA benefits work alongside Medicare so you get maximum coverage without paying for overlap</span></div>`;
+  }
+
+  if(S.iep==='in'){
+    items+=`<div class="pi">${ck}<span>Help getting enrolled before your window closes — timing matters and they'll make sure nothing slips</span></div>`;
+  } else if(S.iep==='pre'){
+    items+=`<div class="pi">${ck}<span>A plan to get everything lined up before your enrollment window opens</span></div>`;
+  }
+
+  items+=`<div class="pi">${ck}<span>Someone to call with questions — not a 1-800 number, a real person who knows your situation</span></div>`;
+
+  document.getElementById('gateGetItems').innerHTML=items;
+
+  // Dynamic back button on team screen
+  document.getElementById('teamBack').onclick=()=>go(r==='dsnp'?'s-alex':'s-decide');
+}
+
+// Xano API Configuration (obfuscated)
+const XANO_CONFIG={
+  _p1:atob('aHR0cHM6Ly94OGtpLWxldGwtdHdtdC5uNy54YW5v'),
+  _p2_hubspot_create:atob('LmlvL2FwaTpndE5pbHZNSC90cHBfcXVpel9sZWFkc19zZW5kX3RvX2h1YnNwb3Q='),
+  _p2_hubspot_update:atob('LmlvL2FwaTpndE5pbHZNSC90cHBfcXVpel9sZWFkc19zZW5kX3RvX2h1YnNwb3RfdXBkYXRl'),
+  _p2_quiz_lead:atob('LmlvL2FwaTpndE5pbHZNSC90cHBfbnRtX3F1aXpfbGVhZA=='),
+  getHubSpotEndpoint:function(){return this._p1+this._p2_hubspot_create;},
+  getHubSpotUpdateEndpoint:function(){return this._p1+this._p2_hubspot_update;},
+  getQuizLeadEndpoint:function(){return this._p1+this._p2_quiz_lead;}
+};
+
+// Determine result ID based on quiz answers (matches V1 logic)
+function determineResultId(){
+  // R03: D-SNP for Medicaid users
+  if(S.med==='yes')return'R03';
+
+  // Veteran paths
+  if(S.vet==='yes'){
+    if(S.usesVA==='yes'){
+      // Check if they need flexibility (has non-none_apply preferences)
+      const hasFlexibilityOption=S.vaPrefs&&S.vaPrefs.length>0&&!S.vaPrefs.includes('none_apply');
+      return hasFlexibilityOption?'R05':'R04';
+    }else{
+      // Veteran but doesn't use VA
+      return S.budget==='more_flexibility'?'R07':'R06';
+    }
+  }
+
+  // Non-veteran paths
+  return S.budget==='more_flexibility'?'R02':'R01';
+}
+
+// Map result ID to plan name
+function mapResultToPlan(resultId){
+  const m={
+    'R01':'Advantage','R02':'Medigap','R03':'D-SNP',
+    'R04':'Advantage_Veteran_VA','R05':'Medigap_Veteran_VA',
+    'R06':'Advantage_Veteran','R07':'Medigap_Veteran'
+  };
+  return m[resultId]||'Unknown';
+}
+
+// Calculate age from birth month/year
+function calculateAge(monthName,yearStr){
+  if(!monthName||!yearStr)return null;
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const monthIdx=months.indexOf(monthName);
+  if(monthIdx===-1)return null;
+  const birthDate=new Date(parseInt(yearStr),monthIdx,1);
+  const today=new Date();
+  let age=today.getFullYear()-birthDate.getFullYear();
+  const monthDiff=today.getMonth()-birthDate.getMonth();
+  if(monthDiff<0||(monthDiff===0&&today.getDate()<birthDate.getDate())){age--;}
+  return age;
+}
+
+// Get age group category
+function getAgeGroup(age){
+  if(age===null||age===undefined)return'unknown';
+  if(age<60)return'under_60';
+  if(age>=60&&age<65)return'60_to_64';
+  if(age>=65&&age<70)return'65_to_69';
+  if(age>=70&&age<75)return'70_to_74';
+  if(age>=75&&age<80)return'75_to_79';
+  return'80_plus';
+}
+
+// Extract UTM parameters from URL
+function getUTMParams(){
+  const params=new URLSearchParams(window.location.search);
+  return{
+    utm_source:params.get('utm_source')||null,
+    utm_campaign:params.get('utm_campaign')||null,
+    utm_content:params.get('utm_content')||null,
+    utm_creative:params.get('utm_creative')||null
+  };
+}
+
+// Format phone for API (+1 format)
+function formatPhoneAPI(phone){
+  const nums=phone.replace(/\D/g,'');
+  if(nums.length===10){return`+1 (${nums.slice(0,3)}) ${nums.slice(3,6)}-${nums.slice(6)}`;}
+  return phone;
+}
+
+// Generate session ID (or retrieve existing)
+function getSessionId(){
+  if(!window.ntmSessionId){
+    window.ntmSessionId='session_'+Date.now()+'_'+Math.random().toString(36).substr(2,9);
+  }
+  return window.ntmSessionId;
+}
+
+// Format phone number as user types (XXX) XXX-XXXX
+function formatPhoneNumber(value){
+  const numbers=value.replace(/\D/g,'');
+  const limited=numbers.slice(0,10);
+
+  if(limited.length<=3){
+    return limited;
+  }else if(limited.length<=6){
+    return`(${limited.slice(0,3)}) ${limited.slice(3)}`;
+  }else{
+    return`(${limited.slice(0,3)}) ${limited.slice(3,6)}-${limited.slice(6)}`;
+  }
+}
+
+// Add input formatting and validation listeners
+document.addEventListener('DOMContentLoaded',()=>{
+  // Phone formatting
+  const phoneInput=document.getElementById('ph');
+  if(phoneInput){
+    phoneInput.addEventListener('input',(e)=>{
+      const formatted=formatPhoneNumber(e.target.value);
+      e.target.value=formatted;
+      e.target.style.borderColor='var(--g200)';
+    });
+    phoneInput.setAttribute('inputmode','numeric');
+  }
+
+  // ZIP code formatting - numeric only
+  const zipInput=document.getElementById('zip');
+  if(zipInput){
+    zipInput.addEventListener('input',(e)=>{
+      e.target.value=e.target.value.replace(/\D/g,'').slice(0,5);
+      e.target.style.borderColor='var(--g200)';
+    });
+  }
+
+  // Reset border colors on input for other fields
+  const fnInput=document.getElementById('fn');
+  if(fnInput){
+    fnInput.addEventListener('input',(e)=>{
+      e.target.style.borderColor='var(--g200)';
+    });
+  }
+
+  const emInput=document.getElementById('em');
+  if(emInput){
+    emInput.addEventListener('input',(e)=>{
+      e.target.style.borderColor='var(--g200)';
+    });
+  }
+});
+
+function submit(){
+  const fn=document.getElementById('fn').value.trim();
+  const zip=document.getElementById('zip').value.trim();
+  const em=document.getElementById('em').value.trim();
+  const ph=document.getElementById('ph').value.trim();
+
+  if(!fn){document.getElementById('fn').style.borderColor='var(--red)';document.getElementById('fn').focus();return;}
+  if(!zip){document.getElementById('zip').style.borderColor='var(--red)';document.getElementById('zip').focus();return;}
+
+  const zipNums=zip.replace(/\D/g,'');
+  if(zipNums.length!==5){document.getElementById('zip').style.borderColor='var(--red)';document.getElementById('zip').focus();return;}
+
+  if(!em){document.getElementById('em').style.borderColor='var(--red)';document.getElementById('em').focus();return;}
+
+  const emailPattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailPattern.test(em)){document.getElementById('em').style.borderColor='var(--red)';document.getElementById('em').focus();return;}
+
+  // Phone is optional - only validate if provided
+  if(ph){
+    const phoneNums=ph.replace(/\D/g,'');
+    if(phoneNums.length!==10){document.getElementById('ph').style.borderColor='var(--red)';document.getElementById('ph').focus();return;}
+  }
+
+  S.firstName=fn;S.zip=zip;S.email=em;S.phone=ph;
+  buildResult(fn);
+
+  const a=ADV[S.adv],d=S.iepD;
+  const resultId=determineResultId();
+  const recommendedPlan=mapResultToPlan(resultId);
+  const medicareAB=S.ab==='yes';
+  const age=calculateAge(MO[S.bm],S.by);
+  const ageGroup=getAgeGroup(age);
+  const utm=getUTMParams();
+  const sessionId=getSessionId();
+
+  // Track lead submission in GA4
+  pushToDataLayer({
+    event:'ntm_quiz_lead',
+    recommended_plan:recommendedPlan,
+    medicare_ab:medicareAB
+  });
+
+  // Prepare HubSpot payload
+  const hubspotPayload={
+    firstname:fn,
+    zipcode:zip,
+    phone:formatPhoneAPI(ph)||null,
+    email:em,
+    medicare_ab:medicareAB,
+    recommended_plan:recommendedPlan,
+    matchmaker_assigned_agent:ADV[S.adv]?ADV[S.adv].name:null,
+    submit_location:'ntm_quiz_v1_2026',
+    url_slug:'ntm-quiz-2026-v4-leadform',
+    birth_year:S.by,
+    birth_month:MO[S.bm],
+    age:age,
+    utm_source:utm.utm_source,
+    utm_campaign:utm.utm_campaign,
+    utm_creative:utm.utm_creative,
+    timestamp:new Date().toISOString()
+  };
+
+  // Send to HubSpot via Xano - check if contact exists and use appropriate endpoint
+  console.log('Starting HubSpot submission...');
+
+  fetch(XANO_CONFIG.getHubSpotEndpoint(),{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    keepalive:true,
+    body:JSON.stringify(hubspotPayload)
+  })
+  .then(response=>response.json())
+  .then(result=>{
+    console.log('Create endpoint response:',result);
+
+    // Check for nested error structure from Xano (result.tpp_.response.result)
+    const errorData=result.tpp_&&result.tpp_.response&&result.tpp_.response.result?result.tpp_.response.result:result;
+    const isError=errorData.status==='error'||result.tpp_?.response?.status===409;
+    const errorMessage=errorData.message||'';
+
+    console.log('Error data:',errorData);
+    console.log('Is error:',isError);
+    console.log('Error message:',errorMessage);
+
+    // Check if contact already exists
+    if(isError&&errorMessage.toLowerCase().includes('already exists')){
+      console.log('⚠️ Contact already exists, switching to update endpoint');
+
+      // Extract contact ID from message
+      const idMatch=errorMessage.match(/ID:\s*(\d+)/i);
+      const existingId=idMatch?idMatch[1]:null;
+
+      console.log('Extracted contact ID:',existingId);
+
+      // Prepare update payload with existing ID
+      const updatePayload={...hubspotPayload};
+      if(existingId){
+        updatePayload.contactID=existingId;
+      }
+
+      console.log('Calling UPDATE endpoint:',XANO_CONFIG.getHubSpotUpdateEndpoint());
+      console.log('Update payload:',updatePayload);
+
+      // Call update endpoint
+      return fetch(XANO_CONFIG.getHubSpotUpdateEndpoint(),{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        keepalive:true,
+        body:JSON.stringify(updatePayload)
+      })
+      .then(updateResponse=>updateResponse.json())
+      .then(updateResult=>{
+        console.log('✓ Lead updated in HubSpot:',updateResult);
+        return updateResult;
+      });
+    }else if(isError){
+      console.error('❌ HubSpot create error:',errorData);
+      throw new Error(errorMessage||'HubSpot submission failed');
+    }else{
+      console.log('✓ Lead created in HubSpot:',result);
+      return result;
+    }
+  })
+  .catch(error=>{
+    console.error('❌ HubSpot submission error:',error);
+  });
+
+  // Send quiz lead data to Xano tpp_ntm_quiz_lead endpoint
+  const quizLeadPayload={
+    first_name:fn,
+    zipcode:zip,
+    phone:formatPhoneAPI(ph)||null,
+    email:em,
+    medicare_ab:medicareAB,
+    recommended_plan:recommendedPlan,
+    result_id:resultId,
+    quiz_session_id:sessionId,
+    birth_month:MO[S.bm],
+    birth_year:S.by,
+    age:age,
+    age_group:ageGroup,
+    url_slug:'ntm-quiz-2026-v4-leadform',
+    utm_source:utm.utm_source,
+    utm_campaign:utm.utm_campaign,
+    utm_content:utm.utm_content,
+    utm_creative:utm.utm_creative,
+    timestamp:new Date().toISOString()
+  };
+
+  console.log('Sending quiz lead data to Xano...');
+  fetch(XANO_CONFIG.getQuizLeadEndpoint(),{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    keepalive:true,
+    body:JSON.stringify(quizLeadPayload)
+  })
+  .then(response=>response.json())
+  .then(result=>{
+    console.log('✓ Quiz lead data synced to Xano:',result);
+  })
+  .catch(error=>{
+    console.error('❌ Quiz lead submission error:',error);
+  });
+
+  go('s-result');
+}
+
+function buildResult(fn){
+  const r=S.rec,d=S.iepD,a=ADV[S.adv];
+
+  // Title + subtitle
+  document.getElementById('rTitle').textContent=`You're all set, ${fn}!`;
+  document.getElementById('rSub').textContent=``;
+
+  // IEP Banner
+  let iH='';
+  if(S.iep==='in'){
+    iH=`<div class="iep act"><div class="iep-t">⚠️ You're in your Initial Enrollment Period right now</div><div class="iep-x">${r==='medsup'?`Your window runs ${d.isF} to ${d.ieF}. This is the one time Medigap carriers must accept you at the best rates regardless of health. ${a.first} will prioritize your case.`:`Your window runs ${d.isF} to ${d.ieF}. ${a.first} will make sure you're enrolled in the right plan before it closes.`}</div></div>`;
+  } else if(S.iep==='pre'){
+    const mo=Math.abs(d.md);
+    iH=`<div class="iep plan"><div class="iep-t">📅 Your enrollment window opens in about ${mo} month${mo!==1?'s':''}</div><div class="iep-x">You turn 65 in ${d.b65F} and your IEP opens ${d.isF}. ${a.first} will help you get everything lined up so you're ready to enroll the moment the window opens.</div></div>`;
+  } else {
+    iH=`<div class="iep urg"><div class="iep-t">🔴 Your Initial Enrollment Period has passed</div><div class="iep-x">${r==='medsup'?`Getting Medigap after your IEP may require medical underwriting, but there are still paths. ${a.first} will check your eligibility and find the best option.`:`You still have options — especially during the Annual Election Period (Oct 15 – Dec 7). ${a.first} will find the best plan available.`}</div></div>`;
+  }
+  document.getElementById('rIep').innerHTML=iH;
+
+  // Rec card
+  let cH='';
+  if(r==='dsnp'){
+    cH=`<div class="rc"><div class="rc-badge">Your Recommendation</div><div class="rc-t">Dual Eligible Special Needs Plan (D-SNP)</div><div class="rc-d">Because you have Medicaid, you likely qualify for a special plan with extra benefits — dental, vision, hearing, transportation, over-the-counter allowances, and grocery benefits — often at $0 premium and $0 copays.</div><div class="rc-h"><div class="rc-hi"><span class="rc-ck">✓</span>Extra benefits most people with Medicaid don't know they qualify for</div><div class="rc-hi"><span class="rc-ck">✓</span>Little to no monthly premium or out-of-pocket costs</div><div class="rc-hi"><span class="rc-ck">✓</span>Care coordination built for your specific needs</div></div></div>`;
+  } else if(r==='ma'){
+    cH=`<div class="rc"><div class="rc-badge">Your Recommendation</div><div class="rc-t">Medicare Advantage</div><div class="rc-d">Based on your preference for lower monthly costs, a $0-premium plan with built-in drug coverage and extras is a strong fit. ${a.first} will find the specific plan that matches your doctors and prescriptions.</div><div class="rc-h"><div class="rc-hi"><span class="rc-ck">✓</span>$0 monthly premium on many plans</div><div class="rc-hi"><span class="rc-ck">✓</span>Built-in prescription drug, dental, vision, and hearing</div><div class="rc-hi"><span class="rc-ck">✓</span>Maximum out-of-pocket cap protects you in a bad year</div></div></div>`;
+  } else {
+    cH=`<div class="rc"><div class="rc-badge">Your Recommendation</div><div class="rc-t">Medicare Supplement (Medigap)</div><div class="rc-d">Based on your preference for flexibility, Medigap lets you see any Medicare doctor nationwide — no networks, no referrals, no prior authorization. ${a.first} will find you the best carrier and rate.</div><div class="rc-h"><div class="rc-hi"><span class="rc-ck">✓</span>Any Medicare doctor in the country (~99% of all doctors)</div><div class="rc-hi"><span class="rc-ck">✓</span>No referrals or prior authorizations needed</div><div class="rc-hi"><span class="rc-ck">✓</span>Predictable costs — even in a bad health year (~$500 max)</div></div></div>`;
+  }
+  document.getElementById('rCard').innerHTML=cH;
+
+  // Veteran note
+  let vH='';
+  if(S.vet==='yes'){
+    if(r==='ma'||r==='dsnp'){
+      vH=`<div class="vn"><div class="vn-t">🎖 For Veterans</div><div class="vn-x">Some Medicare Advantage plans offer a Part B premium giveback — putting money back on your Social Security check each month. ${a.first} will identify which plans in your area offer this and how they coordinate with your VA benefits.</div></div>`;
+    } else {
+      vH=`<div class="vn"><div class="vn-t">🎖 For Veterans</div><div class="vn-x">Your VA benefits work alongside Medigap. ${a.first} will help you coordinate both so you get maximum coverage without paying for overlap.</div></div>`;
+    }
+  }
+  document.getElementById('rVet').innerHTML=vH;
+
+  // Bridge — advisor FIRST, then steps
+  document.getElementById('bridgeTitle').textContent=`Here's what ${a.first} will do next:`;
+  document.getElementById('bridgeSub').textContent=`He'll review your quiz answers and reach out within 1 business day.`;
+
+  let steps='';
+  if(r==='dsnp'){
+    steps=`<div class="bs"><div class="bs-n">1</div><div class="bs-t"><strong>Pull every plan available to you in your county</strong> and compare the extra benefits side-by-side — dental allowances, over-the-counter credits, transportation, and meal programs vary wildly between carriers.</div></div>
+    <div class="bs"><div class="bs-n">2</div><div class="bs-t"><strong>Verify your Medicaid eligibility tier</strong> to confirm which plans you qualify for and what cost-sharing applies to your specific situation.</div></div>
+    <div class="bs"><div class="bs-n">3</div><div class="bs-t"><strong>Handle all the enrollment paperwork</strong> and coordinate with your state Medicaid office if needed — so nothing falls through the cracks.</div></div>`;
+  } else if(r==='ma'){
+    steps=`<div class="bs"><div class="bs-n">1</div><div class="bs-t"><strong>Compare every Medicare Advantage plan in your county</strong> — there are often 30+ options. He'll narrow it to the 2-3 that actually fit your doctors, drugs, and budget.</div></div>
+    <div class="bs"><div class="bs-n">2</div><div class="bs-t"><strong>Check your doctors' network status</strong> on each plan and run your prescriptions through each plan's drug coverage to calculate your real annual costs.</div></div>
+    <div class="bs"><div class="bs-n">3</div><div class="bs-t"><strong>Walk you through the enrollment</strong>${S.iep==='in'?' before your IEP window closes':''} and make sure your coverage starts on time with no gaps.</div></div>`;
+    if(S.vet==='yes'){
+      steps+=`<div class="bs"><div class="bs-n">4</div><div class="bs-t"><strong>Identify plans with Part B giveback</strong> that work alongside your VA benefits — so you could actually get money back each month.</div></div>`;
+    }
+  } else {
+    steps=`<div class="bs"><div class="bs-n">1</div><div class="bs-t"><strong>Compare carrier rates in your area</strong> — the same coverage can vary by $80+/month between insurance companies. He'll find you the lowest rate from a financially stable carrier.</div></div>
+    <div class="bs"><div class="bs-n">2</div><div class="bs-t"><strong>Help you choose the right plan level</strong> and calculate which option actually saves you more money based on how often you see doctors.</div></div>
+    <div class="bs"><div class="bs-n">3</div><div class="bs-t"><strong>${S.iep==='in'?'Get you enrolled before your enrollment window closes':'Handle your enrollment and verify your eligibility'}</strong> — ${S.iep==='in'?'this is the only time carriers must accept you at the best rates regardless of health history.':'timing matters, and he\'ll find the best path based on your situation.'}</div></div>`;
+    if(S.vet==='yes'){
+      steps+=`<div class="bs"><div class="bs-n">4</div><div class="bs-t"><strong>Coordinate with your VA benefits</strong> so your supplement plan fills in the gaps without paying for services the VA already covers.</div></div>`;
+    }
+  }
+  document.getElementById('bridgeSteps').innerHTML=steps;
+
+  // Advisor card — full bio
+  document.getElementById('advPhoto').innerHTML='<img src="'+PHOTOS[S.adv]+'" alt="'+a.name+'" style="width:68px;height:68px;border-radius:50%;object-fit:cover;">';
+  document.getElementById('aN').textContent=a.name;
+  document.getElementById('aS').innerHTML=a.stats.map(s=>`<div class="as"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>${s}</div>`).join('');
+  document.getElementById('advBio').innerHTML=`<div class="mr-l">Why we matched you with ${a.first}</div><div class="mr-x">${a.reasons[r]}</div>`;
+
+  // Contextual second promise
+  const hasExisting = S.cov==='ab_only' || !S.cov;
+  document.getElementById('advPromise2').textContent = hasExisting
+    ? 'Will walk you through every option — zero pressure, zero obligation'
+    : 'If your current coverage is already the best fit, he\'ll tell you';
+}
+
+// ═══ ANALYTICS / EVENT TRACKING ═══
+const TRACKING_GUARD_PREFIX='analytics_tracked_';
+
+function hasBeenTracked(eventKey){
+  if(typeof window==='undefined')return false;
+  try{return sessionStorage.getItem(`${TRACKING_GUARD_PREFIX}${eventKey}`)==='true';}catch{return false;}
+}
+
+function markAsTracked(eventKey){
+  if(typeof window==='undefined')return;
+  try{sessionStorage.setItem(`${TRACKING_GUARD_PREFIX}${eventKey}`,'true');}catch{}
+}
+
+function clearTrackingGuard(eventKey){
+  if(typeof window==='undefined')return;
+  try{sessionStorage.removeItem(`${TRACKING_GUARD_PREFIX}${eventKey}`);}catch{}
+}
+
+function initDataLayer(){
+  if(typeof window!=='undefined'&&!window.dataLayer){window.dataLayer=[];}
+}
+
+function pushToDataLayer(data){
+  initDataLayer();
+  if(typeof window!=='undefined'&&window.dataLayer){
+    window.dataLayer.push({...data,timestamp:new Date().toISOString()});
+  }
+}
+
+function trackPageView(eventName,metadata){
+  if(hasBeenTracked(eventName))return;
+  pushToDataLayer({event:eventName,...(metadata||{})});
+  markAsTracked(eventName);
+}
+
+// Screen tracking functions (matching V1 through q05c)
+function trackQuizStart(){trackPageView('View_ntm_quiz_start');}
+function trackViewBirthMonth(){trackPageView('View_ntm_quiz_birthMonth');}
+function trackViewInIEP(){trackPageView('View_ntm_quiz_inIEP');}
+function trackViewMedicareAB(){trackPageView('View_ntm_quiz_medicare_ab');}
+function trackViewCurrentCoverage(){trackPageView('View_ntm_quiz_current_coverage');}
+function trackViewIsVeteran(){trackPageView('View_ntm_quiz_is_veteran');}
+function trackViewUsesVA(){trackPageView('View_ntm_quiz_uses_va');}
+function trackViewVAPreference(){trackPageView('View_ntm_quiz_va_preference');}
+function trackViewHasMedicaid(){trackPageView('View_ntm_quiz_has_medicaid');}
+function trackViewBudgetChoiceStart(){trackPageView('View_ntm_quiz_budget_choice_start');}
+function trackViewBudgetChoiceSam(){trackPageView('View_ntm_quiz_budget_choice_sam');}
+function trackViewBudgetChoiceAlex(){trackPageView('View_ntm_quiz_budget_choice_alex');}
+function trackViewBudgetChoiceDecide(){trackPageView('View_ntm_quiz_budget_choice_decide');}
+
+// NEW V3-specific events
+function trackViewMeetTheTeam(){trackPageView('view_ntm_quiz_what_you_get_contact_info');}
+function trackViewWhatYouGetContactInfo(){trackPageView('view_ntm_quiz_meet_the_team');}
+function trackViewResultAgentMatch(){trackPageView('view_ntm_quiz_result_agent_match');}
+
+// Screen-to-tracking mapping
+const SCREEN_TRACKING={
+  's-welcome':trackQuizStart,
+  's-dob':trackViewBirthMonth,
+  's-iep-int':trackViewInIEP,
+  's-ab':trackViewMedicareAB,
+  's-cov':trackViewCurrentCoverage,
+  's-vet':trackViewIsVeteran,
+  's-uses-va':trackViewUsesVA,
+  's-va-prefs':trackViewVAPreference,
+  's-med':trackViewHasMedicaid,
+  's-story-intro':trackViewBudgetChoiceStart,
+  's-sam':trackViewBudgetChoiceSam,
+  's-alex':trackViewBudgetChoiceAlex,
+  's-decide':trackViewBudgetChoiceDecide,
+  's-gate':trackViewMeetTheTeam,
+  's-team':trackViewWhatYouGetContactInfo,
+  's-result':trackViewResultAgentMatch
+};
+
+// Update go() function to trigger tracking
+const originalGo=go;
+go=function(id){
+  originalGo(id);
+  if(SCREEN_TRACKING[id]){
+    setTimeout(()=>SCREEN_TRACKING[id](),100);
+  }
+};
+
+document.querySelectorAll('.fi').forEach(i=>i.addEventListener('focus',()=>i.style.borderColor='var(--green)'));
+
+// Fire quiz start event on page load
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',()=>trackQuizStart());
+}else{
+  trackQuizStart();
+}
+
+// Clean up any stray text nodes from body
+document.addEventListener('DOMContentLoaded',()=>{
+  setInterval(()=>{
+    document.body.childNodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        node.remove();
+      }
+    });
+  });
+});
+</script>
+
+<!-- UTM Script  -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Get all current URL params
+  const currentParams = new URLSearchParams(window.location.search);
+
+  // If no query params exist, exit
+  if ([...currentParams].length === 0) return;
+
+  // Function to merge current params into a URL string
+  function mergeParams(urlStr) {
+    try {
+      const url = new URL(urlStr, window.location.origin);
+      currentParams.forEach((value, key) => {
+        if (!url.searchParams.has(key)) {
+          url.searchParams.set(key, value);
+        }
+      });
+      return url.toString();
+    } catch (e) {
+      return urlStr; // Return original if invalid
+    }
+  }
+
+  // 1️⃣ Update all <a> links
+  document.querySelectorAll("a[href]").forEach(link => {
+    const href = link.getAttribute("href");
+    if (href.startsWith("#") || href.startsWith("javascript:")) return;
+    link.href = mergeParams(href);
+  });
+
+  // 2️⃣ Update buttons or elements with onclick modifying window.location.href
+  document.querySelectorAll("[onclick]").forEach(el => {
+    const onclickCode = el.getAttribute("onclick");
+
+    // Check if onclick sets window.location.href
+    if (/window\.location\.href\s*=\s*['"`]/.test(onclickCode)) {
+      el.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // Extract the URL from the onclick string
+        const urlMatch = onclickCode.match(/window\.location\.href\s*=\s*['"`](.*?)['"`]/);
+        if (!urlMatch) return;
+
+        const updatedUrl = mergeParams(urlMatch[1]);
+        window.location.href = updatedUrl;
+      });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
