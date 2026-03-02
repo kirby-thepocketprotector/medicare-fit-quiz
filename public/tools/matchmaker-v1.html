@@ -487,11 +487,6 @@ body {
   margin-bottom: .65rem;
   position: relative;
 }
-.option-card:hover {
-  border-color: var(--tpp-green);
-  background: var(--tpp-green-subtle);
-  transform: translateX(3px);
-}
 .option-card.selected {
   border-color: var(--tpp-green);
   background: var(--tpp-green-light);
@@ -507,11 +502,6 @@ body {
   cursor: pointer;
   transition: all .2s ease;
   margin-bottom: .85rem;
-}
-.option-card-big:hover {
-  border-color: var(--tpp-green);
-  background: var(--tpp-green-subtle);
-  transform: translateX(3px);
 }
 .option-card-big.selected {
   border-color: var(--tpp-green);
@@ -540,10 +530,6 @@ body {
   cursor: pointer;
   transition: all .25s ease;
   overflow: hidden;
-}
-.suboption-card:hover {
-  border-color: var(--tpp-green);
-  background: var(--tpp-green-subtle);
 }
 .suboption-card.selected {
   border-color: var(--tpp-green);
@@ -628,7 +614,6 @@ body {
   flex-shrink: 0;
   transition: background .2s;
 }
-.option-card:hover .option-icon,
 .option-card.selected .option-icon {
   background: var(--tpp-green);
 }
@@ -638,7 +623,6 @@ body {
   color: var(--tpp-green);
   transition: fill .2s, color .2s;
 }
-.option-card:hover .option-icon svg,
 .option-card.selected .option-icon svg {
   fill: white;
   color: white;
@@ -655,7 +639,6 @@ body {
   transition: color .2s, transform .2s;
   display: flex; align-items: center;
 }
-.option-card:hover .option-chevron,
 .option-card.selected .option-chevron {
   color: var(--tpp-green);
   transform: translateX(2px);
@@ -665,7 +648,6 @@ body {
   color: var(--tpp-green);
   transition: color .2s;
 }
-.option-card:hover .option-icon-text,
 .option-card.selected .option-icon-text {
   color: white;
 }
@@ -693,11 +675,6 @@ body {
   -webkit-tap-highlight-color: transparent;
   user-select: none;
 }
-.checkbox-card:hover {
-  border-color: var(--tpp-green);
-  background: var(--tpp-green-subtle);
-  transform: translateX(3px);
-}
 .checkbox-card.selected {
   border-color: var(--tpp-green);
   background: var(--tpp-green-light);
@@ -710,7 +687,6 @@ body {
   flex-shrink: 0;
   transition: background .2s;
 }
-.checkbox-card:hover .checkbox-icon,
 .checkbox-card.selected .checkbox-icon {
   background: var(--tpp-green);
 }
@@ -720,7 +696,6 @@ body {
   color: var(--tpp-green);
   transition: fill .2s, color .2s;
 }
-.checkbox-card:hover .checkbox-icon svg,
 .checkbox-card.selected .checkbox-icon svg {
   fill: white;
   color: white;
@@ -811,10 +786,6 @@ body {
   background: var(--tpp-white);
   display: flex; align-items: center; gap: .5rem;
 }
-.contact-pill:hover {
-  border-color: var(--tpp-green);
-  color: var(--tpp-green);
-}
 .contact-pill.selected {
   border-color: var(--tpp-green);
   background: var(--tpp-green);
@@ -822,6 +793,54 @@ body {
 }
 .contact-pill svg { width: 16px; height: 16px; }
 .contact-pill.selected svg { fill: var(--tpp-white); }
+
+/* ─── HOVER STATES (disabled on touch devices) ─── */
+@media (hover: hover) and (pointer: fine) {
+  .option-card:hover {
+    border-color: var(--tpp-green);
+    background: var(--tpp-green-subtle);
+    transform: translateX(3px);
+  }
+  .option-card-big:hover {
+    border-color: var(--tpp-green);
+    background: var(--tpp-green-subtle);
+    transform: translateX(3px);
+  }
+  .suboption-card:hover {
+    border-color: var(--tpp-green);
+    background: var(--tpp-green-subtle);
+  }
+  .option-card:hover .option-icon {
+    background: var(--tpp-green);
+  }
+  .option-card:hover .option-icon svg {
+    fill: white;
+    color: white;
+  }
+  .option-card:hover .option-chevron {
+    color: var(--tpp-green);
+    transform: translateX(2px);
+  }
+  .option-card:hover .option-icon-text {
+    color: white;
+  }
+  .checkbox-card:hover {
+    border-color: var(--tpp-green);
+    background: var(--tpp-green-subtle);
+    transform: translateX(3px);
+  }
+  .checkbox-card:hover .checkbox-icon {
+    background: var(--tpp-green);
+  }
+  .checkbox-card:hover .checkbox-icon svg {
+    fill: white;
+    color: white;
+  }
+  .contact-pill:hover {
+    border-color: var(--tpp-green);
+    color: var(--tpp-green);
+  }
+}
 
 /* privacy trust bar above submit */
 .privacy-bar {
