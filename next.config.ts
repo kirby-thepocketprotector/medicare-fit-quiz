@@ -40,7 +40,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/tools/matchmaker-v1',
-        destination: '/tools/medicare-matchmaker-funnel.html',
+        destination: '/tools/matchmaker-v1.html',
       },
       // NTM Quiz v3 leadform
       {
