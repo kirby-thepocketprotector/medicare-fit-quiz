@@ -2993,14 +2993,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // 1️⃣ Update all <a> links
+  // Update all <a> links
   document.querySelectorAll("a[href]").forEach(link => {
     const href = link.getAttribute("href");
     if (href.startsWith("#") || href.startsWith("javascript:")) return;
     link.href = mergeParams(href);
   });
 
-  // 2️⃣ Update buttons or elements with onclick modifying window.location.href
+
+  // Update buttons or elements with onclick modifying window.location.href
   document.querySelectorAll("[onclick]").forEach(el => {
     const onclickCode = el.getAttribute("onclick");
 
