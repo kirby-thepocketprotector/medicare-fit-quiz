@@ -1082,9 +1082,20 @@ const XANO_CONFIG = {
 
   // Validate origin
   validateOrigin: function() {
-    const allowedDomains = ['thepocketprotector.com', 'localhost'];
+    const allowedDomains = ['thepocketprotector.com', 'localhost', 'webflow.io'];
     const hostname = window.location.hostname;
-    return allowedDomains.some(domain => hostname.includes(domain));
+    const isValid = allowedDomains.some(domain => hostname.includes(domain));
+
+    // Debug logging (only on localhost and staging)
+    if (hostname.includes('localhost') || hostname.includes('webflow.io')) {
+      console.log('[Xano] Origin validation:', {
+        hostname: hostname,
+        allowedDomains: allowedDomains,
+        isValid: isValid
+      });
+    }
+
+    return isValid;
   }
 };
 
