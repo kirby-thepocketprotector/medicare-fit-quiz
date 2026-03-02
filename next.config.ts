@@ -38,6 +38,10 @@ const nextConfig: NextConfig = {
         source: '/tools/path-finder',
         destination: '/tools/path-finder.html',
       },
+      {
+        source: '/tools/matchmaker-v1',
+        destination: '/tools/medicare-matchmaker-funnel.html',
+      },
       // NTM Quiz v3 leadform
       {
         source: '/ntm-quiz-2026-v3-leadform',
