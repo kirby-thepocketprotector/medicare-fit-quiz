@@ -42,6 +42,10 @@ const nextConfig: NextConfig = {
         source: '/tools/matchmaker-v1',
         destination: '/tools/matchmaker-v1.html',
       },
+      {
+        source: '/tools/matchmaker-v2',
+        destination: '/tools/matchmaker-v2.html',
+      },
       // NTM Quiz v3 leadform
       {
         source: '/ntm-quiz-2026-v3-leadform',

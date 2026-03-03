@@ -1,0 +1,3105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Not Another Medicare Call Center | The Pocket Protector</title>
+<meta name="description" content="Medicare advice shouldn't require a sales call. Answer a few simple questions and we'll match you to personalized tools that tell you exactly what to do about your Medicare situation — like having a knowledgeable friend in your corner instead of a sales rep on the phone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --tpp-green: #1B7A3D;
+  --tpp-green-dark: #145C2E;
+  --tpp-green-light: #E8F5EC;
+  --tpp-green-subtle: #F4FAF6;
+  --tpp-black: #111111;
+  --tpp-white: #FFFFFF;
+  --tpp-gray-100: #F8F8F8;
+  --tpp-gray-200: #E5E5E5;
+  --tpp-gray-400: #999999;
+  --tpp-gray-600: #666666;
+  --tpp-gray-800: #333333;
+  --tpp-warm: #FFF9F0;
+  --tpp-warm-border: #F0E6D6;
+  --font-display: 'Poppins', sans-serif;
+  --font-body: 'Poppins', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--tpp-black);
+  background: var(--tpp-white);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ─── NAV ─── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--tpp-white);
+  border-bottom: 1px solid var(--tpp-gray-200);
+  padding: 0 2rem;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  display: flex; align-items: center;
+  text-decoration: none;
+}
+.nav-logo-img {
+  height: 36px; width: auto;
+}
+.nav-trust {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .78rem; color: var(--tpp-gray-600);
+}
+.nav-trust svg { width: 16px; height: 16px; color: var(--tpp-green); flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════════════════
+   STEP 0: LANDING / HERO
+   ═══════════════════════════════════════════════════════ */
+.landing {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2rem 2rem 2rem;
+  text-align: center;
+  animation: fadeIn .5s ease;
+}
+.landing h1 {
+  font-family: var(--font-display);
+  font-size: 2.25rem; font-weight: 700;
+  line-height: 1.25; letter-spacing: -.02em;
+  margin-bottom: .75rem;
+  color: var(--tpp-black);
+}
+.landing h1 em {
+  font-style: normal;
+  color: var(--tpp-green);
+}
+.landing-sub {
+  font-size: 1.05rem; color: var(--tpp-gray-600);
+  line-height: 1.65; max-width: 540px;
+  margin: 0 auto 1.5rem;
+}
+
+/* trust row */
+.trust-row {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 1.75rem;
+  margin-bottom: 1.75rem;
+}
+.trust-item {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .85rem; font-weight: 500; color: var(--tpp-gray-800);
+}
+.trust-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--tpp-green-light);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.trust-icon svg {
+  width: 18px; height: 18px;
+  fill: none; stroke: var(--tpp-green);
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* CTA */
+.landing-cta {
+  display: inline-flex; align-items: center; gap: .65rem;
+  background: var(--tpp-green); color: var(--tpp-white);
+  border: none; padding: 1.1rem 2.5rem; border-radius: 12px;
+  font-family: var(--font-body); font-weight: 700; font-size: 1.05rem;
+  cursor: pointer; text-decoration: none;
+  transition: background .2s, transform .15s, box-shadow .2s;
+  box-shadow: 0 4px 16px rgba(27,122,61,.25);
+}
+.landing-cta:hover {
+  background: var(--tpp-green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(27,122,61,.35);
+}
+.landing-cta svg {
+  width: 20px; height: 20px;
+  fill: none; stroke: currentColor;
+  stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+}
+.landing-time {
+  display: block;
+  margin-top: 1rem;
+  font-size: .8rem; color: var(--tpp-gray-400);
+}
+
+/* how it works */
+.how-it-works {
+  margin-top: 3rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--tpp-gray-200);
+}
+.how-it-works h3 {
+  font-size: .75rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--tpp-gray-400); margin-bottom: 1.5rem;
+}
+/* VS comparison row */
+.hiw-vs {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 0;
+  align-items: stretch;
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+.hiw-them {
+  padding: 1.5rem 1.25rem;
+  background: var(--tpp-gray-100);
+  border-radius: 12px 0 0 12px;
+  border: 1px solid var(--tpp-gray-200);
+  border-right: none;
+}
+.hiw-divider {
+  display: flex; align-items: center; justify-content: center;
+  width: 44px; background: var(--tpp-gray-100);
+  border-top: 1px solid var(--tpp-gray-200);
+  border-bottom: 1px solid var(--tpp-gray-200);
+  position: relative; z-index: 1;
+}
+.hiw-vs-badge {
+  width: 36px; height: 36px;
+  background: var(--tpp-gray-800);
+  color: var(--tpp-white);
+  font-size: .65rem; font-weight: 800;
+  letter-spacing: .03em;
+  border-radius: 50%;
+  display: grid; place-items: center;
+}
+.hiw-us {
+  padding: 1.5rem 1.25rem;
+  background: var(--tpp-green-light);
+  border-radius: 0 12px 12px 0;
+  border: 2px solid var(--tpp-green);
+}
+.hiw-label {
+  font-size: .65rem; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+.hiw-them .hiw-label { color: var(--tpp-gray-400); }
+.hiw-us .hiw-label { color: var(--tpp-green-dark); }
+.hiw-column-title {
+  font-size: .95rem; font-weight: 700;
+  color: var(--tpp-black);
+  margin-bottom: .4rem;
+}
+.hiw-them .hiw-column-title { color: var(--tpp-gray-600); }
+.hiw-us .hiw-column-title { color: var(--tpp-green-dark); }
+.hiw-list {
+  list-style: none; padding: 0; margin: 0;
+}
+.hiw-list li {
+  font-size: .82rem; line-height: 1.55;
+  padding: .35rem 0;
+  display: flex; align-items: flex-start; gap: .5rem;
+}
+.hiw-list li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 16px; height: 16px;
+  margin-top: 2px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.hiw-them .hiw-list li { color: var(--tpp-gray-600); }
+.hiw-them .hiw-list li::before {
+  background: var(--tpp-gray-200);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' stroke='%23888' stroke-width='2' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 4l8 8M12 4l-8 8'/%3E%3C/svg%3E");
+  background-size: 10px; background-position: center; background-repeat: no-repeat;
+}
+.hiw-us .hiw-list li { color: var(--tpp-gray-800); }
+.hiw-us .hiw-list li::before {
+  background: var(--tpp-green);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.5 8.5l3 3 6-6'/%3E%3C/svg%3E");
+  background-size: 12px; background-position: center; background-repeat: no-repeat;
+}
+
+/* You Decide fork */
+.hiw-fork {
+  text-align: center;
+  padding: 1.5rem;
+  background: linear-gradient(180deg, var(--tpp-gray-100) 0%, transparent 100%);
+  border-radius: 14px;
+  position: relative;
+}
+.hiw-fork-icon {
+  width: 40px; height: 40px;
+  background: var(--tpp-green);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  margin: 0 auto .75rem;
+}
+.hiw-fork-icon svg {
+  width: 20px; height: 20px;
+  fill: none; stroke: var(--tpp-white);
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.hiw-fork-title {
+  font-size: .95rem; font-weight: 700;
+  color: var(--tpp-black);
+  margin-bottom: .35rem;
+}
+.hiw-fork-text {
+  font-size: .85rem; color: var(--tpp-gray-600);
+  line-height: 1.55;
+  max-width: 440px; margin: 0 auto;
+}
+
+/* testimonial */
+.testimonial {
+  margin-top: 2rem;
+  padding: 1.75rem 2rem;
+  background: var(--tpp-white);
+  border: 1px solid var(--tpp-gray-200);
+  border-radius: 14px;
+  text-align: center;
+  position: relative;
+}
+.testimonial-quote {
+  font-family: var(--font-display);
+  font-size: 3rem; font-weight: 700;
+  color: var(--tpp-green); opacity: .25;
+  line-height: 1; margin-bottom: -.5rem;
+}
+.testimonial blockquote {
+  font-size: .88rem;
+  color: var(--tpp-gray-700);
+  line-height: 1.65;
+  font-style: italic;
+  margin: 0; padding: 0;
+}
+.testimonial-author {
+  margin-top: .75rem;
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--tpp-green-dark);
+}
+
+/* tools showcase */
+.tools-showcase {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--tpp-gray-200);
+}
+.tools-showcase-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.tools-showcase-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem; font-weight: 700;
+  color: var(--tpp-black);
+  margin-bottom: .4rem;
+}
+.tools-showcase-sub {
+  font-size: .88rem;
+  color: var(--tpp-gray-600);
+  line-height: 1.5;
+}
+.tools-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+.tool-item {
+  padding: 1.15rem;
+  background: var(--tpp-white);
+  border: 1px solid var(--tpp-gray-200);
+  border-radius: 10px;
+  text-align: left;
+  transition: border-color .2s, box-shadow .2s;
+}
+.tool-item:last-child {
+  background: var(--tpp-green-light);
+  border-color: var(--tpp-green);
+}
+.tool-item:hover {
+  border-color: var(--tpp-green);
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+.tool-item-icon {
+  width: 34px; height: 34px;
+  background: var(--tpp-green-light);
+  border-radius: 8px;
+  display: grid; place-items: center;
+  margin-bottom: .65rem;
+}
+.tool-item:last-child .tool-item-icon {
+  background: var(--tpp-green);
+}
+.tool-item:last-child .tool-item-icon svg {
+  color: var(--tpp-white);
+  stroke: var(--tpp-white);
+}
+.tool-item-icon svg {
+  width: 18px; height: 18px;
+  color: var(--tpp-green);
+}
+.tool-item strong {
+  display: block;
+  font-size: .85rem; font-weight: 700;
+  color: var(--tpp-black);
+  margin-bottom: .25rem;
+}
+.tool-item span {
+  font-size: .78rem;
+  color: var(--tpp-gray-600);
+  line-height: 1.5;
+}
+
+/* reassurance banner */
+.reassurance {
+  margin-top: 2.5rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--tpp-warm);
+  border: 1px solid var(--tpp-warm-border);
+  border-radius: 12px;
+  display: flex; align-items: flex-start; gap: .75rem;
+  text-align: left;
+}
+.reassurance svg {
+  width: 22px; height: 22px; flex-shrink: 0;
+  fill: none; stroke: #C97B1A; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+  margin-top: 2px;
+}
+.reassurance p {
+  font-size: .85rem; color: var(--tpp-gray-800);
+  line-height: 1.6;
+}
+.reassurance strong { color: #8B5A00; }
+
+/* ─── PROGRESS BAR ─── */
+.progress-bar-wrapper {
+  max-width: 680px; margin: 0 auto;
+  padding: 2rem 2rem 0;
+  display: none; /* hidden until quiz starts */
+}
+.progress-bar-wrapper.visible { display: block; }
+.progress-steps {
+  display: flex; align-items: center; justify-content: space-between;
+  position: relative;
+}
+.progress-steps::before {
+  content: '';
+  position: absolute;
+  top: 16px; left: 24px; right: 24px;
+  height: 2px;
+  background: var(--tpp-gray-200);
+  z-index: 0;
+}
+.progress-fill {
+  position: absolute;
+  top: 16px; left: 24px;
+  height: 2px;
+  background: var(--tpp-green);
+  z-index: 1;
+  transition: width .5s cubic-bezier(.4,0,.2,1);
+  width: 0%;
+}
+.progress-step {
+  display: flex; flex-direction: column; align-items: center; gap: .5rem;
+  position: relative; z-index: 2;
+}
+.progress-dot {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--tpp-white);
+  border: 2px solid var(--tpp-gray-200);
+  display: grid; place-items: center;
+  font-size: .75rem; font-weight: 700;
+  color: var(--tpp-gray-400);
+  transition: all .3s ease;
+}
+.progress-step.active .progress-dot {
+  border-color: var(--tpp-green);
+  color: var(--tpp-green);
+}
+.progress-step.completed .progress-dot {
+  background: var(--tpp-green);
+  border-color: var(--tpp-green);
+  color: var(--tpp-white);
+}
+.progress-label {
+  font-size: .7rem; font-weight: 600;
+  letter-spacing: .03em; text-transform: uppercase;
+  color: var(--tpp-gray-400);
+  transition: color .3s;
+}
+.progress-step.active .progress-label,
+.progress-step.completed .progress-label {
+  color: var(--tpp-green);
+}
+
+/* ─── MAIN CONTAINER ─── */
+.wizard-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: calc(100vh - 200px);
+  display: none; /* hidden until quiz starts */
+}
+.wizard-container.visible { display: block; }
+.step {
+  display: none;
+  animation: fadeIn .4s ease;
+}
+.step.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.step-subtitle {
+  font-size: .75rem; font-weight: 600; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--tpp-green); margin-bottom: .5rem;
+}
+.step-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem; font-weight: 600;
+  line-height: 1.3; letter-spacing: -.01em;
+  margin-bottom: .5rem;
+}
+.step-description {
+  font-size: .95rem; color: var(--tpp-gray-600);
+  line-height: 1.6; margin-bottom: 2rem;
+}
+
+/* ─── OPTION CARDS (single select) ─── */
+.option-card {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--tpp-white);
+  border: 2px solid var(--tpp-gray-200);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .2s ease;
+  margin-bottom: .65rem;
+  position: relative;
+}
+.option-card.selected {
+  border-color: var(--tpp-green);
+  background: var(--tpp-green-light);
+}
+
+/* Big two-choice cards for Step 1 */
+.option-card-big {
+  display: flex; align-items: center; gap: 1.25rem;
+  padding: 1.75rem 1.5rem;
+  background: var(--tpp-white);
+  border: 2px solid var(--tpp-gray-200);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all .2s ease;
+  margin-bottom: .85rem;
+}
+.option-card-big.selected {
+  border-color: var(--tpp-green);
+  background: var(--tpp-green-light);
+}
+.option-card-big .option-icon {
+  width: 52px; height: 52px;
+  border-radius: 12px;
+}
+.option-card-big .option-text {
+  font-size: 1.05rem; font-weight: 600;
+}
+.option-card-big .option-text span {
+  display: block;
+  font-size: .85rem; font-weight: 400;
+  color: var(--tpp-gray-600);
+  margin-top: .25rem;
+}
+
+/* ─── Expandable sub-option cards for Step 1b ─── */
+.suboption-card {
+  background: var(--tpp-white);
+  border: 2px solid var(--tpp-gray-200);
+  border-radius: 12px;
+  margin-bottom: .75rem;
+  cursor: pointer;
+  transition: all .25s ease;
+  overflow: hidden;
+}
+.suboption-card.selected {
+  border-color: var(--tpp-green);
+  background: var(--tpp-green-light);
+}
+.suboption-header {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.25rem;
+}
+.suboption-radio {
+  width: 22px; height: 22px;
+  border: 2px solid var(--tpp-gray-200);
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: grid; place-items: center;
+  transition: all .2s;
+}
+.suboption-card.selected .suboption-radio {
+  border-color: var(--tpp-green);
+  background: var(--tpp-green);
+}
+.suboption-radio::after {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--tpp-white);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.suboption-card.selected .suboption-radio::after {
+  opacity: 1;
+}
+.suboption-text {
+  font-size: .92rem; font-weight: 500;
+  color: var(--tpp-gray-800);
+  line-height: 1.5;
+  flex: 1;
+}
+/* Tool callout that expands on selection */
+.suboption-tool {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease, padding .35s ease;
+  padding: 0 1.25rem;
+}
+.suboption-card.selected .suboption-tool {
+  max-height: 200px;
+  padding: 0 1.25rem 1.25rem;
+}
+.tool-callout {
+  display: flex; align-items: flex-start; gap: .65rem;
+  padding: .85rem 1rem;
+  background: var(--tpp-white);
+  border-radius: 10px;
+  border: 1px solid var(--tpp-green-light);
+}
+.tool-callout-icon {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  background: var(--tpp-green-light);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.tool-callout-icon svg {
+  width: 14px; height: 14px;
+  fill: none; stroke: var(--tpp-green);
+  stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+}
+.tool-callout p {
+  font-size: .82rem; color: var(--tpp-gray-600);
+  line-height: 1.6;
+}
+.tool-callout strong {
+  color: var(--tpp-green-dark);
+}
+.option-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  background: var(--tpp-green-light);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  transition: background .2s;
+}
+.option-card.selected .option-icon {
+  background: var(--tpp-green);
+}
+.option-icon svg {
+  width: 22px; height: 22px;
+  fill: var(--tpp-green);
+  color: var(--tpp-green);
+  transition: fill .2s, color .2s;
+}
+.option-card.selected .option-icon svg {
+  fill: white;
+  color: white;
+}
+.option-text {
+  font-size: .9rem; font-weight: 500;
+  color: var(--tpp-gray-800);
+  line-height: 1.5;
+  flex: 1;
+}
+.option-chevron {
+  flex-shrink: 0;
+  color: var(--tpp-gray-400);
+  transition: color .2s, transform .2s;
+  display: flex; align-items: center;
+}
+.option-card.selected .option-chevron {
+  color: var(--tpp-green);
+  transform: translateX(2px);
+}
+.option-icon-text {
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--tpp-green);
+  transition: color .2s;
+}
+.option-card.selected .option-icon-text {
+  color: white;
+}
+.option-chevron svg {
+  width: 18px; height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ─── CHECKBOX CARDS (multi select) ─── */
+.checkbox-card {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--tpp-white);
+  border: 2px solid var(--tpp-gray-200);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .2s ease;
+  margin-bottom: .65rem;
+  position: relative;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.checkbox-card.selected {
+  border-color: var(--tpp-green);
+  background: var(--tpp-green-light);
+}
+.checkbox-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  background: var(--tpp-green-light);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  transition: background .2s;
+}
+.checkbox-card.selected .checkbox-icon {
+  background: var(--tpp-green);
+}
+.checkbox-icon svg {
+  width: 22px; height: 22px;
+  fill: var(--tpp-green);
+  color: var(--tpp-green);
+  transition: fill .2s, color .2s;
+}
+.checkbox-card.selected .checkbox-icon svg {
+  fill: white;
+  color: white;
+}
+.checkbox-selected-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--tpp-green);
+  flex-shrink: 0;
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity .2s;
+}
+.checkbox-card.selected .checkbox-selected-dot {
+  opacity: 1;
+}
+
+/* ─── FORM INPUTS ─── */
+.form-group { margin-bottom: 1.5rem; }
+.form-compact .form-group { margin-bottom: .85rem; }
+.form-compact .form-label { margin-bottom: .2rem; }
+.form-compact .form-input { padding: .6rem .85rem; }
+.form-label {
+  display: block;
+  font-size: .85rem; font-weight: 600;
+  color: var(--tpp-gray-800);
+  margin-bottom: .5rem;
+}
+.form-label-optional {
+  font-weight: 400; color: var(--tpp-gray-400);
+  font-size: .8rem;
+}
+.form-input {
+  width: 100%;
+  padding: .85rem 1rem;
+  border: 2px solid var(--tpp-gray-200);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: .9rem;
+  color: var(--tpp-black);
+  transition: border-color .2s;
+  outline: none;
+}
+.form-input:focus { border-color: var(--tpp-green); }
+.form-input::placeholder { color: var(--tpp-gray-400); }
+.form-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+.form-hint {
+  font-size: .78rem; color: var(--tpp-gray-400);
+  margin-top: .35rem;
+}
+.form-error {
+  font-size: .78rem; color: #c0392b;
+  margin-top: .35rem;
+  display: none;
+}
+
+/* optional phone callout */
+.phone-optional-note {
+  display: flex; align-items: center; gap: .5rem;
+  margin-top: .4rem;
+  font-size: .78rem; color: var(--tpp-green-dark);
+  background: var(--tpp-green-subtle);
+  padding: .45rem .75rem;
+  border-radius: 8px;
+  border: 1px solid var(--tpp-green-light);
+}
+.phone-optional-note svg {
+  width: 14px; height: 14px; flex-shrink: 0;
+  fill: none; stroke: var(--tpp-green); stroke-width: 2.5;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ─── CONTACT METHOD PILLS ─── */
+.contact-methods {
+  display: flex; flex-wrap: wrap; gap: .5rem;
+}
+.contact-pill {
+  padding: .65rem 1.25rem;
+  border: 2px solid var(--tpp-gray-200);
+  border-radius: 99px;
+  font-family: var(--font-body);
+  font-size: .85rem; font-weight: 500;
+  color: var(--tpp-gray-600);
+  cursor: pointer;
+  transition: all .2s;
+  background: var(--tpp-white);
+  display: flex; align-items: center; gap: .5rem;
+}
+.contact-pill.selected {
+  border-color: var(--tpp-green);
+  background: var(--tpp-green);
+  color: var(--tpp-white);
+}
+.contact-pill svg { width: 16px; height: 16px; }
+.contact-pill.selected svg { fill: var(--tpp-white); }
+
+/* ─── HOVER STATES (disabled on touch devices) ─── */
+@media (hover: hover) and (pointer: fine) {
+  .option-card:hover {
+    border-color: var(--tpp-green);
+    background: var(--tpp-green-subtle);
+    transform: translateX(3px);
+  }
+  .option-card-big:hover {
+    border-color: var(--tpp-green);
+    background: var(--tpp-green-subtle);
+    transform: translateX(3px);
+  }
+  .suboption-card:hover {
+    border-color: var(--tpp-green);
+    background: var(--tpp-green-subtle);
+  }
+  .option-card:hover .option-icon {
+    background: var(--tpp-green);
+  }
+  .option-card:hover .option-icon svg {
+    fill: white;
+    color: white;
+  }
+  .option-card:hover .option-chevron {
+    color: var(--tpp-green);
+    transform: translateX(2px);
+  }
+  .option-card:hover .option-icon-text {
+    color: white;
+  }
+  .checkbox-card:hover {
+    border-color: var(--tpp-green);
+    background: var(--tpp-green-subtle);
+    transform: translateX(3px);
+  }
+  .checkbox-card:hover .checkbox-icon {
+    background: var(--tpp-green);
+  }
+  .checkbox-card:hover .checkbox-icon svg {
+    fill: white;
+    color: white;
+  }
+  .contact-pill:hover {
+    border-color: var(--tpp-green);
+    color: var(--tpp-green);
+  }
+}
+
+/* privacy trust bar above submit */
+.privacy-bar {
+  display: flex; align-items: center; gap: .5rem;
+  padding: .75rem 1rem;
+  background: var(--tpp-gray-100);
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  margin-top: .5rem;
+}
+.privacy-bar svg {
+  width: 16px; height: 16px; flex-shrink: 0;
+  fill: none; stroke: var(--tpp-gray-600);
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.privacy-bar span {
+  font-size: .8rem; color: var(--tpp-gray-600); line-height: 1.4;
+}
+
+/* ─── NAVIGATION BUTTONS ─── */
+.btn-row {
+  display: flex; gap: 1rem;
+  margin-top: 2.5rem;
+  padding-bottom: 2rem;
+}
+.btn-next {
+  flex: 1;
+  background: var(--tpp-green); color: var(--tpp-white);
+  border: none; padding: 1rem; border-radius: 10px;
+  font-family: var(--font-body); font-weight: 600; font-size: .95rem;
+  cursor: pointer; text-align: center;
+  transition: background .2s, transform .1s, opacity .2s;
+}
+.btn-next:hover:not(:disabled) {
+  background: var(--tpp-green-dark);
+  transform: translateY(-1px);
+}
+.btn-next:disabled {
+  opacity: .4; cursor: not-allowed;
+}
+.btn-back {
+  padding: 1rem 1.5rem;
+  background: transparent; color: var(--tpp-gray-600);
+  border: 2px solid var(--tpp-gray-200);
+  border-radius: 10px;
+  font-family: var(--font-body); font-weight: 600; font-size: .95rem;
+  cursor: pointer;
+  transition: all .2s;
+}
+.btn-back:hover {
+  border-color: var(--tpp-gray-400);
+  color: var(--tpp-black);
+}
+
+/* ─── RESULT PAGE ─── */
+.result-container {
+  text-align: center;
+  padding-top: 1rem;
+}
+.result-match-label {
+  font-size: .75rem; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--tpp-green);
+  margin-bottom: .75rem;
+}
+.result-title {
+  font-family: var(--font-display);
+  font-size: 2.25rem; font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: .75rem;
+}
+.result-agent-card {
+  background: var(--tpp-green-subtle);
+  border: 2px solid var(--tpp-green-light);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: left;
+}
+.result-agent-header {
+  display: flex; align-items: center; gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.result-agent-avatar {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 3px solid var(--tpp-green);
+}
+.result-agent-avatar img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.result-agent-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem; font-weight: 600;
+}
+.result-agent-title {
+  font-size: .8rem; font-weight: 600;
+  letter-spacing: .05em; text-transform: uppercase;
+  color: var(--tpp-green); margin-top: .2rem;
+}
+.result-agent-stats {
+  display: flex; gap: 1.5rem;
+  margin-top: .5rem;
+}
+.result-agent-stat {
+  font-size: .78rem; color: var(--tpp-gray-600);
+}
+.result-agent-stat strong {
+  color: var(--tpp-green); font-weight: 700;
+}
+.result-explanation {
+  font-size: .95rem; line-height: 1.7;
+  color: var(--tpp-gray-800);
+  padding: 1.25rem;
+  background: var(--tpp-white);
+  border-radius: 10px;
+  border: 1px solid var(--tpp-green-light);
+}
+.result-explanation strong { color: var(--tpp-green); }
+.result-cta-row {
+  display: flex; gap: 1rem;
+  margin-top: 2rem;
+  justify-content: center;
+}
+.result-cta {
+  padding: 1rem 2rem;
+  background: var(--tpp-green); color: var(--tpp-white);
+  border: none; border-radius: 10px;
+  font-family: var(--font-body); font-weight: 600; font-size: .95rem;
+  cursor: pointer; text-decoration: none;
+  transition: background .2s, transform .1s;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+.result-cta:hover {
+  background: var(--tpp-green-dark);
+  transform: translateY(-1px);
+}
+.result-cta-secondary {
+  padding: 1rem 2rem;
+  background: transparent; color: var(--tpp-green);
+  border: 2px solid var(--tpp-green); border-radius: 10px;
+  font-family: var(--font-body); font-weight: 600; font-size: .95rem;
+  cursor: pointer; text-decoration: none;
+  transition: all .2s;
+  display: inline-block;
+}
+.result-cta-secondary:hover {
+  background: var(--tpp-green-light);
+}
+/* availability nudge */
+.availability-nudge {
+  display: flex; align-items: center; justify-content: center; gap: .45rem;
+  margin-top: .75rem;
+  font-size: .8rem; color: var(--tpp-gray-600);
+}
+.availability-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .4; }
+}
+
+/* ─── ONLINE-ONLY RESULT ─── */
+
+/* ─── SELF-SERVE CAPTURE ─── */
+.self-serve-icon {
+  width: 72px; height: 72px;
+  background: var(--tpp-green-light);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  margin: 0 auto 1.25rem;
+}
+.online-notice {
+  background: var(--tpp-green-subtle);
+  border: 2px solid var(--tpp-green-light);
+  border-radius: 14px;
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: left;
+}
+.online-notice p {
+  font-size: .95rem; line-height: 1.7;
+  color: var(--tpp-gray-800);
+  margin-bottom: .75rem;
+}
+.online-notice p:last-child { margin-bottom: 0; }
+
+/* ─── SKIP LINK ─── */
+.skip-link {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: .85rem;
+  color: var(--tpp-gray-400);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .2s;
+}
+.skip-link:hover { color: var(--tpp-green); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 600px) {
+  .landing { padding: 1.25rem 1rem 1.5rem; }
+  .landing h1 { font-size: 1.6rem; margin-bottom: .6rem; }
+  .landing-sub { font-size: .92rem; margin-bottom: 1.25rem; }
+  .trust-row { gap: .75rem; margin-bottom: 1.25rem; }
+  .trust-item { font-size: .8rem; }
+  .trust-icon { width: 30px; height: 30px; }
+  .trust-icon svg { width: 15px; height: 15px; }
+  .landing-cta { padding: 1rem 2rem; font-size: .95rem; }
+  .hiw-vs { grid-template-columns: 1fr; gap: 0; }
+  .hiw-them { border-radius: 12px 12px 0 0; border-right: 1px solid var(--tpp-gray-200); border-bottom: none; }
+  .hiw-divider {
+    width: 100%; height: 36px;
+    border-left: 1px solid var(--tpp-gray-200);
+    border-right: 1px solid var(--tpp-gray-200);
+    border-top: none; border-bottom: none;
+  }
+  .hiw-us { border-radius: 0 0 12px 12px; }
+  .tools-grid { grid-template-columns: 1fr 1fr; }
+  .wizard-container { padding: 1.5rem 1rem; }
+  .step-title { font-size: 1.4rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .nav-trust { display: none; }
+  .progress-label { display: none; }
+  .result-agent-header { flex-direction: column; text-align: center; }
+  .result-agent-stats { justify-content: center; }
+  .result-cta-row { flex-direction: column; }
+  #step3 .step-subtitle { margin-bottom: .25rem; }
+  #step3 .step-title { font-size: 1.15rem !important; margin-bottom: .5rem; }
+  #step3 .form-compact { margin-top: .25rem; }
+  #step3 .form-compact .form-group { margin-bottom: .65rem; }
+  #step3 .form-compact .form-input { padding: .55rem .75rem; font-size: .9rem; }
+  .result-title { font-size: 1.65rem; }
+  .contact-methods { justify-content: center; }
+}
+</style>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PNR7578Q');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google tag (gtag.js)-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XWRC8436T9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XWRC8436T9', { anonymize_ip: true });
+  gtag('set', 'debug_mode', true);
+</script>
+<!-- Google tag (gtag.js)-->
+
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PNR7578Q"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript)-->
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="nav-logo">
+    <img src="data:image/png;base64,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" alt="The Pocket Protector" class="nav-logo-img" />
+  </a>
+  <div class="nav-trust">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    100% Free Online Medicare Tools and Advice
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     STEP 0: LANDING PAGE (Hero)
+     ═══════════════════════════════════════════════════════════ -->
+<div class="landing" id="landing">
+
+  <h1>Medicare Advice Shouldn't Require <em>a Sales Call.</em></h1>
+
+  <p class="landing-sub">
+    Answer a few simple questions and we'll match you to personalized tools that tell you exactly what to do about your Medicare situation — like having a knowledgeable friend in your corner instead of a sales rep on the phone.
+  </p>
+
+  <!-- Trust signals — contrast-driven -->
+  <div class="trust-row">
+    <div class="trust-item">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-5.8-5.8A19.79 19.79 0 0 1 2.32 4.18 2 2 0 0 1 4.27 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+      </div>
+      Phone # is optional
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      No call centers. A real person if you want one.
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      100% free, zero pressure
+    </div>
+  </div>
+
+  <button class="landing-cta" onclick="startQuiz()">
+    Answer 5 Simple Questions
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+  <span class="landing-time">Takes about 90 seconds — no phone number required</span>
+
+  <!-- How it works -->
+  <div class="how-it-works">
+    <h3>How This Is Different</h3>
+
+    <div class="hiw-vs">
+      <div class="hiw-them">
+        <div class="hiw-label">Most Medicare Sites</div>
+        <div class="hiw-column-title">Collect your number, call you immediately</div>
+        <ul class="hiw-list">
+          <li>A random person from a call center dials you</li>
+          <li>They push whatever plan pays them the highest commission</li>
+          <li>Your info gets sold to multiple companies</li>
+          <li>No tools — just a sales pitch</li>
+        </ul>
+      </div>
+      <div class="hiw-divider">
+        <div class="hiw-vs-badge">VS</div>
+      </div>
+      <div class="hiw-us">
+        <div class="hiw-label">The Pocket Protector</div>
+        <div class="hiw-column-title">Free tools + honest advice on your terms</div>
+        <ul class="hiw-list">
+          <li>Free tools to check your doctors, compare plans, estimate drug costs, track deadlines, and more</li>
+          <li>A personal Medicare guide if you want one — never pushed on you</li>
+          <li>Your info stays between us — never sold</li>
+          <li>You're in control — no calls unless you ask for one</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hiw-fork">
+      <div class="hiw-fork-icon">
+        <svg viewBox="0 0 24 24"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
+      </div>
+      <div class="hiw-fork-title">You decide how to move forward</div>
+      <div class="hiw-fork-text">Answer a few simple questions and we'll match you with the right tools for your situation. Want a personal Medicare guide to walk you through it? That's entirely up to you. Either way, it's 100% free with zero obligation.</div>
+    </div>
+  </div>
+
+  <!-- Testimonial -->
+  <div class="testimonial">
+    <div class="testimonial-quote">"</div>
+    <blockquote>Before Pocket Protector, my in-laws were completely confused about Medicare and had nobody to guide them. Pocket Protector made everything simple, tailored coverage to their needs, and gave our whole family confidence and peace of mind knowing they were truly taken care of. If someone is turning 65, my advice is simple: use The Pocket Protector.</blockquote>
+    <div class="testimonial-author">— Christina P.</div>
+  </div>
+
+  <!-- Tools showcase -->
+  <div class="tools-showcase">
+    <div class="tools-showcase-header">
+      <h3 class="tools-showcase-title">Your Free Medicare Toolkit</h3>
+      <p class="tools-showcase-sub">These are the tools you get — personalized to your situation, 100% free.</p>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-item">
+        <div class="tool-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </div>
+        <strong>Plan Comparison</strong>
+        <span>See how your current plan stacks up against every option in your county — side by side.</span>
+      </div>
+      <div class="tool-item">
+        <div class="tool-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <strong>Doctor Network Check</strong>
+        <span>Verify your doctors are covered before you enroll — not after you get a surprise bill.</span>
+      </div>
+      <div class="tool-item">
+        <div class="tool-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <strong>Drug Cost Analyzer</strong>
+        <span>Compare what you pay now vs. what you'd pay on every other plan — for your exact prescriptions.</span>
+      </div>
+      <div class="tool-item">
+        <div class="tool-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <strong>Deadline Tracker</strong>
+        <span>Never miss an enrollment window or penalty deadline — personalized to your timeline.</span>
+      </div>
+      <div class="tool-item">
+        <div class="tool-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <strong>Plan Fit Quiz</strong>
+        <span>Not sure if Advantage or Medigap is right? This walks you through the tradeoffs for your situation.</span>
+      </div>
+      <div class="tool-item">
+        <div class="tool-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        </div>
+        <strong>Your Medicare Guide</strong>
+        <span>A real person — matched to your needs — who can answer questions and help you use the tools.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reassurance banner -->
+  <div class="reassurance">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    <p><strong>Why we're different:</strong> Most Medicare sites are lead generators — they collect your info and sell it to whoever's buying. We built a suite of free tools that puts you in control — plan comparisons, drug cost analysis, doctor network checks, deadline reminders, and more. Want a personal Medicare guide to help? They're there if you want one — a resource, not a salesperson. Our help is always 100% free to you with zero obligation.</p>
+  </div>
+
+  <div style="text-align: center; margin-top: 2.5rem;">
+    <button class="landing-cta" onclick="startQuiz()">
+      Answer 5 Simple Questions
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <span class="landing-time">Takes about 90 seconds — no phone number required</span>
+  </div>
+
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar-wrapper" id="progressBarWrapper">
+  <div class="progress-steps">
+    <div class="progress-fill" id="progressFill"></div>
+    <div class="progress-step active" data-step="1">
+      <div class="progress-dot">1</div>
+      <div class="progress-label">Situation</div>
+    </div>
+    <div class="progress-step" data-step="2">
+      <div class="progress-dot">2</div>
+      <div class="progress-label">Your Path</div>
+    </div>
+    <div class="progress-step" data-step="3">
+      <div class="progress-dot">3</div>
+      <div class="progress-label">Preferences</div>
+    </div>
+    <div class="progress-step" data-step="4">
+      <div class="progress-dot">4</div>
+      <div class="progress-label">Your Info</div>
+    </div>
+    <div class="progress-step" data-step="5">
+      <div class="progress-dot">5</div>
+      <div class="progress-label">Your Match</div>
+    </div>
+  </div>
+</div>
+
+<div class="wizard-container" id="wizardContainer">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- STEP 1: NEW vs ALREADY ON MEDICARE          -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="step active" id="step1">
+    <div class="step-subtitle">Step 1 of 5</div>
+    <h2 class="step-title">Which best describes you?</h2>
+    <p class="step-description">This helps us match you with the right tools and advice for your specific situation.</p>
+
+    <div class="option-card-big" onclick="selectPath('new', this)">
+      <div class="option-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 2a8 8 0 1 1 0 16A8 8 0 0 1 12 4zm4.5 3.5l-5 2.5-2.5 5 5-2.5 2.5-5zm-4.5 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg></div>
+      <div class="option-text">
+        I'm new to Medicare
+        <span>Not yet enrolled, or just getting started with the process</span>
+      </div>
+      <span class="option-chevron"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+    </div>
+
+    <div class="option-card-big" onclick="selectPath('already', this)">
+      <div class="option-icon"><svg viewBox="0 0 24 24"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2zm0 2.18L19 8v4c0 4.35-3.1 8.41-7 9.62C8.1 20.41 5 16.35 5 12V8l7-3.82zM10.94 14.5l4.24-4.24-1.41-1.42L10.94 11.67l-1.77-1.77-1.42 1.42 3.19 3.18z"/></svg></div>
+      <div class="option-text">
+        I'm already on Medicare
+        <span>Currently enrolled and want to review or improve my coverage</span>
+      </div>
+      <span class="option-chevron"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+    </div>
+
+    <a class="skip-link" onclick="goToSelfServe()" style="margin-top: .75rem; display:none;">I'd rather explore on my own for now</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- STEP 1b: DRILL-DOWN (New to Medicare)       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="step" id="step1b_new">
+    <div class="step-subtitle">Step 1 of 5</div>
+    <h2 class="step-title">Where are you in the process?</h2>
+    <p class="step-description">Pick the one that sounds most like you — this helps us show you the right tools.</p>
+
+    <div class="suboption-card" data-value="new_getting_started" onclick="selectSuboption(this, 'step1b_new')">
+      <div class="suboption-header">
+        <div class="suboption-radio"></div>
+        <div class="suboption-text">I'm just getting started and need help with the basics — including signing up for Part A & Part B</div>
+      </div>
+      <div class="suboption-tool">
+        <div class="tool-callout">
+          <div class="tool-callout-icon"><svg viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
+          <p><strong>You're not alone — most people start here.</strong> We can set you up with a personalized Medicare deadline tracker so you don't miss any important dates — and walk you through every step.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="suboption-card" data-value="new_know_what_i_want" onclick="selectSuboption(this, 'step1b_new')">
+      <div class="suboption-header">
+        <div class="suboption-radio"></div>
+        <div class="suboption-text">I have Part A & B but need help deciding between Medicare Advantage and Medigap</div>
+      </div>
+      <div class="suboption-tool">
+        <div class="tool-callout">
+          <div class="tool-callout-icon"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><path d="M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div>
+          <p><strong>That's the most important decision in Medicare.</strong> We have tools that analyze your doctor network, compare drug costs, and recommend a path based on your specific needs.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="suboption-card" data-value="not_on_medicare_questions" onclick="selectSuboption(this, 'step1b_new')">
+      <div class="suboption-header">
+        <div class="suboption-radio"></div>
+        <div class="suboption-text">I'm still on employer coverage and want to understand how retirement affects my health insurance</div>
+      </div>
+      <div class="suboption-tool">
+        <div class="tool-callout">
+          <div class="tool-callout-icon"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+          <p><strong>Timing matters more than most people realize.</strong> We have a tool that maps out a personalized timeline for transitioning from employer coverage to Medicare — so you avoid coverage gaps and any penalties.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goToStep(1)">Back</button>
+      <button class="btn-next disabled" id="btn1b_new" disabled onclick="goToStep(2)">Continue</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- STEP 1b: Already on Medicare — Coverage Type -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="step" id="step1b_already">
+    <div class="step-subtitle">Step 1 of 5</div>
+    <h2 class="step-title">What kind of coverage do you have right now?</h2>
+    <p class="step-description">This helps us point you toward the right tools — each coverage type has different things worth checking.</p>
+
+    <div class="option-card" onclick="selectCoverageType('advantage', this)">
+      <div class="option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--tpp-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div>
+      <div class="option-text"><strong>Medicare Advantage</strong> (Part C)</div>
+      <span class="option-chevron"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+    </div>
+
+    <div class="option-card" onclick="selectCoverageType('supplement', this)">
+      <div class="option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--tpp-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="option-text"><strong>Medigap / Medicare Supplement</strong></div>
+      <span class="option-chevron"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+    </div>
+
+    <div class="option-card" onclick="selectCoverageType('ab_only', this)">
+      <div class="option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--tpp-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><path d="M15 2H9a1 1 0 00-1 1v2a1 1 0 001 1h6a1 1 0 001-1V3a1 1 0 00-1-1z"/></svg></div>
+      <div class="option-text"><strong>Just Original Medicare</strong> (Part A & B only)</div>
+      <span class="option-chevron"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goToStep(1)">Back</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- STEP 1c: Medicare Advantage — What to check -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="step" id="step1c_advantage">
+    <div class="step-subtitle">Step 1 of 5</div>
+    <h2 class="step-title">What would be most helpful for you right now?</h2>
+    <p class="step-description">Pick the one that matters most — we'll make sure your Medicare professional focuses here first.</p>
+
+    <div class="suboption-card" data-value="advantage_compare" onclick="selectSuboption(this, 'step1c_advantage')">
+      <div class="suboption-header">
+        <div class="suboption-radio"></div>
+        <div class="suboption-text">I want to see how my plan stacks up against every other option in my area</div>
+      </div>
+      <div class="suboption-tool">
+        <div class="tool-callout">
+          <div class="tool-callout-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+          <p><strong>Plans change every year — your best option last year might not be this year.</strong> We have a plan comparison tool that checks your current Advantage plan against every option in your county. Your Medicare professional can walk you through the results and flag anything worth switching to.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="suboption-card" data-value="advantage_doctors" onclick="selectSuboption(this, 'step1c_advantage')">
+      <div class="suboption-header">
+        <div class="suboption-radio"></div>
+        <div class="suboption-text">I want to make sure I can see my doctors without surprise bills or denials</div>
+      </div>
+      <div class="suboption-tool">
+        <div class="tool-callout">
+          <div class="tool-callout-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <p><strong>Network issues are the #1 headache with Advantage plans.</strong> We have a doctor network verification tool that checks every provider you see against in-network coverage — so you know before you go, not after you get the bill. Your Medicare professional can help identify any gaps.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="suboption-card" data-value="advantage_rx" onclick="selectSuboption(this, 'step1c_advantage')">
+      <div class="suboption-header">
+        <div class="suboption-radio"></div>
+        <div class="suboption-text">I want to make sure my prescriptions are covered and I'm not overpaying</div>
+      </div>
+      <div class="suboption-tool">
+        <div class="tool-callout">
+          <div class="tool-callout-icon"><svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          <p><strong>Drug formularies change every year — and so do your costs.</strong> We have a drug cost analyzer that compares what you're paying now against what you'd pay on every other available plan. Your Medicare professional can walk you through the savings opportunities.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goToStep('1b_already')">Back</button>
+      <button class="btn-next" id="btn1c_advantage" disabled onclick="goToStep(2)">Continue</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- STEP 1c: Medigap/Supplement — What to check -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="step" id="step1c_supplement">
+    <div class="step-subtitle">Step 1 of 5</div>
+    <h2 class="step-title">What would be most helpful for you right now?</h2>
+    <p class="step-description">Pick the one that matters most — we'll make sure your Medicare professional focuses here first.</p>
+
+    <div class="suboption-card" data-value="supplement_rate" onclick="selectSuboption(this, 'step1c_supplement')">
+      <div class="suboption-header">
+        <div class="suboption-radio"></div>
+        <div class="suboption-text">I want to make sure I'm getting the best rate on my Medigap plan</div>
+      </div>
+      <div class="suboption-tool">
+        <div class="tool-callout">
+          <div class="tool-callout-icon"><svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          <p><strong>Same exact coverage, wildly different prices.</strong> Medigap Plan G from one carrier can cost twice what another charges — and most people never comparison shop. We have a rate comparison tool that shows you every carrier's price for your plan letter in your zip code. Your Medicare professional can help you understand when switching makes sense and when it doesn't.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="suboption-card" data-value="supplement_partd" onclick="selectSuboption(this, 'step1c_supplement')">
+      <div class="suboption-header">
+        <div class="suboption-radio"></div>
+        <div class="suboption-text">I want help seeing if I should be paying less for my prescriptions</div>
+      </div>
+      <div class="suboption-tool">
+        <div class="tool-callout">
+          <div class="tool-callout-icon"><svg viewBox="0 0 24 24"><path d="M19.5 12.572l-7.5 7.428-7.5-7.428A5 5 0 1112 6.006a5 5 0 017.5 6.572"/></svg></div>
+          <p><strong>Part D is separate from your Supplement — and it changes every year.</strong> We have a drug cost analyzer that checks your current prescriptions against every Part D plan available in your area. Your Medicare professional can show you exactly where the savings are.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goToStep('1b_already')">Back</button>
+      <button class="btn-next" id="btn1c_supplement" disabled onclick="goToStep(2)">Continue</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- STEP 1c: Just A&B — What to check           -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="step" id="step1c_ab_only">
+    <div class="step-subtitle">Step 1 of 5</div>
+    <h2 class="step-title">What would be most helpful for you right now?</h2>
+    <p class="step-description">Pick the one that matters most — we'll make sure your Medicare professional focuses here first.</p>
+
+    <div class="suboption-card" data-value="ab_need_coverage" onclick="selectSuboption(this, 'step1c_ab_only')">
+      <div class="suboption-header">
+        <div class="suboption-radio"></div>
+        <div class="suboption-text">I know I need more coverage but I'm not sure where to start</div>
+      </div>
+      <div class="suboption-tool">
+        <div class="tool-callout">
+          <div class="tool-callout-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 2a8 8 0 1 1 0 16A8 8 0 0 1 12 4zm4.5 3.5l-5 2.5-2.5 5 5-2.5 2.5-5z"/></svg></div>
+          <p><strong>Original Medicare alone leaves a lot of gaps.</strong> We have a plan fit tool that walks through your situation — your doctors, your prescriptions, your budget — and recommends whether Medicare Advantage or a Medigap plan is the better path for you. Your Medicare professional can explain the tradeoffs in plain English.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="suboption-card" data-value="ab_need_partd" onclick="selectSuboption(this, 'step1c_ab_only')">
+      <div class="suboption-header">
+        <div class="suboption-radio"></div>
+        <div class="suboption-text">I need a Part D drug plan and want to find the best one for my prescriptions</div>
+      </div>
+      <div class="suboption-tool">
+        <div class="tool-callout">
+          <div class="tool-callout-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+          <p><strong>Without Part D, you could face a penalty later — and drug costs add up fast.</strong> We have a drug cost analyzer that compares every Part D plan in your area based on your specific medications. Your Medicare professional can help you pick the right one and enroll.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="suboption-card" data-value="ab_understand_options" onclick="selectSuboption(this, 'step1c_ab_only')">
+      <div class="suboption-header">
+        <div class="suboption-radio"></div>
+        <div class="suboption-text">I just want someone to explain my options — Advantage vs. Supplement vs. staying as-is</div>
+      </div>
+      <div class="suboption-tool">
+        <div class="tool-callout">
+          <div class="tool-callout-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+          <p><strong>That's exactly what your Medicare professional is for.</strong> No pressure, no sales pitch — just a conversation about what each path looks like for your specific situation. They can walk you through the tools at your own pace and help you make a decision you feel good about.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goToStep('1b_already')">Back</button>
+      <button class="btn-next" id="btn1c_ab_only" disabled onclick="goToStep(2)">Continue</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SELF-SERVE: Email Capture for DIY users     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="step" id="step_self_serve">
+    <div class="self-serve-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--tpp-green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="48" height="48"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+    </div>
+    <h2 class="step-title">Totally understand — you like to do your own research.</h2>
+    <p class="step-description">We've built a suite of free tools to help you compare plans, check drug costs, and make confident Medicare decisions on your own. Where should we send the list?</p>
+
+    <div style="max-width: 400px; margin: 1.5rem auto 0;">
+      <div class="form-group">
+        <label class="form-label" for="selfServeFirstName">First Name</label>
+        <input class="form-input" type="text" id="selfServeFirstName" placeholder="Your first name" autocomplete="given-name">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="selfServeEmail">Email</label>
+        <input class="form-input" type="email" id="selfServeEmail" placeholder="you@email.com" autocomplete="email">
+      </div>
+
+      <button class="btn-next" id="btnSelfServe" style="width: 100%; margin-top: .5rem;" onclick="submitSelfServe()">Send Me the Free Tools</button>
+
+      <div class="privacy-bar" style="margin-top: 1rem;">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        <span>We'll only email you the tools — no spam, no sales calls.</span>
+      </div>
+    </div>
+
+    <a class="skip-link" onclick="goToStep(2)" style="margin-top: .75rem;">← Actually, I'd like to be matched with a Medicare guide</a>
+  </div>
+
+  <!-- Self-serve thank you -->
+  <div class="step" id="step_self_serve_thanks">
+    <div class="self-serve-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--tpp-green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="48" height="48"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    </div>
+    <h2 class="step-title">You're all set!</h2>
+    <p class="step-description" id="selfServeThanksMsg">Check your inbox — we're sending the full list of free tools your way.</p>
+
+    <div style="max-width: 480px; margin: 1.5rem auto 0;">
+      <a class="skip-link" onclick="goToStep(2)" style="margin-top: 1.5rem;">Changed your mind? Get matched with a Medicare guide</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- STEP 2: YOUR PATH (Advisor vs Self-Serve)  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="step" id="step2">
+    <div class="step-subtitle">Step 2 of 5</div>
+    <h2 class="step-title" id="step2PathTitle">How do you prefer to use your plan comparison tools?</h2>
+    <p class="step-description" id="step2PathDesc">Our Medicare tools are free either way — it's just a matter of how you prefer to use them.</p>
+
+    <div class="option-card-big" onclick="selectExplorationPath('self', this)" style="text-align: left;">
+      <div class="option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="32" height="32"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+      <div class="option-text">I'll dive in myself<span>Get instant access to the tools — no guide needed.</span></div>
+    </div>
+
+    <div class="option-card-big" onclick="selectExplorationPath('advisor', this)" style="text-align: left;">
+      <div class="option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="32" height="32"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+      <div class="option-text">Match me to a personalized Medicare guide<span>Get matched to a personalized Medicare guide that will be there to help you with our tools or answer any questions along the way.</span></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goBackFromStep2Path()">Back</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- STEP 3: PREFERENCES                        -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="step" id="step3">
+    <div class="step-subtitle">Step 3 of 5</div>
+    <h2 class="step-title">What are you looking for in a Medicare guide?</h2>
+    <p class="step-description">Select up to 3 that apply. These help us match you with the right person for your situation.</p>
+
+    <div class="checkbox-card" data-value="local" onclick="togglePreference(this)">
+      <div class="checkbox-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div class="option-text"><strong>I want someone local.</strong> We'll only match you with someone who is licensed in your state.</div>
+      <div class="checkbox-selected-dot"></div>
+    </div>
+
+    <div class="checkbox-card" data-value="veteran" onclick="togglePreference(this)">
+      <div class="checkbox-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <div class="option-text"><strong>I am or want to work with a military veteran.</strong> We'll make sure you're paired with a veteran Medicare guide.</div>
+      <div class="checkbox-selected-dot"></div>
+    </div>
+
+    <div class="checkbox-card" data-value="high_earner" onclick="togglePreference(this)">
+      <div class="checkbox-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="option-text"><strong>I want someone with deep knowledge of how high earners ($100,000+ income) should navigate Medicare</strong> and Part B IRMAA surcharges.</div>
+      <div class="checkbox-selected-dot"></div>
+    </div>
+
+    <div class="checkbox-card" data-value="medicaid" onclick="togglePreference(this)">
+      <div class="checkbox-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="option-text"><strong>I need help with both Medicaid and Medicare.</strong></div>
+      <div class="checkbox-selected-dot"></div>
+    </div>
+
+    <div class="checkbox-card" data-value="csnp" onclick="togglePreference(this)">
+      <div class="checkbox-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="option-text"><strong>I need help with a specific chronic condition</strong> (such as diabetes, heart failure, COPD, or other conditions that may qualify for a C-SNP plan).</div>
+      <div class="checkbox-selected-dot"></div>
+    </div>
+
+    <div class="checkbox-card" data-value="supplement" onclick="togglePreference(this)">
+      <div class="checkbox-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 12a11.05 11.05 0 0 0-22 0zm-5 7a3 3 0 0 1-6 0v-7"/></svg></div>
+      <div class="option-text"><strong>I want someone who specializes in Medicare Supplement (Medigap) plans.</strong></div>
+      <div class="checkbox-selected-dot"></div>
+    </div>
+
+    <div class="checkbox-card" data-value="many_doctors" onclick="togglePreference(this)">
+      <div class="checkbox-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="option-text"><strong>I need someone who knows how to handle the need to see a lot of doctors</strong> and can map out network coverage.</div>
+      <div class="checkbox-selected-dot"></div>
+    </div>
+
+    <div class="checkbox-card" data-value="attorney" onclick="togglePreference(this)">
+      <div class="checkbox-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+      <div class="option-text"><strong>I want to speak with a Medicare guide who is also an attorney.</strong></div>
+      <div class="checkbox-selected-dot"></div>
+    </div>
+
+    <div class="checkbox-card" data-value="expensive_rx" onclick="togglePreference(this)">
+      <div class="checkbox-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
+      <div class="option-text"><strong>I want someone who can focus on lowering the cost of a very expensive prescription.</strong></div>
+      <div class="checkbox-selected-dot"></div>
+    </div>
+
+    <div id="prefCounterHint" style="font-size: 0.82rem; color: var(--tpp-gray-600); margin-top: 0.75rem; margin-bottom: -0.5rem; text-align: center;">1 of 3 selected</div>
+    <a class="skip-link" onclick="goToStep(4)">None of these apply — just match me with the best available Medicare guide</a>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goBackFromStep3()">Back</button>
+      <button class="btn-next" id="btn3" disabled onclick="goToStep(4)">Continue</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- STEP 4: CONTACT INFO                       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="step" id="step4">
+    <div class="step-subtitle">Step 4 of 5</div>
+    <h2 class="step-title" style="font-size: 1.35rem;">Last step — where should we send your tools and match?</h2>
+
+    <div class="form-compact">
+      <div class="form-group">
+        <label class="form-label">First Name</label>
+        <input type="text" class="form-input" id="firstName" placeholder="First name" autocomplete="given-name">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" id="email" placeholder="you@example.com" autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Phone Number <span class="form-label-optional">(optional)</span></label>
+        <input type="tel" class="form-input" id="phone" placeholder="(555) 555-1234" autocomplete="tel">
+      </div>
+
+      <button class="btn-next" id="btn4" onclick="submitAndMatch()" style="width: 100%; margin-top: .25rem;">See My Match</button>
+
+      <div class="privacy-bar" style="margin-top: .75rem;">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>Your info stays between you and your match. We never sell your data — no spam, no sales calls.</span>
+      </div>
+    </div>
+
+    <button class="btn-back" onclick="goToStep(3)" style="margin-top: .75rem;">Back</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- STEP 5: RESULT                             -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="step" id="step5">
+    <div id="resultContent"></div>
+  </div>
+
+</div>
+
+<script>
+/*
+ * ══════════════════════════════════════════════════════════════
+ * THE POCKET PROTECTOR — MEDICARE MATCHMAKING ENGINE (v2)
+ * LEAD FUNNEL EDITION — Optimized for Meta Ads Conversion
+ * ══════════════════════════════════════════════════════════════
+ *
+ * FUNNEL STRUCTURE:
+ *  Step 0 (Landing) → Step 1 (Situation) → Step 2 (Your Path)
+ *  → Step 3 (Preferences) → Step 4 (Contact Info) → Step 5 (Result/Match)
+ *
+ * META PIXEL EVENTS (placeholder — replace with your Pixel ID):
+ *  Landing viewed   → fbq('track', 'ViewContent')
+ *  Quiz started     → fbq('track', 'InitiateCheckout')
+ *  Step 4 reached   → fbq('track', 'AddToCart')
+ *  Match completed  → fbq('track', 'Lead')
+ *
+ * URL PARAMETER SUPPORT:
+ *  ?situation=already_on_medicare  → Skip landing, pre-select situation
+ *  ?utm_source=meta&utm_campaign=xxx → Tracked in form submission
+ *
+ * MATCHING LOGIC OVERVIEW (unchanged from v1)
+ * -----------------------
+ * Hard rules → soft scoring → tiebreaker: Chris > Scott > Megan > Mike
+ */
+
+// ─── AGENT DATABASE ───
+const AGENTS = {
+  scott: {
+    headshot: 'data:image/jpeg;base64,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',
+    name: "Scott Martin",
+    title: "Senior Medicare Professional",
+    stats: [
+      { value: "4,000+", label: "Seniors Assisted" },
+      { value: "4×", label: "Award Winner" }
+    ],
+    phone: "https://meetings-na2.hubspot.com/scottmartin",
+    video: "https://meetings-na2.hubspot.com/scottmartin/video-call",
+    bio: "Scott is a data-driven Medicare professional who treats every Medicare decision as a systems problem."
+  },
+  chris: {
+    headshot: 'data:image/jpeg;base64,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',
+    name: "Christopher O'Kieffe",
+    title: "Senior Medicare Professional",
+    stats: [
+      { value: "15+", label: "Years in Medicare" },
+      { value: "6×", label: "Pillars of Excellence" }
+    ],
+    phone: "https://meetings-na2.hubspot.com/christopher-o-kieffe",
+    video: "https://meetings-na2.hubspot.com/christopher-o-kieffe/video-call",
+    bio: "Chris brings over 15 years of Medicare advisory experience and has ranked in the top 10 out of roughly 1,000 agents nationally."
+  },
+  megan: {
+    headshot: 'data:image/jpeg;base64,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',
+    name: "Megan Lengerich",
+    title: "Senior Medicare Professional",
+    stats: [
+      { value: "USAF", label: "Veteran" },
+      { value: "25+", label: "Years Serving Seniors" }
+    ],
+    phone: "https://meetings-na2.hubspot.com/megan-lengerich",
+    video: "https://meetings-na2.hubspot.com/megan-lengerich/video-call",
+    bio: "Megan is a United States Air Force veteran with over 25 years of experience serving seniors."
+  },
+  mike: {
+    headshot: 'data:image/jpeg;base64,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',
+    name: "Mike Boshardy",
+    title: "Medicare Attorney & Senior Professional",
+    stats: [
+      { value: "JD", label: "Medicare Attorney" },
+      { value: "10+", label: "Years in Medicare" }
+    ],
+    phone: "https://calendly.com/mike-thepocketprotector/pocket-protector",
+    video: "https://calendly.com/mike-thepocketprotector/pocket-protector",
+    bio: "Mike is a licensed Medicare attorney with over a decade of experience in Medicare law.",
+    appointmentOnly: true
+  }
+};
+
+const UNLICENSED_STATES = ['CA', 'NY'];
+
+// ─── ZIP CODE TO STATE MAPPING ───
+const ZIP_TO_STATE = {
+  '005':'NY','006':'PR','007':'PR','008':'PR','009':'PR',
+  '010':'MA','011':'MA','012':'MA','013':'MA','014':'MA','015':'MA','016':'MA','017':'MA','018':'MA','019':'MA',
+  '020':'MA','021':'MA','022':'MA','023':'MA','024':'MA','025':'MA','026':'MA','027':'MA',
+  '028':'RI','029':'RI',
+  '030':'NH','031':'NH','032':'NH','033':'NH','034':'NH','035':'NH','036':'NH','037':'NH','038':'NH',
+  '039':'ME','040':'ME','041':'ME','042':'ME','043':'ME','044':'ME','045':'ME','046':'ME','047':'ME','048':'ME','049':'ME',
+  '050':'VT','051':'VT','052':'VT','053':'VT','054':'VT','055':'VT','056':'VT','057':'VT','058':'VT','059':'VT',
+  '060':'CT','061':'CT','062':'CT','063':'CT','064':'CT','065':'CT','066':'CT','067':'CT','068':'CT','069':'CT',
+  '070':'NJ','071':'NJ','072':'NJ','073':'NJ','074':'NJ','075':'NJ','076':'NJ','077':'NJ','078':'NJ','079':'NJ','080':'NJ','081':'NJ','082':'NJ','083':'NJ','084':'NJ','085':'NJ','086':'NJ','087':'NJ','088':'NJ','089':'NJ',
+  '090':'AE','091':'AE','092':'AE','093':'AE','094':'AE','095':'AE','096':'AE','097':'AE','098':'AE','099':'AE',
+  '100':'NY','101':'NY','102':'NY','103':'NY','104':'NY','105':'NY','106':'NY','107':'NY','108':'NY','109':'NY',
+  '110':'NY','111':'NY','112':'NY','113':'NY','114':'NY','115':'NY','116':'NY','117':'NY','118':'NY','119':'NY',
+  '120':'NY','121':'NY','122':'NY','123':'NY','124':'NY','125':'NY','126':'NY','127':'NY','128':'NY','129':'NY',
+  '130':'NY','131':'NY','132':'NY','133':'NY','134':'NY','135':'NY','136':'NY','137':'NY','138':'NY','139':'NY','140':'NY','141':'NY','142':'NY','143':'NY','144':'NY','145':'NY','146':'NY','147':'NY','148':'NY','149':'NY',
+  '150':'PA','151':'PA','152':'PA','153':'PA','154':'PA','155':'PA','156':'PA','157':'PA','158':'PA','159':'PA',
+  '160':'PA','161':'PA','162':'PA','163':'PA','164':'PA','165':'PA','166':'PA','167':'PA','168':'PA','169':'PA',
+  '170':'PA','171':'PA','172':'PA','173':'PA','174':'PA','175':'PA','176':'PA','177':'PA','178':'PA','179':'PA',
+  '180':'PA','181':'PA','182':'PA','183':'PA','184':'PA','185':'PA','186':'PA','187':'PA','188':'PA','189':'PA','190':'PA','191':'PA','192':'PA','193':'PA','194':'PA','195':'PA','196':'PA',
+  '197':'DE','198':'DE','199':'DE',
+  '200':'DC','201':'VA','202':'DC','203':'DC','204':'DC','205':'DC',
+  '206':'MD','207':'MD','208':'MD','209':'MD','210':'MD','211':'MD','212':'MD','213':'MD','214':'MD','215':'MD','216':'MD','217':'MD','218':'MD','219':'MD',
+  '220':'VA','221':'VA','222':'VA','223':'VA','224':'VA','225':'VA','226':'VA','227':'VA','228':'VA','229':'VA',
+  '230':'VA','231':'VA','232':'VA','233':'VA','234':'VA','235':'VA','236':'VA','237':'VA','238':'VA','239':'VA','240':'VA','241':'VA','242':'VA','243':'VA','244':'VA','245':'VA','246':'WV',
+  '247':'WV','248':'WV','249':'WV','250':'WV','251':'WV','252':'WV','253':'WV','254':'WV','255':'WV','256':'WV','257':'WV','258':'WV','259':'WV','260':'WV','261':'WV','262':'WV','263':'WV','264':'WV','265':'WV','266':'WV','267':'WV','268':'WV',
+  '270':'NC','271':'NC','272':'NC','273':'NC','274':'NC','275':'NC','276':'NC','277':'NC','278':'NC','279':'NC','280':'NC','281':'NC','282':'NC','283':'NC','284':'NC','285':'NC','286':'NC','287':'NC','288':'NC','289':'NC',
+  '290':'SC','291':'SC','292':'SC','293':'SC','294':'SC','295':'SC','296':'SC','297':'SC','298':'SC','299':'SC',
+  '300':'GA','301':'GA','302':'GA','303':'GA','304':'GA','305':'GA','306':'GA','307':'GA','308':'GA','309':'GA','310':'GA','311':'GA','312':'GA','313':'GA','314':'GA','315':'GA','316':'GA','317':'GA','318':'GA','319':'GA',
+  '320':'FL','321':'FL','322':'FL','323':'FL','324':'FL','325':'FL','326':'FL','327':'FL','328':'FL','329':'FL','330':'FL','331':'FL','332':'FL','333':'FL','334':'FL','335':'FL','336':'FL','337':'FL','338':'FL','339':'FL',
+  '340':'AA',
+  '350':'AL','351':'AL','352':'AL','353':'AL','354':'AL','355':'AL','356':'AL','357':'AL','358':'AL','359':'AL','360':'AL','361':'AL','362':'AL','363':'AL','364':'AL','365':'AL','366':'AL','367':'AL','368':'AL','369':'AL',
+  '370':'TN','371':'TN','372':'TN','373':'TN','374':'TN','375':'TN','376':'TN','377':'TN','378':'TN','379':'TN','380':'TN','381':'TN','382':'TN','383':'TN','384':'TN','385':'TN',
+  '386':'MS','387':'MS','388':'MS','389':'MS','390':'MS','391':'MS','392':'MS','393':'MS','394':'MS','395':'MS','396':'MS','397':'MS',
+  '398':'GA',
+  '400':'KY','401':'KY','402':'KY','403':'KY','404':'KY','405':'KY','406':'KY','407':'KY','408':'KY','409':'KY','410':'KY','411':'KY','412':'KY','413':'KY','414':'KY','415':'KY','416':'KY','417':'KY','418':'KY',
+  '420':'KY','421':'KY','422':'KY','423':'KY','424':'KY','425':'KY','426':'KY','427':'KY',
+  '430':'OH','431':'OH','432':'OH','433':'OH','434':'OH','435':'OH','436':'OH','437':'OH','438':'OH','439':'OH',
+  '440':'OH','441':'OH','442':'OH','443':'OH','444':'OH','445':'OH','446':'OH','447':'OH','448':'OH','449':'OH',
+  '450':'OH','451':'OH','452':'OH','453':'OH','454':'OH','455':'OH','456':'OH','457':'OH','458':'OH',
+  '460':'IN','461':'IN','462':'IN','463':'IN','464':'IN','465':'IN','466':'IN','467':'IN','468':'IN','469':'IN',
+  '470':'IN','471':'IN','472':'IN','473':'IN','474':'IN','475':'IN','476':'IN','477':'IN','478':'IN','479':'IN',
+  '480':'MI','481':'MI','482':'MI','483':'MI','484':'MI','485':'MI','486':'MI','487':'MI','488':'MI','489':'MI',
+  '490':'MI','491':'MI','492':'MI','493':'MI','494':'MI','495':'MI','496':'MI','497':'MI','498':'MI','499':'MI',
+  '500':'IA','501':'IA','502':'IA','503':'IA','504':'IA','505':'IA','506':'IA','507':'IA','508':'IA','509':'IA',
+  '510':'IA','511':'IA','512':'IA','513':'IA','514':'IA','515':'IA','516':'IA',
+  '520':'WI','521':'WI','522':'WI','523':'WI','524':'WI','525':'WI','526':'WI','527':'WI','528':'WI',
+  '530':'WI','531':'WI','532':'WI','534':'WI','535':'WI','537':'WI','538':'WI','539':'WI',
+  '540':'MN','541':'MN','542':'MN','543':'MN','544':'MN','545':'MN','546':'MN','547':'MN','548':'MN','549':'MN',
+  '550':'MN','551':'MN','553':'MN','554':'MN','555':'MN','556':'MN','557':'MN','558':'MN','559':'MN',
+  '560':'SD','561':'SD','562':'SD','563':'SD','564':'SD','565':'SD','566':'SD','567':'SD',
+  '570':'SD','571':'SD','572':'SD','573':'SD','574':'SD','575':'SD','576':'SD','577':'SD',
+  '580':'ND','581':'ND','582':'ND','583':'ND','584':'ND','585':'ND','586':'ND','587':'ND','588':'ND',
+  '590':'MT','591':'MT','592':'MT','593':'MT','594':'MT','595':'MT','596':'MT','597':'MT','598':'MT','599':'MT',
+  '600':'IL','601':'IL','602':'IL','603':'IL','604':'IL','605':'IL','606':'IL','607':'IL','608':'IL','609':'IL',
+  '610':'IL','611':'IL','612':'IL','613':'IL','614':'IL','615':'IL','616':'IL','617':'IL','618':'IL','619':'IL',
+  '620':'IL','621':'IL','622':'IL','623':'IL','624':'IL','625':'IL','626':'IL','627':'IL','628':'IL','629':'IL',
+  '630':'MO','631':'MO','632':'MO','633':'MO','634':'MO','635':'MO','636':'MO','637':'MO','638':'MO','639':'MO',
+  '640':'MO','641':'MO','644':'MO','645':'MO','646':'MO','647':'MO','648':'MO','649':'MO',
+  '650':'MO','651':'MO','652':'MO','653':'MO','654':'MO','655':'MO','656':'MO','657':'MO','658':'MO','659':'MO',
+  '660':'KS','661':'KS','662':'KS','664':'KS','665':'KS','666':'KS','667':'KS','668':'KS','669':'KS',
+  '670':'KS','671':'KS','672':'KS','673':'KS','674':'KS','675':'KS','676':'KS','677':'KS','678':'KS','679':'KS',
+  '680':'NE','681':'NE','683':'NE','684':'NE','685':'NE','686':'NE','687':'NE','688':'NE','689':'NE',
+  '690':'NE','691':'NE','692':'NE','693':'NE',
+  '700':'LA','701':'LA','703':'LA','704':'LA','705':'LA','706':'LA','707':'LA','708':'LA','710':'LA','711':'LA','712':'LA','713':'LA','714':'LA',
+  '716':'AR','717':'AR','718':'AR','719':'AR','720':'AR','721':'AR','722':'AR','723':'AR','724':'AR','725':'AR','726':'AR','727':'AR','728':'AR','729':'AR',
+  '730':'OK','731':'OK','733':'OK','734':'OK','735':'OK','736':'OK','737':'OK','738':'OK','739':'OK',
+  '740':'OK','741':'OK','743':'OK','744':'OK','745':'OK','746':'OK','747':'OK','748':'OK','749':'OK',
+  '750':'TX','751':'TX','752':'TX','753':'TX','754':'TX','755':'TX','756':'TX','757':'TX','758':'TX','759':'TX',
+  '760':'TX','761':'TX','762':'TX','763':'TX','764':'TX','765':'TX','766':'TX','767':'TX','768':'TX','769':'TX',
+  '770':'TX','771':'TX','772':'TX','773':'TX','774':'TX','775':'TX','776':'TX','777':'TX','778':'TX','779':'TX',
+  '780':'TX','781':'TX','782':'TX','783':'TX','784':'TX','785':'TX','786':'TX','787':'TX','788':'TX','789':'TX',
+  '790':'TX','791':'TX','792':'TX','793':'TX','794':'TX','795':'TX','796':'TX','797':'TX','798':'TX','799':'TX',
+  '800':'CO','801':'CO','802':'CO','803':'CO','804':'CO','805':'CO','806':'CO','807':'CO','808':'CO','809':'CO',
+  '810':'CO','811':'CO','812':'CO','813':'CO','814':'CO','815':'CO','816':'CO',
+  '820':'WY','821':'WY','822':'WY','823':'WY','824':'WY','825':'WY','826':'WY','827':'WY','828':'WY','829':'WY','830':'WY','831':'WY',
+  '832':'ID','833':'ID','834':'ID','835':'ID','836':'ID','837':'ID','838':'ID',
+  '840':'UT','841':'UT','842':'UT','843':'UT','844':'UT','845':'UT','846':'UT','847':'UT',
+  '850':'AZ','851':'AZ','852':'AZ','853':'AZ','855':'AZ','856':'AZ','857':'AZ','859':'AZ','860':'AZ',
+  '863':'AZ','864':'AZ','865':'AZ',
+  '870':'NM','871':'NM','872':'NM','873':'NM','874':'NM','875':'NM','877':'NM','878':'NM','879':'NM','880':'NM','881':'NM','882':'NM','883':'NM','884':'NM',
+  '885':'TX','889':'NV',
+  '890':'NV','891':'NV','893':'NV','894':'NV','895':'NV','897':'NV','898':'NV',
+  '900':'CA','901':'CA','902':'CA','903':'CA','904':'CA','905':'CA','906':'CA','907':'CA','908':'CA','909':'CA',
+  '910':'CA','911':'CA','912':'CA','913':'CA','914':'CA','915':'CA','916':'CA','917':'CA','918':'CA','919':'CA',
+  '920':'CA','921':'CA','922':'CA','923':'CA','924':'CA','925':'CA','926':'CA','927':'CA','928':'CA',
+  '930':'CA','931':'CA','932':'CA','933':'CA','934':'CA','935':'CA','936':'CA','937':'CA','938':'CA','939':'CA',
+  '940':'CA','941':'CA','942':'CA','943':'CA','944':'CA','945':'CA','946':'CA','947':'CA','948':'CA','949':'CA',
+  '950':'CA','951':'CA','952':'CA','953':'CA','954':'CA','955':'CA','956':'CA','957':'CA','958':'CA','959':'CA',
+  '960':'CA','961':'CA',
+  '962':'AP','963':'AP','964':'AP','965':'AP','966':'AP',
+  '967':'HI','968':'HI',
+  '970':'OR','971':'OR','972':'OR','973':'OR','974':'OR','975':'OR','976':'OR','977':'OR','978':'OR','979':'OR',
+  '980':'WA','981':'WA','982':'WA','983':'WA','984':'WA','985':'WA','986':'WA','988':'WA','989':'WA','990':'WA','991':'WA','992':'WA','993':'WA','994':'WA',
+  '995':'AK','996':'AK','997':'AK','998':'AK','999':'AK'
+};
+
+function getStateFromZip(zip) {
+  if (!zip || zip.length < 3) return null;
+  return ZIP_TO_STATE[zip.substring(0, 3)] || null;
+}
+
+// ─── XANO API CONFIGURATION ───
+const XANO_CONFIG = {
+  // Create endpoint (obfuscated)
+  _p1: atob('aHR0cHM6Ly94OGtpLWxldGwtdHdtdC5uNy54YW5v'),
+  _p2: atob('LmlvL2FwaTpndE5pbHZNSC90cHBfcGFpZF9tYXRjaG1ha2VyX3N1Ym1pdA=='),
+
+  // Update endpoint (obfuscated)
+  _p1_update: atob('aHR0cHM6Ly94OGtpLWxldGwtdHdtdC5uNy54YW5v'),
+  _p2_update: atob('LmlvL2FwaTpndE5pbHZNSC90cHBfcGFpZF9tYXRjaG1ha2VyX3N1Ym1pdF91cGRhdGU='),
+
+  // Reconstruct create endpoint at runtime
+  getEndpoint: function() {
+    try {
+      return this._p1 + this._p2;
+    } catch {
+      return null;
+    }
+  },
+
+  // Reconstruct update endpoint at runtime
+  getUpdateEndpoint: function() {
+    try {
+      return this._p1_update + this._p2_update;
+    } catch {
+      return null;
+    }
+  },
+
+  // Generate request signature
+  getSignature: function() {
+    try {
+      const timestamp = Date.now();
+      const randomComponent = Math.random().toString(36).substring(2, 15);
+      return btoa(`${timestamp}-${randomComponent}`);
+    } catch {
+      return '';
+    }
+  },
+
+  // Validate origin
+  validateOrigin: function() {
+    const allowedDomains = ['thepocketprotector.com', 'localhost', 'webflow.io'];
+    const hostname = window.location.hostname;
+    const isValid = allowedDomains.some(domain => hostname.includes(domain));
+
+    // Debug logging (only on localhost and staging)
+    if (hostname.includes('localhost') || hostname.includes('webflow.io')) {
+      console.log('[Xano] Origin validation:', {
+        hostname: hostname,
+        allowedDomains: allowedDomains,
+        isValid: isValid
+      });
+    }
+
+    return isValid;
+  }
+};
+
+// ─── XANO API SUBMISSION ───
+function formatPreferences(preferencesSet) {
+  // Convert Set to semicolon-separated string with preference_ prefix
+  if (!preferencesSet || preferencesSet.size === 0) {
+    return "";
+  }
+  return Array.from(preferencesSet).map(pref => `preference_${pref}`).join(';');
+}
+
+function getMedicareSituation(situation) {
+  // Map detailed situation to simplified 'ntm' or 'existing' values
+  const ntmSituations = ['new_getting_started', 'new_know_what_i_want', 'not_on_medicare_questions'];
+  if (ntmSituations.includes(situation) || situation === 'diy') {
+    return 'ntm';
+  }
+  return 'existing';
+}
+
+function getNTMToolPreference(subOption) {
+  // Map NTM sub-options to tool preferences
+  const mapping = {
+    'new_getting_started': 'deadline_tool',
+    'new_know_what_i_want': 'plan_fit_quiz',
+    'not_on_medicare_questions': 'employer_tool'
+  };
+  return mapping[subOption] || null;
+}
+
+function getExistingCoverageType(coverageType) {
+  // Map coverage type to HubSpot values
+  const mapping = {
+    'advantage': 'medicare_advantage',
+    'supplement': 'medigap',
+    'ab_only': 'original_medicare'
+  };
+  return mapping[coverageType] || null;
+}
+
+function getExistingToolPreference(subOption) {
+  // Map existing Medicare sub-options to tool preferences
+  const mapping = {
+    'advantage_compare': 'plan_compare',
+    'advantage_doctors': 'doctor_check',
+    'advantage_rx': 'rx_check',
+    'supplement_rate': 'medigap_rate',
+    'supplement_partd': 'rx_check',
+    'ab_need_coverage': 'plan_fit_quiz',
+    'ab_need_partd': 'rx_check',
+    'ab_understand_options': 'advisor_help'
+  };
+  return mapping[subOption] || null;
+}
+
+function submitToXano(formData, assignedAgent, isRetry = false, contactId = null) {
+  // Validate origin before submission
+  if (!XANO_CONFIG.validateOrigin()) {
+    console.error('Invalid origin');
+    return Promise.resolve(null);
+  }
+
+  // Get appropriate endpoint based on retry status
+  const endpoint = isRetry ? XANO_CONFIG.getUpdateEndpoint() : XANO_CONFIG.getEndpoint();
+
+  if (!endpoint) {
+    console.error('Configuration error');
+    return Promise.resolve(null);
+  }
+
+  // Get current URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const getUTM = (param) => urlParams.get(param) || null;
+
+  const payload = {
+    firstname: formData.firstName,
+    email: formData.email,
+    phone: formData.phone || null,
+    matchmaker_medicare_situation: formData.medicareSituation,
+    matchmaker_advisor_preference: formData.advisorPreference,
+    matchmaker_contact_preference: formData.contactPreference || null,
+    matchmaker_engagement_preference: formData.matchmaker_engagement_preference || null,
+    matchmaker_assigned_agent: assignedAgent,
+    matchmaker_ntm_ToolPreference: formData.ntmToolPreference || null,
+    matchmaker_existing_coveragetype: formData.existingCoverageType || null,
+    matchmaker_existing_toolpreference: formData.existingToolPreference || null,
+    url_slug: window.location.pathname,
+    submit_location: "tpp_paid_matchmaker",
+    submitted_at: new Date().toISOString(),
+
+    // UTM Tracking
+    utm_source: getUTM("utm_source"),
+    utm_medium: getUTM("utm_medium"),
+    utm_campaign: getUTM("utm_campaign"),
+    utm_content: getUTM("utm_content"),
+    utm_term: getUTM("utm_term"),
+    utm_creative: getUTM("utm_creative"),
+    utm_placement: getUTM("utm_placement")
+  };
+
+  // Add contactID if this is a retry/update
+  if (isRetry && contactId) {
+    payload.contactID = contactId;
+  }
+
+  return fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-Request-Signature': XANO_CONFIG.getSignature()
+    },
+    keepalive: true,
+    body: JSON.stringify(payload)
+  })
+  .then(response => {
+    // Always parse JSON first to check for duplicate error
+    return response.json().then(data => {
+      return { response, data };
+    });
+  })
+  .then(({ response, data }) => {
+    // Check for duplicate contact error (409 or error in response)
+    if (data && data.tpp_ && data.tpp_.response && data.tpp_.response.result) {
+      const result = data.tpp_.response.result;
+
+      // Check if it's a "Contact already exists" error
+      if (result.status === "error" &&
+          result.message &&
+          result.message.includes("Existing ID:")) {
+
+        // Extract the existing contact ID from error message
+        const existingId = result.message.split("Existing ID:")[1].trim();
+
+        if (window.location.hostname === 'localhost') {
+          console.log('Contact already exists. Updating contact ID:', existingId);
+        }
+
+        // Retry with update endpoint if this wasn't already a retry
+        if (!isRetry && existingId) {
+          return submitToXano(formData, assignedAgent, true, existingId);
+        }
+      }
+    }
+
+    // Check HTTP response status
+    if (!response.ok) {
+      throw new Error(`API submission failed: ${response.status}`);
+    }
+
+    // Log success only on localhost
+    if (window.location.hostname === 'localhost') {
+      console.log('Submission successful:', data);
+    }
+
+    return data;
+  })
+  .catch(error => {
+    // Log errors only on localhost
+    if (window.location.hostname === 'localhost') {
+      console.error('Submission error:', error);
+    }
+    return null;
+  });
+}
+
+// ─── STATE TRACKING ───
+let currentStep = 0; // start at landing
+let selectedSituation = null;
+let selectedPreferences = new Set();
+let autoPreferences = new Set();  // prefs auto-added from Step 1c (don't count toward Step 3 max)
+let selectedContactMethod = null;
+let selectedSubOption = null; // tracks the raw sub-option selection (Step 1b/1c)
+
+// ─── META PIXEL HELPER (placeholder) ───
+// Replace with your actual Meta Pixel implementation
+function trackEvent(eventName, data) {
+  // Uncomment and configure when Meta Pixel is installed:
+  // if (typeof fbq !== 'undefined') fbq('track', eventName, data);
+  console.log('[Meta Pixel]', eventName, data || '');
+}
+
+// ─── GTM / GA4 TRACKING HELPERS ───
+const TRACKING_GUARD_PREFIX = 'analytics_tracked_';
+
+function initDataLayer() {
+  if (typeof window !== 'undefined' && !window.dataLayer) {
+    window.dataLayer = [];
+  }
+}
+
+function pushToDataLayer(data) {
+  initDataLayer();
+  if (typeof window !== 'undefined' && window.dataLayer) {
+    window.dataLayer.push({...data, timestamp: new Date().toISOString()});
+    console.log('[GA4/GTM]', data);
+  }
+}
+
+function hasBeenTracked(eventKey) {
+  if (typeof window === 'undefined') return false;
+  try { return sessionStorage.getItem(`${TRACKING_GUARD_PREFIX}${eventKey}`) === 'true'; }
+  catch { return false; }
+}
+
+function markAsTracked(eventKey) {
+  if (typeof window === 'undefined') return;
+  try { sessionStorage.setItem(`${TRACKING_GUARD_PREFIX}${eventKey}`, 'true'); }
+  catch {}
+}
+
+function trackPageView(eventName, metadata) {
+  if (hasBeenTracked(eventName)) return; // Prevent duplicate tracking
+  pushToDataLayer({ event: eventName, ...(metadata || {}) });
+  markAsTracked(eventName);
+}
+
+// ─── UTM PARAMETER EXTRACTION ───
+function getUTMParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get('utm_source') || null,
+    utm_medium: params.get('utm_medium') || null,
+    utm_campaign: params.get('utm_campaign') || null,
+    utm_content: params.get('utm_content') || null,
+    utm_term: params.get('utm_term') || null,
+    utm_creative: params.get('utm_creative') || null,
+    utm_placement: params.get('utm_placement') || null
+  };
+}
+
+// ─── STEP 0: START QUIZ ───
+function startQuiz() {
+  document.getElementById('landing').style.display = 'none';
+  document.getElementById('progressBarWrapper').classList.add('visible');
+  document.getElementById('wizardContainer').classList.add('visible');
+  currentStep = 1;
+  trackEvent('InitiateCheckout');
+  trackPageView('View_Matchmaker_Medicare_Situation');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── URL PARAMETER HANDLING ───
+// Supports ?situation=already_on_medicare to skip landing
+(function handleURLParams() {
+  const params = new URLSearchParams(window.location.search);
+
+  // Support ?path=new or ?path=already to skip landing, go to 1b
+  const presetPath = params.get('path');
+  // Support ?situation=xxx to skip landing + both step 1 screens
+  const presetSituation = params.get('situation');
+
+  if (presetSituation) {
+    const validSituations = ['new_getting_started','new_know_what_i_want','already_on_medicare','drug_coverage_only','not_on_medicare_questions'];
+    if (validSituations.includes(presetSituation)) {
+      selectedSituation = presetSituation;
+      selectedPath = ['new_getting_started','new_know_what_i_want','not_on_medicare_questions'].includes(presetSituation) ? 'new' : 'already';
+      document.getElementById('landing').style.display = 'none';
+      document.getElementById('progressBarWrapper').classList.add('visible');
+      document.getElementById('wizardContainer').classList.add('visible');
+      trackEvent('InitiateCheckout');
+      setTimeout(() => goToStep(2), 100);
+    }
+  } else if (presetPath && ['new', 'already'].includes(presetPath)) {
+    selectedPath = presetPath;
+    document.getElementById('landing').style.display = 'none';
+    document.getElementById('progressBarWrapper').classList.add('visible');
+    document.getElementById('wizardContainer').classList.add('visible');
+    trackEvent('InitiateCheckout');
+    setTimeout(() => goToStep('1b'), 100);
+  }
+
+  // Fire ViewContent on landing
+  trackEvent('ViewContent');
+  // Fire GA4 tracking for splash screen view
+  trackPageView('View_Matchmaker_SplashStart');
+})();
+
+// ─── STEP 1: PATH SELECTION (New vs Already) ───
+let selectedPath = null; // 'new' or 'already'
+let selectedCoverageType = null; // 'advantage', 'supplement', 'ab_only'
+let selectedEngagementPreference = null; // 'diy' or 'agent' - tracks Step 2 choice
+
+function selectPath(path, el) {
+  if (path === 'online_only') {
+    selectedSituation = 'online_only';
+    goToStep(2);
+    return;
+  }
+  selectedPath = path;
+  document.querySelectorAll('#step1 .option-card-big').forEach(c => c.classList.remove('selected'));
+  if (el) el.classList.add('selected');
+  setTimeout(() => {
+    goToStep('1b');
+  }, 220);
+}
+
+// ─── SELF-SERVE (DIY) FLOW ───
+function goToSelfServe() {
+  document.getElementById('landing').style.display = 'none';
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step_self_serve').classList.add('active');
+  document.getElementById('wizardContainer').classList.add('visible');
+  // Hide progress bar — this isn't part of the 5-step flow
+  document.getElementById('progressBarWrapper').classList.remove('visible');
+  currentStep = 'self_serve';
+  trackEvent('InitiateCheckout');
+  trackPageView('View_DIY_ContactInfo');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+function submitSelfServe() {
+  const firstName = document.getElementById('selfServeFirstName').value.trim();
+  const email = document.getElementById('selfServeEmail').value.trim();
+
+  if (!firstName || !email) {
+    alert('Please enter your name and email so we know where to send the tools.');
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+
+  // Capture UTM parameters
+  const utmParams = getUTMParams();
+  console.log('[DIY Form Submission] UTM Parameters:', utmParams);
+
+  // Track as a Lead event (self-serve variant - Meta Pixel)
+  trackEvent('Lead', {
+    content_name: 'self_serve_tools',
+    lead_type: 'self_serve',
+    first_name: firstName,
+    email: email,
+    ...utmParams
+  });
+
+  // Fire matchmaker_lead custom event to GA4/GTM
+  pushToDataLayer({
+    event: 'matchmaker_lead',
+    lead_type: 'diy',
+    matchmaker_engagement_preference: 'diy',
+    url_slug: window.location.pathname,
+    ...utmParams
+  });
+
+  // Submit DIY form data to Xano/HubSpot
+  const medicareSituation = selectedPath ? getMedicareSituation(selectedSituation || 'diy') : 'ntm';
+
+  const formData = {
+    firstName: firstName,
+    email: email,
+    phone: null,
+    medicareSituation: medicareSituation,
+    advisorPreference: '',
+    contactPreference: null,
+    matchmaker_engagement_preference: 'diy', // Always 'diy' for self-serve flow
+    // Include tool preferences if available
+    ntmToolPreference: medicareSituation === 'ntm' && selectedSubOption ? getNTMToolPreference(selectedSubOption) : null,
+    existingCoverageType: medicareSituation === 'existing' && selectedCoverageType ? getExistingCoverageType(selectedCoverageType) : null,
+    existingToolPreference: medicareSituation === 'existing' && selectedSubOption ? getExistingToolPreference(selectedSubOption) : null
+  };
+
+  submitToXano(formData, 'diy');
+
+  // Update thank you message with their name
+  document.getElementById('selfServeThanksMsg').innerHTML =
+    `Check your inbox, <strong>${firstName}</strong> — we're sending the full list of free tools your way.`;
+
+  // Show thank you step
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step_self_serve_thanks').classList.add('active');
+  trackPageView('View_DIY_Result');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── STEP 1b (Already): Coverage Type Selection ───
+function selectCoverageType(type, el) {
+  selectedCoverageType = type;
+  document.querySelectorAll('#step1b_already .option-card').forEach(c => c.classList.remove('selected'));
+  if (el) el.classList.add('selected');
+  setTimeout(() => {
+    goToStep('1c');
+  }, 220);
+}
+
+// ─── STEP 1b/1c: SUB-OPTION SELECTION ───
+function selectSuboption(el, containerId) {
+  const container = document.getElementById(containerId);
+  container.querySelectorAll('.suboption-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+
+  const rawValue = el.dataset.value;
+
+  // Store the raw sub-option value for HubSpot submission
+  selectedSubOption = rawValue;
+
+  // Map sub-option values to the matching engine's situation values
+  // and auto-add relevant preferences for scoring
+  switch (rawValue) {
+    // --- New to Medicare paths ---
+    case 'new_getting_started':
+      selectedSituation = 'new_getting_started'; break;
+    case 'new_know_what_i_want':
+      selectedSituation = 'new_know_what_i_want'; break;
+    case 'not_on_medicare_questions':
+      selectedSituation = 'not_on_medicare_questions'; break;
+
+    // --- Advantage paths ---
+    case 'advantage_compare':
+      selectedSituation = 'already_on_medicare'; break;
+    case 'advantage_doctors':
+      selectedSituation = 'already_on_medicare';
+      autoPreferences.add('many_doctors'); break;
+    case 'advantage_rx':
+      selectedSituation = 'drug_coverage_only'; break;
+
+    // --- Supplement paths ---
+    case 'supplement_rate':
+      selectedSituation = 'already_on_medicare';
+      autoPreferences.add('supplement'); break;
+    case 'supplement_partd':
+      selectedSituation = 'drug_coverage_only';
+      autoPreferences.add('supplement'); break;
+
+    // --- Just A&B paths ---
+    case 'ab_need_coverage':
+      selectedSituation = 'new_know_what_i_want'; break;
+    case 'ab_need_partd':
+      selectedSituation = 'drug_coverage_only'; break;
+    case 'ab_understand_options':
+      selectedSituation = 'new_getting_started'; break;
+
+    default:
+      selectedSituation = 'already_on_medicare';
+  }
+
+  // Enable the continue button for this container
+  const btnMap = {
+    'step1b_new': 'btn1b_new',
+    'step1c_advantage': 'btn1c_advantage',
+    'step1c_supplement': 'btn1c_supplement',
+    'step1c_ab_only': 'btn1c_ab_only'
+  };
+  const btnId = btnMap[containerId];
+  if (btnId) document.getElementById(btnId).disabled = false;
+}
+
+// ─── STEP 3: PREFERENCE TOGGLES (max 3) ───
+const MAX_PREFERENCES = 3;
+let _prefToggling = false;
+
+function togglePreference(el) {
+  // Guard against double-fire (touch + click in webview)
+  if (_prefToggling) return;
+  _prefToggling = true;
+  setTimeout(() => { _prefToggling = false; }, 300);
+
+  const val = el.dataset.value;
+
+  if (el.classList.contains('selected')) {
+    el.classList.remove('selected');
+    selectedPreferences.delete(val);
+    document.querySelectorAll('#step2 .checkbox-card').forEach(c => {
+      c.classList.remove('disabled');
+      c.style.opacity = '';
+      c.style.pointerEvents = '';
+    });
+  } else {
+    if (selectedPreferences.size >= MAX_PREFERENCES) return;
+    el.classList.add('selected');
+    selectedPreferences.add(val);
+  }
+
+  if (selectedPreferences.size >= MAX_PREFERENCES) {
+    document.querySelectorAll('#step2 .checkbox-card').forEach(c => {
+      if (!c.classList.contains('selected')) {
+        c.classList.add('disabled');
+        c.style.opacity = '0.45';
+        c.style.pointerEvents = 'none';
+      }
+    });
+  }
+
+  updatePrefCounter();
+  document.getElementById('btn3').disabled = selectedPreferences.size === 0;
+}
+
+function updatePrefCounter() {
+  let hint = document.getElementById('prefCounterHint');
+  if (!hint) {
+    hint = document.createElement('div');
+    hint.id = 'prefCounterHint';
+    hint.style.cssText = 'font-size:.82rem;color:var(--tpp-gray-600);margin-top:.75rem;margin-bottom:-.5rem;text-align:center;';
+    const skipLink = document.querySelector('#step2 .skip-link');
+    if (skipLink) skipLink.parentNode.insertBefore(hint, skipLink);
+  }
+  const remaining = MAX_PREFERENCES - selectedPreferences.size;
+  if (selectedPreferences.size === 0) {
+    hint.textContent = '';
+  } else if (remaining === 0) {
+    hint.textContent = 'Maximum of 3 selections reached. Deselect one to change.';
+    hint.style.color = 'var(--tpp-green)';
+  } else {
+    hint.textContent = `${selectedPreferences.size} of 3 selected`;
+    hint.style.color = 'var(--tpp-gray-600)';
+  }
+}
+
+// Sync Step 3 checkboxes with current selectedPreferences state
+function syncStep3Preferences() {
+  // Reset user selections when entering Step 3
+  selectedPreferences.clear();
+  const cards = document.querySelectorAll('#step3 .checkbox-card');
+  cards.forEach(c => {
+    c.classList.remove('selected', 'disabled');
+    c.style.opacity = '';
+    c.style.pointerEvents = '';
+  });
+  updatePrefCounter();
+  document.getElementById('btn3').disabled = true;
+}
+
+// ─── STEP 4: CONTACT METHOD ───
+function selectContactMethod(el) {
+  document.querySelectorAll('.contact-pill').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedContactMethod = el.dataset.value;
+}
+
+// ─── NAVIGATION ───
+function goToStep(step) {
+  // Hide all steps
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+
+  // Ensure progress bar is visible when in wizard flow
+  document.getElementById('progressBarWrapper').classList.add('visible');
+
+  // Handle step 1b — show the right drill-down based on selectedPath
+  if (step === '1b') {
+    const targetId = selectedPath === 'new' ? 'step1b_new' : 'step1b_already';
+    document.getElementById(targetId).classList.add('active');
+    updateProgressBar(1);
+    currentStep = '1b';
+    // Track based on which path
+    if (selectedPath === 'new') {
+      trackPageView('View_Matchmaker_NTM_Situation');
+    } else {
+      trackPageView('View_Matchmaker_Existing_CoverageType');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+
+  // Handle going back to 1b_already specifically
+  if (step === '1b_already') {
+    document.getElementById('step1b_already').classList.add('active');
+    updateProgressBar(1);
+    currentStep = '1b';
+    trackPageView('View_Matchmaker_Existing_CoverageType');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+
+  // Handle step 1c — show the right screen based on selectedCoverageType
+  if (step === '1c') {
+    const targetMap = {
+      'advantage': 'step1c_advantage',
+      'supplement': 'step1c_supplement',
+      'ab_only': 'step1c_ab_only'
+    };
+    const targetId = targetMap[selectedCoverageType];
+    if (targetId) document.getElementById(targetId).classList.add('active');
+    updateProgressBar(1);
+    currentStep = '1c';
+    trackPageView('View_Matchmaker_Existing_ToolPreference');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+
+  // For numbered steps, show the step
+  document.getElementById('step' + step).classList.add('active');
+  updateProgressBar(step);
+  currentStep = step;
+
+  // Track step 2 - Your Path (Engagement Preference)
+  if (step === 2) {
+    trackPageView('View_Matchmaker_Engagement_Preference');
+  }
+
+  // Sync any auto-added preferences with Step 3 checkboxes
+  if (step === 3) {
+    syncStep3Preferences();
+    trackPageView('View_Matchmaker_Advisor_Preference');
+  }
+
+  // Track step progression
+  if (step === 4) {
+    trackEvent('AddToCart');
+    trackPageView('View_Matchmaker_ContactInfo');
+  }
+
+  if (step === 5) {
+    trackPageView('View_Matchmaker_Result');
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgressBar(visualStep) {
+  document.querySelectorAll('.progress-step').forEach(ps => {
+    const s = parseInt(ps.dataset.step);
+    ps.classList.remove('active', 'completed');
+    if (s < visualStep) ps.classList.add('completed');
+    if (s === visualStep) ps.classList.add('active');
+  });
+
+  const fill = document.getElementById('progressFill');
+  const pct = ((visualStep - 1) / 4) * 100;
+  fill.style.width = `calc(${pct}%)`;
+}
+
+// ─── STEP 2: PATH CHOICE (Advisor vs Self-Serve) ───
+function selectExplorationPath(path, el) {
+  document.querySelectorAll('#step2 .option-card-big').forEach(c => c.classList.remove('selected'));
+  if (el) el.classList.add('selected');
+
+  // Track engagement preference for HubSpot
+  selectedEngagementPreference = (path === 'self') ? 'diy' : 'agent';
+
+  setTimeout(() => {
+    if (path === 'self') {
+      goToSelfServe();
+    } else {
+      goToStep(3);
+    }
+  }, 220);
+}
+
+function goBackFromStep2Path() {
+  if (selectedPath === 'already') {
+    goToStep('1c');
+  } else {
+    goToStep('1b');
+  }
+}
+
+function goBackFromStep3() {
+  selectedPreferences.clear();
+  autoPreferences.clear();
+  goToStep(2);
+}
+
+// ─── FORM VALIDATION & MATCH ───
+function submitAndMatch() {
+  const firstName = document.getElementById('firstName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim(); // optional
+
+  // Validate required fields (phone is NOT required)
+  if (!firstName || !email) {
+    alert('Please enter your name and email so we can find your match.');
+    return;
+  }
+
+  // Basic email format check
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+
+  // Capture UTM parameters
+  const utmParams = getUTMParams();
+  console.log('[Form Submission] UTM Parameters:', utmParams);
+
+  // Run the matching engine (no state check — handled post-match)
+  const result = runMatchEngine(null, firstName);
+  renderResult(result, firstName);
+  goToStep(5);
+
+  // Track conversion with UTM data (Meta Pixel)
+  trackEvent('Lead', {
+    content_name: 'Medicare Professional Match',
+    situation: selectedSituation,
+    has_phone: !!phone,
+    ...utmParams
+  });
+
+  // Fire matchmaker_lead custom event to GA4/GTM
+  pushToDataLayer({
+    event: 'matchmaker_lead',
+    lead_type: 'matchmaker',
+    matchmaker_situation: selectedSituation,
+    matchmaker_preferences: Array.from(selectedPreferences).join(','),
+    matchmaker_engagement_preference: selectedEngagementPreference || 'agent',
+    has_phone: !!phone,
+    url_slug: window.location.pathname,
+    ...utmParams
+  });
+
+  // Submit to Xano/HubSpot only if we have a successful agent match
+  if (result.type !== 'unlicensed_state' && result.type !== 'online_only' && result.agent) {
+    const medicareSituation = getMedicareSituation(selectedSituation);
+
+    const formData = {
+      firstName: firstName,
+      email: email,
+      phone: phone || null,
+      medicareSituation: medicareSituation,
+      advisorPreference: formatPreferences(selectedPreferences),
+      contactPreference: selectedContactMethod,
+      matchmaker_engagement_preference: selectedEngagementPreference || 'agent', // 'diy' or 'agent'
+      // Add NTM tool preference if user is new to Medicare
+      ntmToolPreference: medicareSituation === 'ntm' ? getNTMToolPreference(selectedSubOption) : null,
+      // Add existing coverage type and tool preference if user has existing coverage
+      existingCoverageType: medicareSituation === 'existing' ? getExistingCoverageType(selectedCoverageType) : null,
+      existingToolPreference: medicareSituation === 'existing' ? getExistingToolPreference(selectedSubOption) : null
+    };
+
+    submitToXano(formData, result.agent);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// THE MATCHING ENGINE (identical logic to v1)
+// ═══════════════════════════════════════════════════════════
+function runMatchEngine(state, firstName) {
+  // Merge auto-added preferences from Step 1c into the user's selections
+  autoPreferences.forEach(p => selectedPreferences.add(p));
+  const prefs = selectedPreferences;
+  const situation = selectedSituation;
+  const isUnlicensedState = state ? UNLICENSED_STATES.includes(state) : false;
+
+  if (isUnlicensedState) {
+    return { type: 'unlicensed_state', state: state };
+  }
+
+  if (situation === 'online_only') {
+    return { type: 'online_only' };
+  }
+
+  if (prefs.has('attorney')) {
+    let reasons = ["you specifically asked to work with a Medicare professional who is also a licensed attorney"];
+    if (prefs.has('high_earner')) reasons.push("he has deep expertise in IRMAA surcharges and high-earner Medicare strategy");
+    if (situation === 'already_on_medicare') reasons.push("his regulatory knowledge is ideal for optimizing existing Medicare coverage");
+    return { type: 'match', agent: 'mike', reasons: reasons, appointmentNote: true };
+  }
+
+  if (prefs.has('veteran')) {
+    let reasons = ["you asked to work with a military veteran, and Megan is a United States Air Force veteran herself"];
+    if (prefs.has('medicaid')) reasons.push("she has extensive experience with Medicaid-to-Medicare transitions from her decade running senior living communities");
+    if (situation === 'not_on_medicare_questions') reasons.push("her 25+ years serving seniors means she's deeply familiar with helping people navigate the path to Medicare");
+    return { type: 'match', agent: 'megan', reasons: reasons };
+  }
+
+  let scores = { scott: 0, chris: 0, megan: 0, mike: 0 };
+
+  switch (situation) {
+    case 'new_getting_started':
+      scores.chris += 3; scores.megan += 2; scores.scott += 1; break;
+    case 'new_know_what_i_want':
+      scores.scott += 3; scores.chris += 2; break;
+    case 'already_on_medicare':
+      scores.chris += 2; scores.scott += 2; scores.megan += 1; break;
+    case 'drug_coverage_only':
+      scores.scott += 3; scores.chris += 1; break;
+    case 'not_on_medicare_questions':
+      scores.megan += 3; scores.chris += 2; break;
+  }
+
+  if (prefs.has('high_earner')) scores.chris += 5;
+  if (prefs.has('supplement')) scores.chris += 5;
+  if (prefs.has('medicaid')) scores.scott += 5;
+  if (prefs.has('csnp')) scores.scott += 5;
+  if (prefs.has('many_doctors')) { scores.chris += 3; scores.scott += 3; }
+  if (prefs.has('expensive_rx')) { scores.chris += 3; scores.scott += 3; }
+
+  const tiebreaker = ['chris', 'scott', 'megan', 'mike'];
+  let winner = tiebreaker[0];
+  let highScore = scores[winner];
+  for (const agent of tiebreaker) {
+    if (scores[agent] > highScore) { highScore = scores[agent]; winner = agent; }
+  }
+
+  let reasons = [];
+  switch (situation) {
+    case 'new_getting_started':
+      if (winner === 'chris') reasons.push("you're new to Medicare and need someone to walk you through everything — Chris has over 15 years of experience and specializes in guiding new enrollees through the entire process");
+      else if (winner === 'megan') reasons.push("you're new to Medicare and Megan has spent over 25 years serving seniors, including helping people navigate the transition into Medicare coverage");
+      else if (winner === 'scott') reasons.push("you're new to Medicare and Scott's data-driven approach will map out every option to find the best starting plan for your situation");
+      break;
+    case 'new_know_what_i_want':
+      if (winner === 'scott') reasons.push("you already have a sense of what you want and Scott's analytical approach is perfect for validating your thinking and catching anything you might have missed");
+      else if (winner === 'chris') reasons.push("you have a direction in mind and Chris's 15+ years of experience will quickly confirm whether you're on the right track or spot a better option");
+      break;
+    case 'already_on_medicare':
+      if (winner === 'chris') reasons.push("you're already on Medicare and Chris's experience across thousands of client situations means he knows exactly what to look for when reviewing existing coverage");
+      else if (winner === 'scott') reasons.push("you're already on Medicare and Scott excels at optimizing existing coverage — he'll review your current plan against every alternative to make sure you're not leaving money on the table");
+      else if (winner === 'megan') reasons.push("you're already on Medicare and Megan's broad experience across healthcare and insurance means she can evaluate your full picture, including coverage you might not realize you're overpaying for");
+      break;
+    case 'drug_coverage_only':
+      if (winner === 'scott') reasons.push("you need help with drug coverage and Scott is a drug formulary specialist — he's caught hidden cost increases and found better Part D options for thousands of clients");
+      else if (winner === 'chris') reasons.push("you need help with drug coverage and Chris's 15+ years of Medicare experience includes deep expertise in Part D plan analysis and cost optimization");
+      break;
+    case 'not_on_medicare_questions':
+      if (winner === 'megan') reasons.push("you have questions about getting on Medicare and Megan has spent over 25 years helping seniors navigate exactly these kinds of transitions");
+      else if (winner === 'chris') reasons.push("you have questions about getting on Medicare and Chris specializes in new-to-Medicare guidance with over 15 years of advisory experience");
+      break;
+  }
+
+  if (prefs.has('high_earner') && winner === 'chris') reasons.push("he has deep expertise in IRMAA surcharges and how high earners should structure their Medicare strategy to minimize costs");
+  if (prefs.has('supplement') && winner === 'chris') reasons.push("he's a Medicare Supplement specialist with deep expertise in Medigap plans, guaranteed issue rights, and plan comparison");
+  if (prefs.has('medicaid') && winner === 'scott') reasons.push("he specializes in Medicaid-to-Medicare transitions and has real experience helping clients navigate dual eligibility and coverage changes");
+  if (prefs.has('csnp') && winner === 'scott') reasons.push("his systems-based approach to mapping plan features makes him excellent at finding the right C-SNP for specific chronic conditions");
+  if (prefs.has('many_doctors')) {
+    if (winner === 'chris') reasons.push("his experience across thousands of client situations makes him skilled at mapping complex doctor networks to make sure every provider is covered");
+    if (winner === 'scott') reasons.push("his engineering background makes him uniquely skilled at mapping complex doctor networks — he treats it as a systems problem to make sure every provider is covered");
+  }
+  if (prefs.has('expensive_rx')) {
+    if (winner === 'chris') reasons.push("his 15+ years of Medicare experience includes deep expertise in drug formulary analysis and finding plans that dramatically lower prescription expenses");
+    if (winner === 'scott') reasons.push("he's a drug formulary expert who has helped clients catch hidden cost increases and find plans that dramatically lower prescription expenses");
+  }
+
+  if (reasons.length === 0) {
+    if (winner === 'chris') reasons.push("based on your situation, Chris's 15+ years of Medicare advisory experience and nationally-recognized track record make him an excellent fit");
+    else if (winner === 'scott') reasons.push("based on your situation, Scott's data-driven, analytical approach to Medicare planning makes him an excellent fit for finding the optimal plan");
+    else if (winner === 'megan') reasons.push("based on your situation, Megan's 25+ years of experience serving seniors across healthcare and insurance make her an excellent fit");
+    else if (winner === 'mike') reasons.push("based on your situation, Mike's legal expertise and deep regulatory knowledge make him the right Medicare professional for your needs");
+  }
+
+  return { type: 'match', agent: winner, reasons: reasons, appointmentNote: winner === 'mike' };
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER RESULT (enhanced for conversion)
+// ═══════════════════════════════════════════════════════════
+// ─── ADVISOR BIO CONTEXT ───
+const ADVISOR_BIOS = {
+  scott: {
+    background: "Scott began his career as an Electrical Systems Engineer for a nuclear power plant in Illinois, earning his B.S. in Electrical Engineering from the Illinois Institute of Technology. That engineering mindset defines his Medicare advisory approach — he treats every Medicare decision as a systems problem.",
+    specialties: ["Medicare Advantage & Medigap", "Part D Drug Formulary Analysis", "Veterans/VA Coordination", "Part B Giveback Plans"],
+    differentiator: "Scott maps doctor networks, drug formularies, cost structures, and benefit gaps to find each client's mathematically optimal plan — resulting in client retention rates far above the industry average."
+  },
+  chris: {
+    background: "Chris has earned back-to-back Presidential Trip awards and 6 Pillar of Excellence awards for client service and retention across multiple roles before specializing in Medicare. He's ranked in the top 10 nationally out of roughly 1,000 agents.",
+    specialties: ["Complex Enrollment Situations", "Veterans/VA & TRICARE Coordination", "Medicaid-to-Medicare Transitions (IRMAA)", "New-to-Medicare Cost Shock"],
+    differentiator: "Chris excels in the complex situations other advisors miss — VA creditable coverage issues, Medicaid loss after life events, and TRICARE coordination — building plans clients keep because the fit is right from day one."
+  },
+  megan: {
+    background: "Megan is a United States Air Force veteran who served as a Clinical Medical Technician with the 14th Medical Group at Columbus Air Force Base. She spent over a decade as Executive Director of senior living communities, giving her rare ground-level understanding of what seniors actually face.",
+    specialties: ["Medicare Advantage & Medigap", "Life Settlements", "Coverage Gap Analysis", "Long-Term Care Planning"],
+    differentiator: "Megan connects the dots between your insurance portfolio and your financial reality — ensuring you never give money back to an insurance company when a better option exists."
+  },
+  mike: {
+    background: "Mike is a licensed attorney with a J.D. who brings deep regulatory and legal expertise to Medicare advising. His legal background means he understands the fine print, compliance requirements, and enrollment rights that most advisors overlook.",
+    specialties: ["Medicare Regulatory Compliance", "Enrollment Rights & Appeals", "Medicare Advantage & Medigap", "Complex Legal Situations"],
+    differentiator: "Mike's legal expertise means he catches the regulatory nuances and enrollment technicalities that protect your rights and maximize your benefits."
+  }
+};
+
+function getAdvisorBio(agentKey, firstName) {
+  const bio = ADVISOR_BIOS[agentKey];
+  if (!bio) return '';
+  return `
+    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--tpp-gray-200);">
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--tpp-navy); margin-bottom: .75rem;">About ${firstName}</h3>
+      <p style="font-size: .92rem; color: var(--tpp-gray-600); line-height: 1.6; margin-bottom: 1rem;">${bio.background}</p>
+      <div style="margin-bottom: 1rem;">
+        <div style="font-size: .85rem; font-weight: 600; color: var(--tpp-gray-700); margin-bottom: .4rem; text-transform: uppercase; letter-spacing: .03em;">Specializations</div>
+        <div style="display: flex; flex-wrap: wrap; gap: .4rem;">
+          ${bio.specialties.map(s => `<span style="display:inline-block;background:var(--tpp-green-50,#e6f4ea);color:var(--tpp-green,#1a7742);font-size:.8rem;padding:.25rem .6rem;border-radius:100px;font-weight:500;">${s}</span>`).join('')}
+        </div>
+      </div>
+      <p style="font-size: .9rem; color: var(--tpp-gray-600); line-height: 1.6; font-style: italic; margin: 0;">"${bio.differentiator}"</p>
+    </div>
+  `;
+}
+
+function renderResult(result, firstName) {
+  const container = document.getElementById('resultContent');
+
+  // ─── UNLICENSED STATE ───
+  if (result.type === 'unlicensed_state') {
+    container.innerHTML = `
+      <div class="result-container">
+        <div class="result-match-label">We're Expanding</div>
+        <h2 class="result-title">We're not in ${result.state === 'CA' ? 'California' : 'New York'} yet — but we're working on it.</h2>
+        <div class="online-notice">
+          <p>The Pocket Protector is actively expanding into ${result.state === 'CA' ? 'California' : 'New York'}, but none of our Medicare professionals are currently licensed in your state.</p>
+          <p>We'd love to let you know as soon as we're available. Leave your email and we'll reach out the moment we're ready to help you in ${result.state === 'CA' ? 'California' : 'New York'}.</p>
+        </div>
+        <div class="result-cta-row">
+          <a href="#" class="result-cta">Join the Waitlist</a>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  // ─── ONLINE ONLY ───
+  if (result.type === 'online_only') {
+    container.innerHTML = `
+      <div class="result-container">
+        <div class="result-match-label">Great News</div>
+        <h2 class="result-title">You can do a lot of this online — and we're building tools to make it even easier.</h2>
+        <div class="online-notice">
+          <p>The Pocket Protector is designed to be a digital-first Medicare experience. You can explore plans, compare costs, and get personalized recommendations through our platform without ever picking up the phone.</p>
+          <p>That said, Medicare is complex — and federal regulations require that a licensed Medicare professional review every enrollment to make sure the plan genuinely fits your needs. Think of it less like a pushy call center, and more like a licensed professional double-checking your work before you submit.</p>
+          <p>If you'd like, we can match you with a Medicare professional who will respect your preference for a digital experience and only step in when it counts. You'll stay in control of the process.</p>
+        </div>
+        <div class="result-cta-row">
+          <a href="https://www.thepocketprotector.com/tool/compare-your-plan-to-every-plan-in-your-county" target="_blank" class="result-cta">Compare Plans Online</a>
+          <a href="#" class="result-cta-secondary" onclick="selectedSituation='already_on_medicare';goToStep(2);return false;">Match Me With a Medicare Guide</a>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  // ─── AGENT MATCH ───
+  const agent = AGENTS[result.agent];
+  const reasonsHTML = result.reasons.map((r, i) => {
+    if (i === 0) return r.charAt(0).toUpperCase() + r.slice(1);
+    return r;
+  }).join('. Additionally, ') + '.';
+
+  let appointmentHTML = '';
+  if (result.appointmentNote) {
+    appointmentHTML = `
+      <div style="margin-top: 1.25rem; padding: 1rem 1.25rem; background: var(--tpp-green-subtle); border-radius: 10px; border: 1px solid var(--tpp-green-light); font-size: .88rem; color: var(--tpp-gray-800);">
+        <strong style="color: var(--tpp-green);">Appointment Only:</strong> Mike takes meetings by appointment. Use the link below to book a time that works for you.
+      </div>
+    `;
+  }
+
+  const firstName1 = agent.name.split(' ')[0];
+
+  // ─── Contact-method-specific CTA ───
+  let confirmMsg = '';
+  let ctaHTML = '';
+
+  if (selectedContactMethod === 'email') {
+    confirmMsg = `<p style="color: var(--tpp-gray-600); font-size: .95rem; margin-bottom: .5rem; line-height: 1.6;">
+      <strong style="color:var(--tpp-green);">✓ You're all set.</strong> Within one business day we'll send you the tool you've been matched with along with a personal introduction to ${firstName1} — in case you have any questions.
+    </p>`;
+    ctaHTML = `<a href="${agent.phone}" target="_blank" class="result-cta-secondary">Or book a call instead</a>`;
+  } else if (selectedContactMethod === 'phone') {
+    confirmMsg = `<p style="color: var(--tpp-gray-600); font-size: .95rem; margin-bottom: .5rem; line-height: 1.6;">
+      Pick a time that works for you and ${firstName1} will call you then.
+    </p>`;
+    ctaHTML = `<a href="${agent.phone}" target="_blank" class="result-cta">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l1.62-1.62a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.18z"/></svg>
+      Book a phone call with ${firstName1}
+    </a>`;
+  } else if (selectedContactMethod === 'video') {
+    confirmMsg = `<p style="color: var(--tpp-gray-600); font-size: .95rem; margin-bottom: .5rem; line-height: 1.6;">
+      Pick a time and ${firstName1} will meet you on a video call.
+    </p>`;
+    ctaHTML = `<a href="${agent.video}" target="_blank" class="result-cta">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+      Book a video call with ${firstName1}
+    </a>`;
+  } else {
+    confirmMsg = `<p style="color: var(--tpp-gray-600); font-size: .95rem; margin-bottom: .5rem; line-height: 1.6;">
+      <strong style="color:var(--tpp-green);">✓ You're all set.</strong> Within one business day we'll send you the tool you've been matched with along with a personal introduction to ${firstName1} — in case you have any questions.
+    </p>`;
+    ctaHTML = `<a href="${agent.phone}" target="_blank" class="result-cta">
+      ${result.appointmentNote ? `Book an Appointment with ${firstName1}` : `Schedule a Call with ${firstName1}`}
+    </a>`;
+  }
+
+  container.innerHTML = `
+    <div class="result-container">
+      <div class="result-match-label">Your Match</div>
+      <h2 class="result-title">We've matched you with ${agent.name}.</h2>
+      ${confirmMsg}
+
+      <div class="result-agent-card">
+        <div class="result-agent-header">
+          <div class="result-agent-avatar">
+            <img src="${agent.headshot}" alt="${agent.name}" />
+          </div>
+          <div>
+            <div class="result-agent-name">${agent.name}</div>
+            <div class="result-agent-title">${agent.title}</div>
+            <div class="result-agent-stats">
+              ${agent.stats.map(s => `<div class="result-agent-stat"><strong>${s.value}</strong> ${s.label}</div>`).join('')}
+            </div>
+          </div>
+        </div>
+
+        <div class="result-explanation">
+          <strong>We matched you with ${firstName1} because</strong> ${reasonsHTML}
+        </div>
+
+        ${appointmentHTML}
+      </div>
+
+      <div class="result-cta-row" style="align-items:center;">
+        ${ctaHTML}
+      </div>
+      <div class="availability-nudge">
+        <div class="availability-dot"></div>
+        ${firstName1} currently has availability this week
+      </div>
+
+      ${getAdvisorBio(result.agent, firstName1)}
+
+    </div>
+  `;
+}
+</script>
+
+<!-- 
+  ═══════════════════════════════════════════════════════════
+  META PIXEL PLACEHOLDER
+  ═══════════════════════════════════════════════════════════
+  Uncomment and replace YOUR_PIXEL_ID with your actual Meta Pixel ID:
+
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', 'YOUR_PIXEL_ID');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"/></noscript>
+-->
+
+<!-- Phone Number Formatting Script -->
+<script>
+// Format phone number as user types (XXX) XXX-XXXX
+function formatPhoneNumber(value) {
+  const numbers = value.replace(/\D/g, '');
+  const limited = numbers.slice(0, 10);
+
+  if (limited.length <= 3) {
+    return limited;
+  } else if (limited.length <= 6) {
+    return `(${limited.slice(0, 3)}) ${limited.slice(3)}`;
+  } else {
+    return `(${limited.slice(0, 3)}) ${limited.slice(3, 6)}-${limited.slice(6)}`;
+  }
+}
+
+// Add input formatting listener on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const phoneInput = document.getElementById('phone');
+  if (phoneInput) {
+    phoneInput.addEventListener('input', (e) => {
+      const formatted = formatPhoneNumber(e.target.value);
+      e.target.value = formatted;
+    });
+    phoneInput.setAttribute('inputmode', 'numeric');
+  }
+});
+</script>
+
+<!-- UTM Query Parameter Preservation Script -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Get all current URL params
+  const currentParams = new URLSearchParams(window.location.search);
+
+  // If no query params exist, exit
+  if ([...currentParams].length === 0) return;
+
+  // Function to merge current params into a URL string
+  function mergeParams(urlStr) {
+    try {
+      const url = new URL(urlStr, window.location.origin);
+      currentParams.forEach((value, key) => {
+        if (!url.searchParams.has(key)) {
+          url.searchParams.set(key, value);
+        }
+      });
+      return url.toString();
+    } catch (e) {
+      return urlStr; // Return original if invalid
+    }
+  }
+
+  // Update all <a> links
+  document.querySelectorAll("a[href]").forEach(link => {
+    const href = link.getAttribute("href");
+    if (href.startsWith("#") || href.startsWith("javascript:")) return;
+    link.href = mergeParams(href);
+  });
+
+
+  // Update buttons or elements with onclick modifying window.location.href
+  document.querySelectorAll("[onclick]").forEach(el => {
+    const onclickCode = el.getAttribute("onclick");
+
+    // Check if onclick sets window.location.href
+    if (/window\.location\.href\s*=\s*['"`]/.test(onclickCode)) {
+      el.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // Extract the URL from the onclick string
+        const urlMatch = onclickCode.match(/window\.location\.href\s*=\s*['"`](.*?)['"`]/);
+        if (!urlMatch) return;
+
+        const updatedUrl = mergeParams(urlMatch[1]);
+        window.location.href = updatedUrl;
+      });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
