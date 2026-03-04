@@ -1957,6 +1957,35 @@ const XANO_CONFIG = {
   }
 };
 
+// ─── XANO NTM QUIZ LEAD ENDPOINT CONFIG ───
+const XANO_NTM_CONFIG = {
+  // NTM Quiz Lead endpoint (obfuscated)
+  _p1_ntm: atob('aHR0cHM6Ly94OGtpLWxldGwtdHdtdC5uNy54YW5v'),
+  _p2_ntm: atob('LmlvL2FwaTpndE5pbHZNSC90cHBfbnRtX3F1aXpfbGVhZA=='),
+
+  // Reconstruct NTM endpoint at runtime
+  getEndpoint: function() {
+    if (typeof this._p1_ntm === 'undefined' || typeof this._p2_ntm === 'undefined') {
+      return null;
+    }
+    return this._p1_ntm + this._p2_ntm;
+  },
+
+  // Generate request signature
+  getSignature: function() {
+    const timestamp = Date.now();
+    const checksum = (timestamp % 97) + 13;
+    return btoa(`${timestamp}:${checksum}`);
+  },
+
+  // Validate origin
+  validateOrigin: function() {
+    const allowedDomains = ['thepocketprotector.com', 'localhost', 'webflow.io'];
+    const hostname = window.location.hostname;
+    return allowedDomains.some(domain => hostname.includes(domain));
+  }
+};
+
 // ─── XANO API SUBMISSION ───
 function formatPreferences(preferencesSet) {
   // Convert Set to semicolon-separated string with preference_ prefix
@@ -2030,9 +2059,9 @@ function submitToXano(formData, assignedAgent, isRetry = false, contactId = null
   const getUTM = (param) => urlParams.get(param) || null;
 
   const payload = {
-    firstname: formData.firstName,
+    first_name: formData.firstName,
     email: formData.email,
-    phone: formData.phone || null,
+    phone: formatPhoneForAPI(formData.phone) || null,
     matchmaker_medicare_situation: formData.medicareSituation,
     matchmaker_advisor_preference: formData.advisorPreference,
     matchmaker_contact_preference: formData.contactPreference || null,
@@ -2043,6 +2072,7 @@ function submitToXano(formData, assignedAgent, isRetry = false, contactId = null
     url_slug: window.location.pathname,
     submit_location: "tpp_paid_matchmaker",
     submitted_at: new Date().toISOString(),
+    timestamp: new Date().toISOString(),
 
     // UTM Tracking
     utm_source: getUTM("utm_source"),
@@ -2115,6 +2145,90 @@ function submitToXano(formData, assignedAgent, isRetry = false, contactId = null
     // Log errors only on localhost
     if (window.location.hostname === 'localhost') {
       console.error('Submission error:', error);
+    }
+    return null;
+  });
+}
+
+function formatPhoneForAPI(phone) {
+  if (!phone) return null; // prevent errors
+
+  const numbers = phone.replace(/\D/g, '');
+
+  if (numbers.length === 10) {
+    return `+1 (${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(6)}`;
+  }
+
+  return phone;
+}
+
+// ─── SUBMIT TO NTM QUIZ LEAD ENDPOINT ───
+function submitToNTMQuizLead(formData, assignedAgent) {
+  // Validate origin before submission
+  if (!XANO_NTM_CONFIG.validateOrigin()) {
+    console.error('[NTM] Invalid origin');
+    return Promise.resolve(null);
+  }
+
+  const endpoint = XANO_NTM_CONFIG.getEndpoint();
+
+  if (!endpoint) {
+    console.error('[NTM] Configuration error');
+    return Promise.resolve(null);
+  }
+
+  // Get current URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const getUTM = (param) => urlParams.get(param) || null;
+
+
+
+  const payload = {
+    first_name: formData.firstName,
+    email: formData.email,
+    phone: formatPhoneForAPI(formData.phone) || null,
+    matchmaker_medicare_situation: formData.medicareSituation,
+    matchmaker_advisor_preference: formData.advisorPreference,
+    matchmaker_contact_preference: formData.contactPreference || null,
+    matchmaker_assigned_agent: assignedAgent,
+    matchmaker_ntm_ToolPreference: formData.ntmToolPreference || null,
+    matchmaker_existing_coveragetype: formData.existingCoverageType || null,
+    matchmaker_existing_toolpreference: formData.existingToolPreference || null,
+    url_slug: window.location.pathname,
+    submit_location: "tpp_paid_matchmaker",
+    submitted_at: new Date().toISOString(),
+    timestamp: new Date().toISOString(),
+
+    // UTM Tracking
+    utm_source: getUTM("utm_source"),
+    utm_medium: getUTM("utm_medium"),
+    utm_campaign: getUTM("utm_campaign"),
+    utm_content: getUTM("utm_content"),
+    utm_term: getUTM("utm_term"),
+    utm_creative: getUTM("utm_creative"),
+    utm_placement: getUTM("utm_placement")
+  };
+
+  return fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-Request-Signature': XANO_NTM_CONFIG.getSignature()
+    },
+    keepalive: true,
+    body: JSON.stringify(payload)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (window.location.hostname === 'localhost') {
+      console.log('[NTM] Submission successful:', data);
+    }
+    return data;
+  })
+  .catch(error => {
+    if (window.location.hostname === 'localhost') {
+      console.error('[NTM] Submission error:', error);
     }
     return null;
   });
@@ -2315,7 +2429,9 @@ function submitSelfServe() {
     existingToolPreference: medicareSituation === 'existing' && selectedSubOption ? getExistingToolPreference(selectedSubOption) : null
   };
 
+  // Submit to both endpoints
   submitToXano(formData, 'diy');
+  submitToNTMQuizLead(formData, 'diy');
 
   // Update thank you message with their name
   document.getElementById('selfServeThanksMsg').innerHTML =
@@ -2643,7 +2759,9 @@ function submitAndMatch() {
       existingToolPreference: medicareSituation === 'existing' ? getExistingToolPreference(selectedSubOption) : null
     };
 
+    // Submit to both endpoints
     submitToXano(formData, result.agent);
+    submitToNTMQuizLead(formData, result.agent);
   }
 }
 
