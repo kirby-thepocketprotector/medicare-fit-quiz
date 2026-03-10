@@ -31,6 +31,26 @@ const nextConfig: NextConfig = {
         destination: '/tools/deadline-reminder-tool.html',
       },
       {
+        source: '/tools/deadline-reminder-tool-christopher-o-kieffe',
+        destination: '/tools/medicare-calendar-chris.html',
+      },
+      {
+        source: '/tools/deadline-reminder-tool-scott-martin',
+        destination: '/tools/medicare-calendar-scott.html',
+      },
+      {
+        source: '/tools/deadline-reminder-tool-megan-lengerich',
+        destination: '/tools/medicare-calendar-megan.html',
+      },
+      {
+        source: '/tools/deadline-reminder-tool-michael-boshardy',
+        destination: '/tools/medicare-calendar-mike.html',
+      },
+      {
+        source: '/tools/deadline-reminder-tool-diy',
+        destination: '/tools/medicare-calendar-updated.html',
+      },
+      {
         source: '/tools/match-an-advisor',
         destination: '/tools/match-an-advisor.html',
       },
