@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Your Medicare Calendar | The Pocket Protector</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -55,7 +55,7 @@ body { font-family: var(--font-body); color: var(--tpp-black); background: var(-
 .intro-features { display: flex; flex-direction: column; gap: .55rem; margin: 0 auto 2rem; max-width: 360px; text-align: left; }
 .intro-feature { display: flex; align-items: center; gap: .75rem; background: var(--tpp-white); border: 1.5px solid var(--tpp-green-light); border-radius: 10px; padding: .65rem 1rem; font-size: .87rem; font-weight: 500; color: var(--tpp-gray-800); }
 .intro-feature svg { width: 18px; height: 18px; fill: var(--tpp-green); flex-shrink: 0; }
-.option-card { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: var(--tpp-white); border: 2px solid var(--tpp-gray-200); border-radius: 12px; cursor: pointer; transition: all .2s ease; margin-bottom: .65rem; }
+.option-card { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: var(--tpp-white); border: 2px solid var(--tpp-gray-200); border-radius: 12px; cursor: pointer; transition: all .2s ease; margin-bottom: .65rem; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; }
 .option-card:hover { border-color: var(--tpp-green); background: var(--tpp-green-subtle); transform: translateX(3px); }
 .option-card.selected { border-color: var(--tpp-green); background: var(--tpp-green-light); }
 .option-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--tpp-green-light); display: grid; place-items: center; flex-shrink: 0; transition: background .2s; }
