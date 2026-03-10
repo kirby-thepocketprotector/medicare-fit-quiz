@@ -1478,6 +1478,13 @@ function buildResults() {
 
   document.getElementById('resultsContent').innerHTML = html;
 
+  // Append ctid to booking link
+  var bookingLink = document.querySelector('.advisor-cta-card .cta-submit-btn');
+  if (bookingLink) {
+    var originalUrl = bookingLink.href;
+    bookingLink.href = appendContactIdToUrl(originalUrl);
+  }
+
   // Send HubSpot completion event
   sendHubSpotEvent('medicare_calendar_tool_completed', {
     calendar_detail_preference: answers.intensity || 'key'
