@@ -32,23 +32,23 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/tools/deadline-reminder-tool-christopher-o-kieffe',
-        destination: '/tools/medicare-calendar-chris.html',
+        destination: '/tools/deadline-reminder-tool-christopher-o-kieffe.html',
       },
       {
         source: '/tools/deadline-reminder-tool-scott-martin',
-        destination: '/tools/medicare-calendar-scott.html',
+        destination: '/tools/deadline-reminder-tool-scott-martin.html',
       },
       {
         source: '/tools/deadline-reminder-tool-megan-lengerich',
-        destination: '/tools/medicare-calendar-megan.html',
+        destination: '/tools/deadline-reminder-tool-megan-lengerich.html',
       },
       {
         source: '/tools/deadline-reminder-tool-michael-boshardy',
-        destination: '/tools/medicare-calendar-mike.html',
+        destination: '/tools/deadline-reminder-tool-michael-boshardy.html',
       },
       {
         source: '/tools/deadline-reminder-tool-diy',
-        destination: '/tools/medicare-calendar-updated.html',
+        destination: '/tools/deadline-reminder-tool-diy.html',
       },
       {
         source: '/tools/match-an-advisor',
