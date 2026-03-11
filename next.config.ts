@@ -51,6 +51,26 @@ const nextConfig: NextConfig = {
         destination: '/tools/deadline-reminder-tool-diy.html',
       },
       {
+        source: '/tools/doctor-network-monitor-diy',
+        destination: '/tools/doctor-network-monitor-updated.html',
+      },
+      {
+        source: '/tools/doctor-network-monitor-christopher-o-kieffe',
+        destination: '/tools/doctor-network-monitor-chris.html',
+      },
+      {
+        source: '/tools/doctor-network-monitor-scott-martin',
+        destination: '/tools/doctor-network-monitor-scott.html',
+      },
+      {
+        source: '/tools/doctor-network-monitor-megan-lengerich',
+        destination: '/tools/doctor-network-monitor-megan.html',
+      },
+      {
+        source: '/tools/doctor-network-monitor-michael-boshardy',
+        destination: '/tools/doctor-network-monitor-mike.html',
+      },
+      {
         source: '/tools/match-an-advisor',
         destination: '/tools/match-an-advisor.html',
       },
