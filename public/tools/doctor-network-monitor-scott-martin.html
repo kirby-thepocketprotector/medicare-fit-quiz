@@ -458,6 +458,7 @@ const XANO_CONFIG = {
   // Validate origin
   validateOrigin: function() {
     const allowedDomains = ['thepocketprotector.com', 'localhost', 'webflow.io'];
+    
     const hostname = window.location.hostname;
     const isValid = allowedDomains.some(domain => hostname.includes(domain));
 
