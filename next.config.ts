@@ -52,23 +52,23 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/tools/doctor-network-monitor-diy',
-        destination: '/tools/doctor-network-monitor-updated.html',
+        destination: '/tools/doctor-network-monitor-diy.html',
       },
       {
         source: '/tools/doctor-network-monitor-christopher-o-kieffe',
-        destination: '/tools/doctor-network-monitor-chris.html',
+        destination: '/tools/doctor-network-monitor-christopher-o-kieffe.html',
       },
       {
         source: '/tools/doctor-network-monitor-scott-martin',
-        destination: '/tools/doctor-network-monitor-scott.html',
+        destination: '/tools/doctor-network-monitor-scott-martin.html',
       },
       {
         source: '/tools/doctor-network-monitor-megan-lengerich',
-        destination: '/tools/doctor-network-monitor-megan.html',
+        destination: '/tools/doctor-network-monitor-megan-lengerich.html',
       },
       {
         source: '/tools/doctor-network-monitor-michael-boshardy',
-        destination: '/tools/doctor-network-monitor-mike.html',
+        destination: '/tools/doctor-network-monitor-michael-boshardy.html',
       },
       {
         source: '/tools/match-an-advisor',

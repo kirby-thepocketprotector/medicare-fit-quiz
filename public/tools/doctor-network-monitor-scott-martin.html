@@ -840,9 +840,9 @@ async function handleCard(event) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 cardDataURL = e.target.result;
-                const previewImg = document.getElementById('cardPreview');
-                previewImg.src = cardDataURL;
-                previewImg.style.display = 'block';
+                document.getElementById('uploadArea').style.display = 'none';
+                document.getElementById('cardPreview').style.display = 'block';
+                document.getElementById('cardImg').src = cardDataURL;
             };
             reader.readAsDataURL(file);
 
@@ -853,9 +853,9 @@ async function handleCard(event) {
 
             try {
                 // Initialize Supabase client
-                const supabaseUrl = 'https://ttfxohzjvzdlmlgtkyfa.supabase.co';
-                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0ZnhvaHpqdnpkbG1sZ3RreWZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEyMTE5NTQsImV4cCI6MjA1Njc4Nzk1NH0.tYLEzбългария1qlafkUz2vhBFYfXvqINvdBLKT4uQjkWJYE';
-                const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+                const SUPABASE_URL = "https://xrfihlkgoemvmazxkesj.supabase.co";
+                const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhyZmlobGtnb2Vtdm1henhrZXNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4NDEyODEsImV4cCI6MjA4NzQxNzI4MX0.9ae5hxE9Gr68S1PtBNVNBj3eUug_1Fg_ijWphQ2NxSM";
+                const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
                 // Create unique filename
                 const timestamp = Date.now();
@@ -888,23 +888,22 @@ async function handleCard(event) {
 
             } catch (error) {
                 console.error('Error uploading file:', error);
-                fileNameSpan.textContent = 'Upload failed. Please try again.';
                 cardDataURL = null;
                 cardImagePublicUrl = null;
                 cardFileName = '';
-                
+
                 // Reset file input
                 event.target.value = '';
-                
-                // Hide preview
-                const previewImg = document.getElementById('cardPreview');
-                previewImg.style.display = 'none';
-                
+
+                // Show upload area, hide preview
+                document.getElementById('uploadArea').style.display = 'block';
+                document.getElementById('cardPreview').style.display = 'none';
+
                 alert('Failed to upload image. Please try again.');
             }
 }
 function removeCard(){
-  cardDataURL=null; cardFileName='';
+  cardDataURL=null; cardImagePublicUrl=null; cardFileName='';
   document.getElementById('uploadArea').style.display='block';
   document.getElementById('cardPreview').style.display='none';
   document.getElementById('cardFile').value='';
