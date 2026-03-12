@@ -719,39 +719,66 @@ function submitToXano(formData, isRetry = false, contactId = null) {
     },
     body: JSON.stringify(payload)
   })
-  .then(response => response.json())
-  .then(data => {
+  .then(response => {
+    // Always parse JSON first to check for duplicate error
+    return response.json().then(data => {
+      return { response, data };
+    });
+  })
+  .then(({ response, data }) => {
     if (window.location.hostname === 'localhost') {
-      console.log('[Xano] Submission successful:', data);
+      console.log('[Xano] Submission response:', data);
     }
 
+    // Check for duplicate contact error in response.result (status 409)
+    // Response structure: { tpp_: { response: { result: { status, message } } } }
+    if (data && data.tpp_ && data.tpp_.response && data.tpp_.response.result) {
+      const result = data.tpp_.response.result;
 
-    // Enhanced error handling with multi-path checking
-    const errorMsg = data?.message || data?.error || '';
-    
-    // Check for "already has that value" - this is OK, not a real error
-    if (errorMsg.includes('already has that value')) {
-      console.log('[Xano] Contact already has these values - submission successful');
-      return data;
-    }
+      // Check if it's a "Contact already exists" error
+      if (result.status === "error" &&
+          result.message &&
+          result.message.includes("Existing ID:")) {
 
-    // Check for duplicate contact error (HubSpot "Existing ID" error)
-    if (errorMsg.includes('Existing ID')) {
-      // Extract the existing contact ID from the error message
-      const match = errorMsg.match(/Existing ID: (\d+)/);
-      if (match && match[1] && !isRetry) {
-        const existingContactId = match[1];
-        console.log('[Xano] Duplicate contact detected, retrying with update endpoint. Contact ID:', existingContactId);
-        // Retry with update endpoint
-        return submitToXano(formData, true, existingContactId);
+        // Extract the existing contact ID from error message
+        const existingId = result.message.split("Existing ID:")[1].trim();
+
+        if (window.location.hostname === 'localhost') {
+          console.log('[Xano] 409 CONFLICT: Contact already exists');
+          console.log('[Xano] Existing contact ID:', existingId);
+          console.log('[Xano] Retrying with UPDATE endpoint (tpp_doctorcheck_submit_v2_update)');
+        }
+
+        // Retry with update endpoint if this wasn't already a retry
+        if (!isRetry && existingId) {
+          return submitToXano(formData, true, existingId);
+        }
       }
     }
 
+    // Check for HubSpot PropertyValueCoordinates error (duplicate email/property value)
+    // Error format: "Cannot set PropertyValueCoordinates{...} on [old_id]. [correct_id] already has that value."
+    if (data && data.tpp_ && data.tpp_.response && data.tpp_.response.result && data.tpp_.response.result.message) {
+      const errorMessage = data.tpp_.response.result.message;
+      if (errorMessage.includes('already has that value') && !isRetry) {
+        // Match the contact ID that appears before "already has that value"
+        const match = errorMessage.match(/(\d+)\s+already has that value/);
+        if (match && match[1]) {
+          const correctContactId = match[1];
+          if (window.location.hostname === 'localhost') {
+            console.log('[Xano] Duplicate property value detected, retrying with correct contact ID:', correctContactId);
+          }
+          // Retry with the correct contact ID using update endpoint
+          return submitToXano(formData, true, correctContactId);
+        }
+      }
+    }
 
-    // Check for other contact ID errors
-    if (errorMsg.includes('contact') && errorMsg.includes('exist') && !isRetry) {
-      console.log('[Xano] Contact issue detected, retrying with update endpoint');
-      return submitToXano(formData, true, null);
+    // Check HTTP response status
+    if (!response.ok) {
+      if (window.location.hostname === 'localhost') {
+        console.warn('[Xano] API submission returned non-OK status:', response.status);
+      }
     }
 
     return data;
