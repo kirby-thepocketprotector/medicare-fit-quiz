@@ -906,14 +906,14 @@ function submitForm(){
   });
 
   // Track form submission in Google Analytics
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'doctor_monitor_submitted', {
-      'event_category': 'form',
-      'event_label': 'megan-lengerich',
-      'doctor_count': docs.length,
-      'plan_mode': planMode
-    });
-  }
+  // if (typeof gtag !== 'undefined') {
+  //   gtag('event', 'doctor_monitor_submitted', {
+  //     'event_category': 'form',
+  //     'event_label': 'megan-lengerich',
+  //     'doctor_count': docs.length,
+  //     'plan_mode': planMode
+  //   });
+  // }
 
   // Prepare form data for HubSpot submission
   var formDataForXano = {
