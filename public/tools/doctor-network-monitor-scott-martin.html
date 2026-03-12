@@ -847,7 +847,7 @@ async function handleCard(event) {
             reader.readAsDataURL(file);
 
             // Show uploading status
-            const fileNameSpan = document.getElementById('fileName');
+            const fileNameSpan = document.getElementById('cardName');
             fileNameSpan.textContent = 'Uploading...';
             fileNameSpan.style.display = 'inline';
 
@@ -969,15 +969,13 @@ function submitForm(){
 
   // Prepare form data for Xano submission
   var formDataForXano = {
+    doctors: docs,
+    planName: planMode === 'type' ? document.getElementById('planName').value.trim() : '',
     planMode: planMode,
-    planName: planMode === 'type' ? planLabel : '',
     cardImagePublicUrl: cardImagePublicUrl,
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    phone: phone,
     zip: zip,
-    doctors: docs
+    email: email,
+    phone: phone
   };
 
   // Submit to Xano (which integrates with HubSpot)
