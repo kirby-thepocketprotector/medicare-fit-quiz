@@ -56,6 +56,21 @@
     .add-doctor-btn{display:flex;align-items:center;justify-content:center;gap:.4rem;font-family:var(--font-body);font-size:.8rem;font-weight:600;color:var(--tpp-green);background:var(--tpp-green-subtle);border:1.5px dashed var(--tpp-green);border-radius:8px;padding:.5rem .85rem;cursor:pointer;transition:all .15s;width:100%;margin-top:.4rem;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none}
     .add-doctor-btn:hover{background:var(--tpp-green-light)}
     .add-doctor-btn svg{width:14px;height:14px;fill:var(--tpp-green)}
+    .inline-add-btn{width:38px;height:38px;border:2px solid var(--tpp-green);background:var(--tpp-green-light);border-radius:8px;cursor:pointer;display:none;place-items:center;flex-shrink:0;color:var(--tpp-green);transition:all .15s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none}
+    .inline-add-btn.show{display:grid}
+    .inline-add-btn:hover{background:var(--tpp-green);color:#fff}
+    .inline-add-btn:hover svg{fill:#fff}
+    .inline-add-btn svg{width:16px;height:16px;fill:var(--tpp-green)}
+    .doctor-row .form-input.confirmed{border-color:var(--tpp-green);background:var(--tpp-green-subtle)}
+    .plan-confirm-btn{display:none;align-items:center;gap:.4rem;font-family:var(--font-body);font-size:.8rem;font-weight:600;color:var(--tpp-green);background:var(--tpp-green-light);border:2px solid var(--tpp-green);border-radius:8px;padding:.45rem .85rem;cursor:pointer;transition:all .15s;margin-top:.5rem;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none}
+    .plan-confirm-btn.show{display:inline-flex}
+    .plan-confirm-btn:hover{background:var(--tpp-green);color:#fff}
+    .plan-confirm-btn:hover svg{fill:#fff}
+    .plan-confirm-btn svg{width:14px;height:14px;fill:var(--tpp-green)}
+    .form-input.plan-confirmed{border-color:var(--tpp-green);background:var(--tpp-green-subtle)}
+    .plan-confirmed-msg{display:none;font-size:.78rem;color:var(--tpp-green);font-weight:600;margin-top:.35rem}
+    .plan-confirmed-msg.show{display:flex;align-items:center;gap:.35rem}
+    .plan-confirmed-msg svg{width:13px;height:13px;fill:var(--tpp-green)}
     .plan-toggle{display:flex;gap:.6rem;margin-bottom:.75rem}
     .plan-btn{flex:1;padding:.65rem .5rem;font-family:var(--font-body);font-size:.8rem;font-weight:600;border:2px solid var(--tpp-gray-300);border-radius:10px;background:var(--tpp-gray-100);color:var(--tpp-gray-600);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.4rem;transition:all .15s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none}
     .plan-btn.active{background:var(--tpp-green);border-color:var(--tpp-green);color:#fff}
@@ -213,7 +228,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
         <div id="doctorList">
           <div class="doctor-row" id="drow-0">
-            <input class="form-input" type="text" placeholder="e.g. Dr. Sarah Johnson or Mayo Clinic" id="doc-0" oninput="clearEl('doctorErr')"/>
+            <input class="form-input" type="text" placeholder="e.g. Dr. Sarah Johnson or Mayo Clinic" id="doc-0" oninput="clearEl('doctorErr');showInlineAdd(0)"/>
+            <button class="inline-add-btn" id="addBtn-0" onclick="confirmDoctor(0)" title="Add this doctor">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </button>
           </div>
         </div>
         <div class="field-error" id="doctorErr">Please enter at least one doctor or facility name.</div>
@@ -239,7 +257,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </button>
         </div>
         <div id="planTypeWrap" style="display:none">
-          <input class="form-input" type="text" id="planName" placeholder="e.g. Humana Gold Plus H1036-046" oninput="clearEl('planErr')"/>
+          <input class="form-input" type="text" id="planName" placeholder="e.g. Humana Gold Plus H1036-046" oninput="clearEl('planErr');showPlanConfirm()"/>
+          <button class="plan-confirm-btn" id="planConfirmBtn" onclick="confirmPlan()">
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Confirm Plan
+          </button>
+          <div class="plan-confirmed-msg" id="planConfirmedMsg">
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Plan saved
+          </div>
         </div>
         <div id="planPhotoWrap" style="display:none">
           <div id="uploadArea" class="upload-area" onclick="document.getElementById('cardFile').click()">
@@ -258,7 +284,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <!-- ZIP -->
       <div class="form-group">
         <label class="form-label">ZIP Code <span class="req">*</span></label>
-        <input class="form-input" type="text" id="zipCode" placeholder="e.g. 60614" maxlength="5"
+        <input class="form-input" type="text" inputmode="numeric" id="zipCode" placeholder="e.g. 60614" maxlength="5"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,5);clearEl('zipErr')" style="max-width:160px"/>
         <div class="field-error" id="zipErr">Please enter a valid 5-digit ZIP code.</div>
       </div>
@@ -837,12 +863,79 @@ function addDoctor(){
   var list=document.getElementById('doctorList');
   var row=document.createElement('div');
   row.className='doctor-row'; row.id='drow-'+docCount;
-  row.innerHTML='<input class="form-input" type="text" placeholder="e.g. Dr. Smith or City Hospital" id="doc-'+docCount+'" oninput="clearEl(\'doctorErr\')" />'
+  row.innerHTML='<input class="form-input" type="text" placeholder="e.g. Dr. Smith or City Hospital" id="doc-'+docCount+'" oninput="clearEl(\'doctorErr\');showInlineAdd('+docCount+')" />'
+    +'<button class="inline-add-btn" id="addBtn-'+docCount+'" onclick="confirmDoctor('+docCount+')" title="Add this doctor">'
+    +'<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>'
+    +'</button>'
     +'<button class="remove-btn" onclick="removeDoc('+docCount+')" title="Remove">'
     +'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>'
     +'</button>';
   list.appendChild(row); docCount++;
   if(docCount>=5) document.getElementById('addDocBtn').style.display='none';
+}
+
+function showInlineAdd(i){
+  var input=document.getElementById('doc-'+i);
+  var btn=document.getElementById('addBtn-'+i);
+  if(!input||!btn) return;
+  if(input.value.trim().length>0){
+    // If field has text, remove confirmed state and show button
+    if(input.classList.contains('confirmed')){
+      input.classList.remove('confirmed');
+    }
+    btn.classList.add('show');
+  } else {
+    // If field is empty, hide button and remove confirmed state
+    btn.classList.remove('show');
+    input.classList.remove('confirmed');
+  }
+}
+
+function confirmDoctor(i){
+  var input=document.getElementById('doc-'+i);
+  var btn=document.getElementById('addBtn-'+i);
+  if(!input||!input.value.trim()) return;
+  input.classList.add('confirmed');
+  btn.classList.remove('show');
+  clearEl('doctorErr');
+  if(docCount<5){
+    var hasEmpty=false;
+    for(var j=0;j<10;j++){
+      var el=document.getElementById('doc-'+j);
+      if(el && !el.value.trim()) hasEmpty=true;
+    }
+    if(!hasEmpty) addDoctor();
+  }
+}
+
+function showPlanConfirm(){
+  var input=document.getElementById('planName');
+  var btn=document.getElementById('planConfirmBtn');
+  var msg=document.getElementById('planConfirmedMsg');
+  if(input.value.trim().length>0){
+    // If field has text, remove confirmed state and show button
+    if(input.classList.contains('plan-confirmed')){
+      input.classList.remove('plan-confirmed');
+    }
+    btn.classList.add('show');
+    msg.classList.remove('show');
+  } else {
+    // If field is empty, hide button and remove confirmed state
+    btn.classList.remove('show');
+    msg.classList.remove('show');
+    input.classList.remove('plan-confirmed');
+  }
+}
+
+function confirmPlan(){
+  var input=document.getElementById('planName');
+  var btn=document.getElementById('planConfirmBtn');
+  var msg=document.getElementById('planConfirmedMsg');
+  if(!input.value.trim()) return;
+  input.classList.add('plan-confirmed');
+  btn.classList.remove('show');
+  msg.classList.add('show');
+  clearEl('planErr');
 }
 function removeDoc(i){
   var r=document.getElementById('drow-'+i); if(r) r.parentNode.removeChild(r);
@@ -971,8 +1064,17 @@ function submitForm(){
   prevPage='thankYouPage';
   showPage('thankYouPage');
 
-  // Fire Google Analytics event on form submission
+  /* --- GA4 custom event: fire on successful submission --- */
   window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    'event': 'doctor_check_lead',
+    'doctor_count': docs.length,
+    'plan_method': planMode,
+    'zip_code': zip,
+    'sms_opt_in': phone.length === 10 ? 'yes' : 'no'
+  });
+
+  // Fire Google Analytics event on form submission
   window.dataLayer.push({
     event: "View_Doctor_Submit",
     tool_name: "doctorcheck",
