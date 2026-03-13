@@ -704,6 +704,24 @@ function submitToXano(formData, isRetry = false, contactId = null) {
     return '+1 (' + phone.slice(0, 3) + ') ' + phone.slice(3, 6) + '-' + phone.slice(6);
   };
 
+  // SMS Consent disclosure text (exact copy from the form)
+  const SMS_CONSENT_DISCLOSURE = "By adding your number you provide express consent to The Pocket Protector and its licensed agents to provide updates and communications by text message related to Medicare Advantage, PDP plans, and Medicare Supplement solutions. Consent is not a condition of purchase. Msg & data rates may apply.";
+
+  // Determine SMS consent status
+  const hasPhone = formData.phone && formData.phone.length === 10;
+  const hasConsentDisclosure = true; // Disclosure is always shown in the form
+  const smsConsentStatus = (hasPhone && hasConsentDisclosure) ? 'opted_in' : 'never_asked';
+
+  // SMS consent fields (only populate when opted_in)
+  const smsConsentData = {};
+  if (smsConsentStatus === 'opted_in') {
+    smsConsentData.sms_consent_datetime = new Date().toISOString();
+    smsConsentData.sms_consent_source = window.location.pathname; // url_slug
+    smsConsentData.sms_consent_language = SMS_CONSENT_DISCLOSURE;
+    smsConsentData.sms_consent_scope = "Medicare Advantage, PDP, Medicare Supplement";
+    // Note: sms_consent_ip will be populated server-side from request headers
+  }
+
   // Prepare Xano payload
   const payload = {
     // Doctor Network Monitor specific fields (matching HubSpot property names)
@@ -715,6 +733,10 @@ function submitToXano(formData, isRetry = false, contactId = null) {
     postalcode: formData.zip || '',
     email: formData.email || '',
     phone: formatPhone(formData.phone),
+
+    // SMS Consent tracking
+    sms_consent_status: smsConsentStatus,
+    ...smsConsentData, // Spread consent fields (only populated if opted_in)
 
     // Tool tracking
     submit_location: getSubmitLocation(),
@@ -736,16 +758,28 @@ function submitToXano(formData, isRetry = false, contactId = null) {
     payload.contactID = ctid;
   }
 
-  // Select appropriate endpoint
-  const endpoint = (payload.contactID || isRetry)
-    ? XANO_CONFIG.getUpdateEndpoint()
-    : XANO_CONFIG.getEndpoint();
+  // Add internal flags for the proxy to determine which endpoint to use
+  if (isRetry || payload.contactID) {
+    payload._endpoint = 'update';
+  } else {
+    payload._endpoint = 'create';
+  }
 
-  return fetch(endpoint, {
+  // Use the Next.js API proxy endpoint (includes /app basePath from next.config.ts)
+  // The proxy will capture client IP and forward to the correct Xano endpoint
+  const proxyEndpoint = `${window.location.origin}/app/api/xano-submit`;
+
+  if (window.location.hostname === 'localhost') {
+    console.log('[Xano] Submitting via proxy to:', payload._endpoint === 'update' ? 'UPDATE endpoint' : 'CREATE endpoint');
+    console.log('[Xano] Contact ID:', payload.contactID || '(none)');
+    console.log('[Xano] isRetry:', isRetry);
+    console.log('[Xano] SMS Consent Status:', payload.sms_consent_status);
+  }
+
+  return fetch(proxyEndpoint, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'X-Request-Signature': XANO_CONFIG.getSignature()
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(payload)
   })
@@ -760,10 +794,14 @@ function submitToXano(formData, isRetry = false, contactId = null) {
       console.log('[Xano] Submission response:', data);
     }
 
+    // The proxy returns: { success, status, data: xanoResponseData }
+    // Extract the actual Xano response
+    const xanoData = data.data || data;
+
     // Check for duplicate contact error in response.result (status 409)
     // Response structure: { tpp_: { response: { result: { status, message } } } }
-    if (data && data.tpp_ && data.tpp_.response && data.tpp_.response.result) {
-      const result = data.tpp_.response.result;
+    if (xanoData && xanoData.tpp_ && xanoData.tpp_.response && xanoData.tpp_.response.result) {
+      const result = xanoData.tpp_.response.result;
 
       // Check if it's a "Contact already exists" error
       if (result.status === "error" &&
@@ -788,8 +826,8 @@ function submitToXano(formData, isRetry = false, contactId = null) {
 
     // Check for HubSpot PropertyValueCoordinates error (duplicate email/property value)
     // Error format: "Cannot set PropertyValueCoordinates{...} on [old_id]. [correct_id] already has that value."
-    if (data && data.tpp_ && data.tpp_.response && data.tpp_.response.result && data.tpp_.response.result.message) {
-      const errorMessage = data.tpp_.response.result.message;
+    if (xanoData && xanoData.tpp_ && xanoData.tpp_.response && xanoData.tpp_.response.result && xanoData.tpp_.response.result.message) {
+      const errorMessage = xanoData.tpp_.response.result.message;
       if (errorMessage.includes('already has that value') && !isRetry) {
         // Match the contact ID that appears before "already has that value"
         const match = errorMessage.match(/(\d+)\s+already has that value/);
