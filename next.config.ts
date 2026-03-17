@@ -96,6 +96,11 @@ const nextConfig: NextConfig = {
         source: '/ntm-quiz-2026-v4-leadform',
         destination: '/ntm-quiz-2026-v4-leadform.html',
       },
+      // NTM Quiz v5 leadform
+      {
+        source: '/ntm-quiz-2026-v5-leadform',
+        destination: '/ntm-quiz-2026-v5-leadform.html',
+      },
       // Advisor pages
       {
         source: '/advisors/scott-martin',
