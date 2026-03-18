@@ -82,18 +82,26 @@ body{font-family:var(--fb);color:var(--black);background:var(--g100);-webkit-fon
 
 /* Option cards */
 .oc{background:var(--white);border:2px solid var(--g200);border-radius:11px;padding:.95rem 1.1rem;margin-bottom:.6rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.8rem;}
-.oc:hover{border-color:var(--green);background:var(--green-sub);}
 .oc:active{transform:scale(.985);}
 .oc-c{flex:1;}
 .oc-l{font-weight:600;font-size:.91rem;}
 .oc-d{font-size:.78rem;color:var(--g600);line-height:1.4;margin-top:.05rem;}
 .oc-a{color:var(--g400);font-size:1.1rem;flex-shrink:0;transition:transform .2s;}
-.oc:hover .oc-a{transform:translateX(3px);color:var(--green);}
+
+/* Hover effects - desktop/mouse only (no premature selection on mobile) */
+@media (hover: hover) and (pointer: fine) {
+  .oc:hover{border-color:var(--green);background:var(--green-sub);}
+  .oc:hover .oc-a{transform:translateX(3px);color:var(--green);}
+}
 
 /* Back */
 .bb{display:inline-flex;align-items:center;gap:.3rem;background:none;border:none;color:var(--g600);font-family:var(--fb);font-size:.8rem;font-weight:500;cursor:pointer;padding:.4rem 0;margin-top:.9rem;transition:color .2s;}
-.bb:hover{color:var(--black);}
 .bb svg{width:15px;height:15px;}
+
+/* Back button hover - desktop only */
+@media (hover: hover) and (pointer: fine) {
+  .bb:hover{color:var(--black);}
+}
 
 /* Select */
 .sg{display:flex;gap:.6rem;margin-bottom:.75rem;}
@@ -110,11 +118,31 @@ body{font-family:var(--fb);color:var(--black);background:var(--g100);-webkit-fon
 
 /* Buttons */
 .btn{width:100%;padding:.9rem;background:var(--green);color:var(--white);border:none;border-radius:10px;font-family:var(--fb);font-size:.93rem;font-weight:600;cursor:pointer;transition:background .2s,transform .1s;text-align:center;text-decoration:none;display:block;}
-.btn:hover{background:var(--green-dk);}
 .btn:active{transform:scale(.985);}
 .btn:disabled{opacity:.5;cursor:not-allowed;}
 .btn.sec{background:transparent;color:var(--green);border:2px solid var(--green);margin-top:.45rem;}
-.btn.sec:hover{background:var(--green-lt);}
+
+/* Button hover effects - desktop only */
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover{background:var(--green-dk);}
+  .btn.sec:hover{background:var(--green-lt);}
+}
+
+/* Budget cards */
+.budget-card{background:var(--white);border:2px solid var(--g200);border-radius:11px;padding:1rem;cursor:pointer;transition:all .2s;}
+
+/* Budget card hover - desktop only */
+@media (hover: hover) and (pointer: fine) {
+  .budget-card:hover{border-color:var(--green);background:var(--green-sub);}
+}
+
+/* Advisor bio link */
+.adv-bio-link{font-size:.7rem;color:var(--g400);text-decoration:none;transition:color .2s;}
+
+/* Advisor bio link hover - desktop only */
+@media (hover: hover) and (pointer: fine) {
+  .adv-bio-link:hover{color:var(--green);}
+}
 
 /* ─── STORY INTRO ─── */
 .sv{display:flex;align-items:center;justify-content:center;gap:1.3rem;margin:1.75rem 0 .5rem;}
@@ -483,7 +511,7 @@ body{font-family:var(--fb);color:var(--black);background:var(--g100);-webkit-fon
   <p class="ss">Are you comfortable paying each month for the more robust coverage of Medigap, or do you want to save money every month?</p>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1rem;">
-    <div style="background:var(--white);border:2px solid var(--g200);border-radius:11px;padding:1rem;cursor:pointer;transition:all .2s;" onclick="doBudget('more_flexibility')" onmouseover="this.style.borderColor='var(--green)';this.style.background='var(--green-sub)'" onmouseout="this.style.borderColor='var(--g200)';this.style.background='var(--white)'">
+    <div class="budget-card" onclick="doBudget('more_flexibility')">
       <div style="font-weight:700;font-size:.88rem;margin-bottom:.5rem;">🛡️ More Flexibility</div>
       <div style="font-size:.78rem;color:var(--g600);line-height:1.45;">
         <div style="margin-bottom:.25rem;">~$150–$200/mo premium</div>
@@ -492,7 +520,7 @@ body{font-family:var(--fb);color:var(--black);background:var(--g100);-webkit-fon
         <div>~$500 out of pocket in a bad year</div>
       </div>
     </div>
-    <div style="background:var(--white);border:2px solid var(--g200);border-radius:11px;padding:1rem;cursor:pointer;transition:all .2s;" onclick="doBudget('lower_cost')" onmouseover="this.style.borderColor='var(--green)';this.style.background='var(--green-sub)'" onmouseout="this.style.borderColor='var(--g200)';this.style.background='var(--white)'">
+    <div class="budget-card" onclick="doBudget('lower_cost')">
       <div style="font-weight:700;font-size:.88rem;margin-bottom:.5rem;">💰 Lower Monthly Cost</div>
       <div style="font-size:.78rem;color:var(--g600);line-height:1.45;">
         <div style="margin-bottom:.25rem;">$0 monthly premium</div>
@@ -561,7 +589,7 @@ body{font-family:var(--fb);color:var(--black);background:var(--g100);-webkit-fon
       <div>
         <div style="font-weight:600;font-size:.85rem;" id="ctaAdvName"></div>
         <div style="font-size:.72rem;color:var(--green);font-weight:600;">Licensed Medicare Guide</div>
-        <a id="ctaAdvBioLink" href="" target="_blank" style="font-size:.7rem;color:var(--g400);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--green)'" onmouseout="this.style.color='var(--g400)'">View background →</a>
+        <a id="ctaAdvBioLink" href="" target="_blank" class="adv-bio-link">View background →</a>
       </div>
     </div>
 
