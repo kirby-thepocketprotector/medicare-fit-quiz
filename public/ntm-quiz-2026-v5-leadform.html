@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Medicare Fit Quiz | Medigap vs. Medicare Advantage</title>
 
 <!-- Google Tag Manager -->
@@ -1158,7 +1158,6 @@ function submitQuestions(){
 
       // Prepare update payload
       const updatePayload={
-        email:em,
         properties:{
           ...hubspotPayload,
           lifecycle_update_reason:'ntm_quiz_v5_resubmission'
