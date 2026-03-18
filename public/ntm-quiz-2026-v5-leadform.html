@@ -610,6 +610,21 @@ body{font-family:var(--fb);color:var(--black);background:var(--g100);-webkit-fon
   <button class="bb" onclick="go('s-result')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Back to my recommendation</button>
 </div>
 
+<!-- ═══ BOOKING WIDGET SCREEN (HubSpot embed for booking) ═══ -->
+<div class="sc" id="s-booking">
+  <div style="width:44px;height:44px;background:var(--green-lt);border-radius:11px;display:grid;place-items:center;margin-bottom:.8rem;"><svg viewBox="0 0 24 24" width="22" height="22" fill="var(--green)"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg></div>
+  <h2 class="st" id="bookingTitle">Schedule Your Call</h2>
+  <p class="ss" id="bookingSub">Pick a time that works for you — most calls take 15-20 minutes.</p>
+
+  <!-- HubSpot Booking Widget Container -->
+  <div id="hubspot-booking-widget" style="background:var(--white);border-radius:11px;border:1px solid var(--g200);overflow:hidden;margin-bottom:.9rem;min-height:500px;">
+    <!-- Widget will be embedded here -->
+  </div>
+
+  <div class="ft"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" fill="currentColor"/></svg> Free consultation · No obligation · Cancel anytime</div>
+  <button class="bb" onclick="go('s-comm-pref')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Back</button>
+</div>
+
 <!-- ═══ QUESTION SCREEN (separate, focused, mobile-optimized) ═══ -->
 <div class="sc" id="s-questions">
   <div style="width:44px;height:44px;background:var(--green-lt);border-radius:11px;display:grid;place-items:center;margin-bottom:.8rem;"><svg viewBox="0 0 24 24" width="22" height="22" fill="var(--green)"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></div>
@@ -710,7 +725,7 @@ const PHOTOS={scott:'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYE
 const PM={
   's-welcome':0,'s-dob':8,'s-iep-int':13,'s-ab':18,'s-cov':26,'s-med':34,'s-vet':42,
   's-si':50,'s-sam':58,'s-alex':66,'s-decide':74,
-  's-team':80,'s-result':88,'s-comm-pref':92,'s-questions':95,'s-advisor':100,
+  's-team':80,'s-result':88,'s-comm-pref':92,'s-booking':96,'s-questions':95,'s-advisor':100,
   's-ko-ma':26,'s-ko-ms':26
 };
 
@@ -787,32 +802,12 @@ function buildResult(){
   document.getElementById('commPrefTitle').textContent=`How would you like to hear back from ${a.first}?`;
   document.getElementById('commCallLabel').textContent=`Talk through it live with ${a.first}`;
   document.getElementById('commCallOption').onclick=()=>{
-    // Track booking link click for GA4 + Meta Pixel ($50 value for booking path)
-    // NOTE: This fires when user clicks to open HubSpot booking page
-    //
-    // HUBSPOT TRACKING FOR BOOKING PATH:
-    // Contact data is NOT sent to HubSpot at this point because:
-    // 1. User hasn't provided contact info yet (they're going to HubSpot's external booking page)
-    // 2. HubSpot will create the contact when they complete the booking
-    // 3. To sync quiz data to HubSpot for booked calls, set up:
-    //    - HubSpot workflow triggered on meeting booked
-    //    - Workflow sends webhook to Xano with contact email + meeting details
-    //    - Xano updates contact with quiz data using XANO_CONFIG.getHubSpotUpdateEndpoint()
-    //
-    // Additional GA4 events (view_agent_booking_time, view_agent_booking_contact_info)
-    // require either: (A) embedding HubSpot widget, or (C) HubSpot webhook → Stape server-side tracking
-    pushToDataLayer({
-      event:'ntm_quiz_lead',
-      type:'booked_call',
-      value:50.00,
-      currency:'USD',
-      url_slug:'/app/ntm-quiz-2026-v5-leadform',
-      assigned_advisor:S.adv,
-      recommended_plan:S.rec,
-      medicare_ab:S.ab,
-      conversion_path:'booking'
-    });
-    window.open(a.booking,'_blank');
+    // Navigate to booking widget screen (embedded HubSpot widget)
+    // This allows client-side tracking of booking events via HubSpot's embed API
+    go('s-booking');
+
+    // Initialize HubSpot widget when screen loads
+    setTimeout(()=>initializeHubSpotWidget(a),100);
   };
   document.getElementById('commEmailLabel').textContent=`Send ${a.first} your questions by email`;
   document.getElementById('commEmailDesc').textContent=`${a.first} will email you detailed answers within 24 hours`;
@@ -853,6 +848,122 @@ function buildResult(){
     }
   }
   document.getElementById('rVet').innerHTML=vH;
+}
+
+// ═══ HUBSPOT BOOKING WIDGET INITIALIZATION ═══
+function initializeHubSpotWidget(agent){
+  // Update booking screen title and subtitle
+  document.getElementById('bookingTitle').textContent=`Schedule Your Call with ${agent.first}`;
+  document.getElementById('bookingSub').textContent=`Pick a time that works for you — most calls take 15-20 minutes.`;
+
+  // Clear previous widget if any
+  const container=document.getElementById('hubspot-booking-widget');
+  container.innerHTML='';
+
+  // Load HubSpot meetings embed script if not already loaded
+  if(!document.getElementById('hubspot-meetings-script')){
+    const script=document.createElement('script');
+    script.id='hubspot-meetings-script';
+    script.src='https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js';
+    script.async=true;
+    document.body.appendChild(script);
+
+    script.onload=()=>embedHubSpotWidget(agent);
+  }else{
+    embedHubSpotWidget(agent);
+  }
+}
+
+function embedHubSpotWidget(agent){
+  // Extract HubSpot meeting link username from the full URL
+  // e.g., "https://meetings-na2.hubspot.com/scottmartin" → "scottmartin"
+  const meetingUrl=agent.booking;
+  const username=meetingUrl.split('/').pop();
+
+  const container=document.getElementById('hubspot-booking-widget');
+
+  // Create iframe embed for HubSpot booking page
+  // Note: HubSpot's MeetingsEmbedCode.js API requires specific setup
+  // For now, we'll use an iframe approach which is more reliable
+  const iframe=document.createElement('iframe');
+  iframe.src=meetingUrl;
+  iframe.style.width='100%';
+  iframe.style.height='700px';
+  iframe.style.border='none';
+  iframe.style.borderRadius='11px';
+  iframe.title=`Book a meeting with ${agent.name}`;
+
+  container.appendChild(iframe);
+
+  // Track initial view of booking widget
+  // This fires when user first sees the booking calendar
+  trackBookingWidgetView();
+
+  // Set up message listener for HubSpot iframe events
+  window.addEventListener('message',handleHubSpotMessage,false);
+}
+
+// Track when user views the booking widget
+function trackBookingWidgetView(){
+  // Fire view_agent_booking_time event (user seeing calendar)
+  pushToDataLayer({
+    event:'view_agent_booking_time',
+    url_slug:'/app/ntm-quiz-2026-v5-leadform',
+    assigned_advisor:S.adv,
+    recommended_plan:S.rec,
+    medicare_ab:S.ab
+  });
+}
+
+// Handle HubSpot postMessage events for tracking
+function handleHubSpotMessage(event){
+  // Only accept messages from HubSpot domains
+  if(!event.origin.includes('hubspot.com'))return;
+
+  try{
+    const data=typeof event.data==='string'?JSON.parse(event.data):event.data;
+
+    // Track when user selects a time slot
+    if(data.meetingBookViewChange==='timeSelected'){
+      pushToDataLayer({
+        event:'view_agent_booking_time',
+        url_slug:'/app/ntm-quiz-2026-v5-leadform',
+        assigned_advisor:S.adv,
+        recommended_plan:S.rec,
+        medicare_ab:S.ab,
+        booking_step:'time_selected'
+      });
+    }
+
+    // Track when user enters contact info
+    if(data.meetingBookViewChange==='contactInfoView'){
+      pushToDataLayer({
+        event:'view_agent_booking_contact_info',
+        url_slug:'/app/ntm-quiz-2026-v5-leadform',
+        assigned_advisor:S.adv,
+        recommended_plan:S.rec,
+        medicare_ab:S.ab
+      });
+    }
+
+    // Track successful booking ($50 conversion)
+    if(data.meetingBookSucceeded||data.meetingBookViewChange==='confirmationView'){
+      pushToDataLayer({
+        event:'ntm_quiz_lead',
+        type:'booked_call',
+        value:50.00,
+        currency:'USD',
+        url_slug:'/app/ntm-quiz-2026-v5-leadform',
+        assigned_advisor:S.adv,
+        recommended_plan:S.rec,
+        medicare_ab:S.ab,
+        conversion_path:'booking'
+      });
+    }
+  }catch(e){
+    // Silently ignore parsing errors from non-HubSpot messages
+    console.log('HubSpot message parsing skipped:',e);
+  }
 }
 
 // ═══ XANO API CONFIGURATION ═══
@@ -1253,6 +1364,7 @@ function trackViewBudgetChoiceDecide(){trackPageView('View_ntm_quiz_budget_choic
 function trackViewMeetTheTeam(){trackPageView('view_ntm_quiz_meet_the_team');}
 function trackViewResultAgentMatch(){trackPageView('view_ntm_quiz_result_agent_match');}
 function trackViewAgentContactPreference(){trackPageView('view_ntm_quiz_agent_contact_preference');}
+function trackViewAgentBookingWidget(){trackPageView('view_ntm_quiz_agent_booking_widget');}
 function trackViewQuestionForm(){trackPageView('view_ntm_quiz_question_form');}
 
 // Screen-to-tracking mapping (V5 ungated flow)
@@ -1273,6 +1385,7 @@ const SCREEN_TRACKING={
   's-team':trackViewMeetTheTeam,
   's-result':trackViewResultAgentMatch,
   's-comm-pref':trackViewAgentContactPreference,
+  's-booking':trackViewAgentBookingWidget,
   's-questions':trackViewQuestionForm
 };
 
