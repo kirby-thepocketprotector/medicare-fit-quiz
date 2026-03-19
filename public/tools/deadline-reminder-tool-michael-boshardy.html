@@ -1511,5 +1511,44 @@ function buildResults() {
 
 
 </script>
+<script>
+// Function that removes stray text nodes
+function removeTextNodes(root = document.body) {
+  root.childNodes.forEach(node => {
+    if (
+      node.nodeType === Node.TEXT_NODE &&
+      node.textContent.trim()
+    ) {
+      node.remove();
+    }
+  });
+}
+
+// Run once initially
+removeTextNodes();
+
+// Create observer
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach(mutation => {
+    // Check newly added nodes
+    mutation.addedNodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        node.remove();
+      }
+
+      // If an element was added, clean inside it too
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        removeTextNodes(node);
+      }
+    });
+  });
+});
+
+// Start observing DOM changes
+observer.observe(document.body, {
+  childList: true,
+  subtree: true
+});  
+</script>
 </body>
 </html>
