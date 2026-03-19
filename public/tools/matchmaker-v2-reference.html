@@ -2641,4 +2641,31 @@ function renderResult(result, firstName) {
 -->
 
 </body>
+
+<script>
+function cleanText(node) {
+  if (node.nodeType === Node.TEXT_NODE) {
+    node.textContent = node.textContent.replace(//g, '');
+  }
+}
+
+const observer = new MutationObserver(mutations => {
+  mutations.forEach(mutation => {
+    mutation.addedNodes.forEach(node => {
+      cleanText(node);
+
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        node.childNodes.forEach(cleanText);
+      }
+    });
+  });
+});
+
+observer.observe(document.body, {
+  childList: true,
+  subtree: true
+});
+</script>
+
+
 </html>
