@@ -469,7 +469,13 @@ function buildSituationContext(){
   let ctx='';
   if(S.path==='ntm'){
     if(S.ntmJourney==='turning65'&&S.dobM&&S.dobY){
-      ctx=`You're turning 65 in ${MO[S.dobM-1]} ${+S.dobY+65}`;
+      // Determine if date is in the past
+      const now=new Date();
+      const currentYear=now.getFullYear();
+      const currentMonth=now.getMonth()+1; // getMonth() is 0-indexed
+      const isPast=(S.dobY<currentYear)||(S.dobY==currentYear&&S.dobM<currentMonth);
+      const verb=isPast?'turned':'turning';
+      ctx=`You${isPast?"":"'re"} ${verb} 65 in ${MO[S.dobM-1]} ${S.dobY}`;
       if(S.iep==='in')ctx+=` and your enrollment window is open right now`;
       else if(S.iep==='pre')ctx+=` and your enrollment window opens soon`;
     }else if(S.ntmJourney==='employer'){
