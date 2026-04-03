@@ -78,7 +78,7 @@ export default function NavigationLoader() {
           style={{
             height: '100%',
             width: `${progress}%`,
-            backgroundColor: '#0A5C5C',
+            backgroundColor: '#0b7a4b',
             transition: 'width 0.2s ease, opacity 0.2s ease',
             boxShadow: '0 0 10px rgba(10, 92, 92, 0.5)',
             opacity: progress === 100 ? 0 : 1,

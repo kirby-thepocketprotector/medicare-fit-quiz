@@ -219,7 +219,7 @@ function ContactForm() {
       }}>
         {/* Heading */}
         <h1 style={{
-          color: '#1A1F2C',
+          color: '#1e293b',
           fontSize: '24px',
           fontWeight: '700',
           lineHeight: '32px',
@@ -239,7 +239,7 @@ function ContactForm() {
           <div>
             <label style={{
               display: 'block',
-              color: '#1A1F2C',
+              color: '#1e293b',
               fontSize: '15px',
               fontWeight: '500',
               marginBottom: '8px',
@@ -260,7 +260,7 @@ function ContactForm() {
                 width: '100%',
                 padding: '16px',
                 fontSize: '17px',
-                color: '#1A1F2C',
+                color: '#1e293b',
                 backgroundColor: '#FFFFFF',
                 border: `1px solid ${errors.firstName ? '#DC2626' : '#E5E7EB'}`,
                 borderRadius: '12px',
@@ -283,7 +283,7 @@ function ContactForm() {
           <div>
             <label style={{
               display: 'block',
-              color: '#1A1F2C',
+              color: '#1e293b',
               fontSize: '15px',
               fontWeight: '500',
               marginBottom: '8px',
@@ -304,7 +304,7 @@ function ContactForm() {
                 width: '100%',
                 padding: '16px',
                 fontSize: '17px',
-                color: '#1A1F2C',
+                color: '#1e293b',
                 backgroundColor: '#FFFFFF',
                 border: `1px solid ${errors.lastName ? '#DC2626' : '#E5E7EB'}`,
                 borderRadius: '12px',
@@ -327,7 +327,7 @@ function ContactForm() {
           <div>
             <label style={{
               display: 'block',
-              color: '#1A1F2C',
+              color: '#1e293b',
               fontSize: '15px',
               fontWeight: '500',
               marginBottom: '8px',
@@ -344,7 +344,7 @@ function ContactForm() {
                 width: '100%',
                 padding: '16px',
                 fontSize: '17px',
-                color: '#1A1F2C',
+                color: '#1e293b',
                 backgroundColor: '#FFFFFF',
                 border: `1px solid ${errors.phone ? '#DC2626' : '#E5E7EB'}`,
                 borderRadius: '12px',
@@ -367,7 +367,7 @@ function ContactForm() {
           <div>
             <label style={{
               display: 'block',
-              color: '#1A1F2C',
+              color: '#1e293b',
               fontSize: '15px',
               fontWeight: '500',
               marginBottom: '8px',
@@ -389,7 +389,7 @@ function ContactForm() {
                 width: '100%',
                 padding: '16px',
                 fontSize: '17px',
-                color: '#1A1F2C',
+                color: '#1e293b',
                 backgroundColor: '#FFFFFF',
                 border: `1px solid ${errors.email ? '#DC2626' : '#E5E7EB'}`,
                 borderRadius: '12px',

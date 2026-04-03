@@ -50,7 +50,7 @@ export default function QuizHeader({ currentStep, totalSteps, onBack }: QuizHead
             cursor: 'pointer',
           }}
         >
-          <ChevronLeft size={24} color="#1A1F2C" strokeWidth={2.5} />
+          <ChevronLeft size={24} color="#1e293b" strokeWidth={2.5} />
         </button>
 
         <div style={{

@@ -101,7 +101,7 @@ export default function ResultPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#FAF9F7', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#f8fafc', display: 'flex', flexDirection: 'column', position: 'relative' }}>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingTop: '44px', paddingBottom: '34px', overflowY: 'auto', overflowX: 'hidden', WebkitOverflowScrolling: 'touch' as any }}>
         <div style={{ padding: '24px', paddingBottom: '180px', display: 'flex', flexDirection: 'column' }}>
             <div style={{
@@ -119,7 +119,7 @@ export default function ResultPage() {
             <h1 style={{
               fontSize: '32px',
               fontWeight: '700',
-              color: '#1A1F2C',
+              color: '#1e293b',
               lineHeight: '40px',
               letterSpacing: '-0.5px',
               marginBottom: '24px'
@@ -139,7 +139,7 @@ export default function ResultPage() {
                 <p style={{
                   fontSize: '15px',
                   lineHeight: '22px',
-                  color: '#1A1F2C',
+                  color: '#1e293b',
                   margin: 0,
                   fontWeight: '500'
                 }}>
@@ -153,7 +153,7 @@ export default function ResultPage() {
                 <h2 style={{
                   fontSize: '18px',
                   fontWeight: '700',
-                  color: '#1A1F2C',
+                  color: '#1e293b',
                   marginBottom: '12px'
                 }}>
                   {result.whyHeader}
@@ -161,7 +161,7 @@ export default function ResultPage() {
                 <p style={{
                   fontSize: '16px',
                   lineHeight: '26px',
-                  color: '#5A6275',
+                  color: '#475569',
                   whiteSpace: 'pre-line',
                   margin: 0
                 }}>
@@ -194,13 +194,13 @@ export default function ResultPage() {
                         height: '44px',
                         flexShrink: 0
                       }}>
-                        <IconComponent size={20} color="#0A5C5C" strokeWidth={2} />
+                        <IconComponent size={20} color="#0b7a4b" strokeWidth={2} />
                       </div>
                       <div style={{ flex: 1 }}>
                         <h3 style={{
                           fontSize: '15px',
                           fontWeight: '600',
-                          color: '#1A1F2C',
+                          color: '#1e293b',
                           marginBottom: '4px',
                           margin: 0
                         }}>
@@ -209,7 +209,7 @@ export default function ResultPage() {
                         <p style={{
                           fontSize: '14px',
                           lineHeight: '20px',
-                          color: '#5A6275',
+                          color: '#475569',
                           margin: 0
                         }}>
                           {benefit.description}
@@ -243,7 +243,7 @@ export default function ResultPage() {
                   <h3 style={{
                     fontSize: '15px',
                     fontWeight: '600',
-                    color: '#1A1F2C',
+                    color: '#1e293b',
                     margin: 0
                   }}>
                     Important to Know
@@ -252,7 +252,7 @@ export default function ResultPage() {
                 <p style={{
                   fontSize: '14px',
                   lineHeight: '22px',
-                  color: '#5A6275',
+                  color: '#475569',
                   margin: 0,
                   whiteSpace: 'pre-line'
                 }}>
@@ -266,7 +266,7 @@ export default function ResultPage() {
                 <h2 style={{
                   fontSize: '20px',
                   fontWeight: '700',
-                  color: '#1A1F2C',
+                  color: '#1e293b',
                   letterSpacing: '-0.3px',
                   marginBottom: '12px'
                 }}>
@@ -275,7 +275,7 @@ export default function ResultPage() {
                 <p style={{
                   fontSize: '15px',
                   lineHeight: '24px',
-                  color: '#5A6275',
+                  color: '#475569',
                   marginBottom: '24px'
                 }}>
                   Before you can move forward with your recommended plan, you'll first need to enroll in Original Medicare (Part A and Part B). This is a required first step—but you don't have to figure it out on your own.
@@ -284,7 +284,7 @@ export default function ResultPage() {
                 <h3 style={{
                   fontSize: '17px',
                   fontWeight: '600',
-                  color: '#1A1F2C',
+                  color: '#1e293b',
                   marginBottom: '16px'
                 }}>
                   How Pocket Protector Helps
@@ -303,14 +303,14 @@ export default function ResultPage() {
                       flexShrink: 0,
                       marginTop: '2px'
                     }}>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A5C5C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0b7a4b" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M20 6 9 17l-5-5"></path>
                       </svg>
                     </div>
                     <p style={{
                       fontSize: '15px',
                       lineHeight: '24px',
-                      color: '#5A6275',
+                      color: '#475569',
                       margin: 0,
                       flex: 1
                     }}>
@@ -330,14 +330,14 @@ export default function ResultPage() {
                       flexShrink: 0,
                       marginTop: '2px'
                     }}>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A5C5C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0b7a4b" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M20 6 9 17l-5-5"></path>
                       </svg>
                     </div>
                     <p style={{
                       fontSize: '15px',
                       lineHeight: '24px',
-                      color: '#5A6275',
+                      color: '#475569',
                       margin: 0,
                       flex: 1
                     }}>
@@ -357,14 +357,14 @@ export default function ResultPage() {
                       flexShrink: 0,
                       marginTop: '2px'
                     }}>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A5C5C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0b7a4b" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M20 6 9 17l-5-5"></path>
                       </svg>
                     </div>
                     <p style={{
                       fontSize: '15px',
                       lineHeight: '24px',
-                      color: '#5A6275',
+                      color: '#475569',
                       margin: 0,
                       flex: 1
                     }}>
@@ -381,7 +381,7 @@ export default function ResultPage() {
                   <h2 style={{
                     fontSize: '20px',
                     fontWeight: '700',
-                    color: '#1A1F2C',
+                    color: '#1e293b',
                     letterSpacing: '-0.3px',
                     marginBottom: '12px'
                   }}>
@@ -391,7 +391,7 @@ export default function ResultPage() {
                     <p style={{
                       fontSize: '15px',
                       lineHeight: '24px',
-                      color: '#5A6275',
+                      color: '#475569',
                       marginBottom: '20px'
                     }}>
                       {result.nextStepIntro}
@@ -412,7 +412,7 @@ export default function ResultPage() {
                             flexShrink: 0,
                             marginTop: '2px'
                           }}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A5C5C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0b7a4b" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                               <path d="M20 6 9 17l-5-5"></path>
                             </svg>
                           </div>
@@ -420,7 +420,7 @@ export default function ResultPage() {
                             <h4 style={{
                               fontSize: '15px',
                               fontWeight: '600',
-                              color: '#1A1F2C',
+                              color: '#1e293b',
                               marginBottom: '4px',
                               margin: 0
                             }}>
@@ -429,7 +429,7 @@ export default function ResultPage() {
                             <p style={{
                               fontSize: '14px',
                               lineHeight: '22px',
-                              color: '#5A6275',
+                              color: '#475569',
                               margin: 0
                             }}>
                               {item.description}
@@ -454,7 +454,7 @@ export default function ResultPage() {
                 <p style={{
                   fontSize: '15px',
                   lineHeight: '24px',
-                  color: '#1A1F2C',
+                  color: '#1e293b',
                   margin: 0,
                 }}>
                   Don't guess or go it alone. Call our team and we'll help you enroll correctly, on time, and without missing any important steps.
@@ -464,7 +464,7 @@ export default function ResultPage() {
                   <p style={{
                     fontSize: '15px',
                     fontWeight: '600',
-                    color: '#1A1F2C',
+                    color: '#1e293b',
                     marginBottom: '6px',
                     margin: 0
                   }}>
@@ -473,7 +473,7 @@ export default function ResultPage() {
                   <p style={{
                     fontSize: '14px',
                     lineHeight: '22px',
-                    color: '#5A6275',
+                    color: '#475569',
                     margin: 0
                   }}>
                     Medicare plans cost the same whether you enroll with us or on your own. We never charge anything for our help.
@@ -490,7 +490,7 @@ export default function ResultPage() {
         bottom: '0px',
         left: '0px',
         right: '0px',
-        backgroundColor: '#FAF9F7',
+        backgroundColor: '#f8fafc',
         borderTop: '1px solid rgba(232,230,227,1.00)',
         padding: '16px 16px calc(24px + env(safe-area-inset-bottom)) 16px',
         display: 'flex',
@@ -513,7 +513,7 @@ export default function ResultPage() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '10px',
-              backgroundColor: '#0A5C5C',
+              backgroundColor: '#0b7a4b',
               color: '#FFFFFF',
               padding: '18px',
               borderRadius: '12px',
@@ -521,7 +521,7 @@ export default function ResultPage() {
               fontSize: '17px',
               fontWeight: '600',
               cursor: 'pointer',
-              boxShadow: '0px 4px 8px rgba(10,92,92,0.30)',
+              boxShadow: '0px 4px 8px rgba(11,122,75,0.30)',
               transition: 'all 0.15s ease',
               WebkitTapHighlightColor: 'transparent',
               touchAction: 'manipulation',

@@ -26,7 +26,7 @@ export default function SplashPage() {
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
-      backgroundColor: '#FAF9F7',
+      backgroundColor: '#f8fafc',
       minHeight: '100vh',
     }}>
       <div style={{
@@ -56,12 +56,12 @@ export default function SplashPage() {
               marginBottom: '16px',
               opacity: 0.8,
             }}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0A5C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle fill="none" stroke="#0A5C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" cx="12" cy="12" r="10"></circle>
-                <polyline fill="none" stroke="#0A5C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" points="12 6 12 12 16 14"></polyline>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0b7a4b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle fill="none" stroke="#0b7a4b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" cx="12" cy="12" r="10"></circle>
+                <polyline fill="none" stroke="#0b7a4b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" points="12 6 12 12 16 14"></polyline>
               </svg>
               <div style={{
-                color: '#0A5C5C',
+                color: '#0b7a4b',
                 fontSize: '13px',
                 fontWeight: '500',
               }}>
@@ -69,7 +69,7 @@ export default function SplashPage() {
               </div>
             </div>
             <div style={{
-              color: '#1A1F2C',
+              color: '#1e293b',
               fontSize: '22px',
               fontWeight: '700',
               letterSpacing: '-0.3px',
@@ -81,7 +81,7 @@ export default function SplashPage() {
             </div>
         <div style={{
           backgroundColor: '#FFFFFF',
-          borderColor: '#F0EEEB',
+          borderColor: '#f1f5f9',
           borderRadius: '12px',
           borderWidth: '1px',
           borderStyle: 'solid',
@@ -93,7 +93,7 @@ export default function SplashPage() {
           marginRight: '14px',
         }}>
           <div style={{
-            color: '#8B92A5',
+            color: '#64748b',
             fontSize: '13px',
             fontWeight: '600',
             letterSpacing: '0.5px',
@@ -114,18 +114,18 @@ export default function SplashPage() {
               gap: '12px',
               paddingTop: '11px',
               paddingBottom: '11px',
-              borderBottomColor: '#F0EEEB',
+              borderBottomColor: '#f1f5f9',
               borderBottomWidth: '1px',
               borderBottomStyle: 'solid',
             }}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M8 2v4"></path>
-                <path fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M16 2v4"></path>
-                <rect fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" x="3" y="4" rx="2"></rect>
-                <path fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M3 10h18"></path>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M8 2v4"></path>
+                <path fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M16 2v4"></path>
+                <rect fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" x="3" y="4" rx="2"></rect>
+                <path fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M3 10h18"></path>
               </svg>
               <div style={{
-                color: '#1A1F2C',
+                color: '#1e293b',
                 flex: 1,
                 fontSize: '15px',
                 fontWeight: '400',
@@ -141,16 +141,16 @@ export default function SplashPage() {
               gap: '12px',
               paddingTop: '11px',
               paddingBottom: '11px',
-              borderBottomColor: '#F0EEEB',
+              borderBottomColor: '#f1f5f9',
               borderBottomWidth: '1px',
               borderBottomStyle: 'solid',
             }}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
-                <circle fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" cx="12" cy="8" r="6"></circle>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+                <circle fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" cx="12" cy="8" r="6"></circle>
               </svg>
               <div style={{
-                color: '#1A1F2C',
+                color: '#1e293b',
                 flex: 1,
                 fontSize: '15px',
                 fontWeight: '400',
@@ -166,16 +166,16 @@ export default function SplashPage() {
               gap: '12px',
               paddingTop: '11px',
               paddingBottom: '11px',
-              borderBottomColor: '#F0EEEB',
+              borderBottomColor: '#f1f5f9',
               borderBottomWidth: '1px',
               borderBottomStyle: 'solid',
             }}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" x1="12" x2="12" y1="2" y2="22"></line>
-                <path fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" x1="12" x2="12" y1="2" y2="22"></line>
+                <path fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
               </svg>
               <div style={{
-                color: '#1A1F2C',
+                color: '#1e293b',
                 flex: 1,
                 fontSize: '15px',
                 fontWeight: '400',
@@ -191,19 +191,19 @@ export default function SplashPage() {
               gap: '12px',
               paddingTop: '11px',
               paddingBottom: '11px',
-              borderBottomColor: '#F0EEEB',
+              borderBottomColor: '#f1f5f9',
               borderBottomWidth: '1px',
               borderBottomStyle: 'solid',
             }}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M11 2v2"></path>
-                <path fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M5 2v2"></path>
-                <path fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"></path>
-                <path fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M8 15a6 6 0 0 0 12 0v-3"></path>
-                <circle fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" cx="20" cy="10" r="2"></circle>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M11 2v2"></path>
+                <path fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M5 2v2"></path>
+                <path fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"></path>
+                <path fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M8 15a6 6 0 0 0 12 0v-3"></path>
+                <circle fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" cx="20" cy="10" r="2"></circle>
               </svg>
               <div style={{
-                color: '#1A1F2C',
+                color: '#1e293b',
                 flex: 1,
                 fontSize: '15px',
                 fontWeight: '400',
@@ -220,11 +220,11 @@ export default function SplashPage() {
               paddingTop: '11px',
               paddingBottom: '11px',
             }}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path fill="none" stroke="#0A5C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path fill="none" stroke="#0b7a4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
               </svg>
               <div style={{
-                color: '#1A1F2C',
+                color: '#1e293b',
                 flex: 1,
                 fontSize: '15px',
                 fontWeight: '400',
@@ -259,7 +259,7 @@ export default function SplashPage() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: '#0A5C5C',
+            backgroundColor: '#0b7a4b',
             borderRadius: '12px',
             boxShadow: '0px 4px 8px rgba(10, 92, 92, 0.25)',
             paddingTop: '16px',
@@ -275,7 +275,7 @@ export default function SplashPage() {
           </div>
         </div>
         <div style={{
-          color: '#8B92A5',
+          color: '#64748b',
           fontSize: '13px',
           marginTop: '10px',
           textAlign: 'center',

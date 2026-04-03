@@ -29,7 +29,7 @@ export default function Home() {
             style={{
               fontSize: "2.5rem",
               fontWeight: 700,
-              background: "linear-gradient(83.21deg, #0A5C5C 0%, #0D7A7A 100%)",
+              background: "linear-gradient(83.21deg, #0b7a4b 0%, #15803d 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -48,7 +48,7 @@ export default function Home() {
                 display: "inline-block",
                 textDecoration: "none",
                 borderRadius: "12px",
-                background: "#0A5C5C",
+                background: "#0b7a4b",
                 color: "#ffffff",
                 padding: "16px 32px",
                 fontSize: "16px",

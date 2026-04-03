@@ -103,7 +103,7 @@ function ThankYouContent() {
 
         {/* Heading */}
         <h1 style={{
-          color: '#1A1F2C',
+          color: '#1e293b',
           fontSize: '26px',
           fontWeight: '700',
           lineHeight: '34px',
@@ -123,7 +123,7 @@ function ThankYouContent() {
           boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
         }}>
           <h2 style={{
-            color: '#1A1F2C',
+            color: '#1e293b',
             fontSize: '17px',
             fontWeight: '600',
             marginBottom: '20px',
@@ -151,12 +151,12 @@ function ThankYouContent() {
                   width: '8px',
                   height: '8px',
                   borderRadius: '4px',
-                  backgroundColor: '#0A5C5C',
+                  backgroundColor: '#0b7a4b',
                   marginTop: '8px',
                   flexShrink: 0,
                 }}></div>
                 <span style={{
-                  color: '#5A6275',
+                  color: '#475569',
                   fontSize: '15px',
                   lineHeight: '24px',
                 }}>
@@ -169,7 +169,7 @@ function ThankYouContent() {
 
         {/* Call to Action Text */}
         <p style={{
-          color: '#5A6275',
+          color: '#475569',
           fontSize: '15px',
           lineHeight: '22px',
           textAlign: 'center',
@@ -187,7 +187,7 @@ function ThankYouContent() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: '#0A5C5C',
+            backgroundColor: '#0b7a4b',
             color: '#FFFFFF',
             padding: '18px',
             borderRadius: '12px',
@@ -195,7 +195,7 @@ function ThankYouContent() {
             fontSize: '17px',
             fontWeight: '600',
             cursor: 'pointer',
-            boxShadow: '0px 4px 8px rgba(10,92,92,0.30)',
+            boxShadow: '0px 4px 8px rgba(11,122,75,0.30)',
             transition: 'all 0.15s ease',
             WebkitTapHighlightColor: 'transparent',
             touchAction: 'manipulation',

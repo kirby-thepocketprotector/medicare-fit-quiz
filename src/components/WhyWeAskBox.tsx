@@ -11,7 +11,7 @@ export default function WhyWeAskBox({ title = 'Why We Ask', content }: WhyWeAskB
   return (
     <div
       style={{
-        backgroundColor: '#0d7a7a0f',
+        backgroundColor: '#15803d0f',
         borderRadius: '16px',
         padding: '20px',
         marginTop: '24px',
@@ -23,7 +23,7 @@ export default function WhyWeAskBox({ title = 'Why We Ask', content }: WhyWeAskB
           style={{
             fontSize: '14px',
             fontWeight: '600',
-            color: '#0a5c5c',
+            color: '#0b7a4b',
             margin: 0,
           }}
         >

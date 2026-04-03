@@ -30,7 +30,7 @@ export default function QuestionHeader({ Icon, question, subtext }: QuestionHead
         style={{
           fontSize: '24px',
           fontWeight: '700',
-          color: '#1A1F2C',
+          color: '#1e293b',
           marginBottom: subtext ? '12px' : '0',
           lineHeight: '32px',
           letterSpacing: '-0.4px',

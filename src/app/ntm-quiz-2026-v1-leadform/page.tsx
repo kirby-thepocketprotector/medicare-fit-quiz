@@ -48,7 +48,7 @@ export default function SplashPage() {
         }}>
           {/* Main Heading */}
           <h1 style={{
-            color: '#1A1F2C',
+            color: '#1e293b',
             fontSize: '28px',
             fontWeight: '700',
             lineHeight: '36px',
@@ -60,7 +60,7 @@ export default function SplashPage() {
 
           {/* Subheading 1 */}
           <p style={{
-            color: '#1A1F2C',
+            color: '#1e293b',
             fontSize: '16px',
             fontWeight: '400',
             lineHeight: '24px',
@@ -93,7 +93,7 @@ export default function SplashPage() {
           }}>
             {/* Section Heading */}
             <h2 style={{
-              color: '#1A1F2C',
+              color: '#1e293b',
               fontSize: '17px',
               fontWeight: '600',
               lineHeight: '24px',
@@ -115,11 +115,11 @@ export default function SplashPage() {
                 gap: '12px',
               }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, marginTop: '2px' }}>
-                  <circle cx="12" cy="12" r="10" fill="#0A5C5C"/>
+                  <circle cx="12" cy="12" r="10" fill="#0b7a4b"/>
                   <path d="M9 12l2 2 4-4" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 <p style={{
-                  color: '#1A1F2C',
+                  color: '#1e293b',
                   fontSize: '15px',
                   fontWeight: '400',
                   lineHeight: '22px',
@@ -135,11 +135,11 @@ export default function SplashPage() {
                 gap: '12px',
               }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, marginTop: '2px' }}>
-                  <circle cx="12" cy="12" r="10" fill="#0A5C5C"/>
+                  <circle cx="12" cy="12" r="10" fill="#0b7a4b"/>
                   <path d="M9 12l2 2 4-4" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 <p style={{
-                  color: '#1A1F2C',
+                  color: '#1e293b',
                   fontSize: '15px',
                   fontWeight: '400',
                   lineHeight: '22px',
@@ -155,11 +155,11 @@ export default function SplashPage() {
                 gap: '12px',
               }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, marginTop: '2px' }}>
-                  <circle cx="12" cy="12" r="10" fill="#0A5C5C"/>
+                  <circle cx="12" cy="12" r="10" fill="#0b7a4b"/>
                   <path d="M9 12l2 2 4-4" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 <p style={{
-                  color: '#1A1F2C',
+                  color: '#1e293b',
                   fontSize: '15px',
                   fontWeight: '400',
                   lineHeight: '22px',
@@ -175,11 +175,11 @@ export default function SplashPage() {
                 gap: '12px',
               }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, marginTop: '2px' }}>
-                  <circle cx="12" cy="12" r="10" fill="#0A5C5C"/>
+                  <circle cx="12" cy="12" r="10" fill="#0b7a4b"/>
                   <path d="M9 12l2 2 4-4" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 <p style={{
-                  color: '#1A1F2C',
+                  color: '#1e293b',
                   fontSize: '15px',
                   fontWeight: '400',
                   lineHeight: '22px',
