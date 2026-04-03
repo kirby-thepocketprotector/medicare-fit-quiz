@@ -59,7 +59,7 @@ export default function Q01Page() {
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundColor: '#FAFAFA',
+      backgroundColor: '#f8fafc',
       display: 'flex',
       flexDirection: 'column',
     }}>

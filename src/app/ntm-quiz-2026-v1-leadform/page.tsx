@@ -27,7 +27,7 @@ export default function SplashPage() {
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
-      backgroundColor: '#FAFAFA',
+      backgroundColor: '#f8fafc',
       minHeight: '100vh',
     }}>
       <div style={{
@@ -72,7 +72,7 @@ export default function SplashPage() {
 
           {/* Subheading 2 */}
           <p style={{
-            color: '#5B6B7F',
+            color: '#475569',
             fontSize: '15px',
             fontWeight: '400',
             lineHeight: '22px',

@@ -224,7 +224,7 @@ function ContactForm() {
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundColor: '#FAFAFA',
+      backgroundColor: '#f8fafc',
       display: 'flex',
       flexDirection: 'column',
     }}>
@@ -250,7 +250,7 @@ function ContactForm() {
 
         {/* Subtitle */}
         <p style={{
-          color: '#5B6B7F',
+          color: '#475569',
           fontSize: '16px',
           lineHeight: '24px',
           textAlign: 'center',
@@ -261,7 +261,7 @@ function ContactForm() {
 
         {/* Note about phone being optional */}
         <p style={{
-          color: '#5B6B7F',
+          color: '#475569',
           fontSize: '14px',
           lineHeight: '20px',
           textAlign: 'center',
