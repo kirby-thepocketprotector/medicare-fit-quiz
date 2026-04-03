@@ -72,7 +72,7 @@ export default function QuizHeader({ currentStep, totalSteps, onBack }: QuizHead
         <div style={{
           width: `${progress}%`,
           height: '100%',
-          backgroundColor: '#0A5C5C',
+          backgroundColor: '#0b7a4b',
           transition: 'width 0.3s ease',
         }} />
       </div>

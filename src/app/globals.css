@@ -6,33 +6,37 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FAF9F7;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #1e293b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-poppins);
+  --font-heading: var(--font-outfit);
 }
 
 /* Disable dark mode - keep light theme always */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #FAF9F7;
-    --foreground: #171717;
+    --background: #f8fafc;
+    --foreground: #1e293b;
   }
 }
 
 body {
-  background: #FAF9F7;
-  color: #171717;
-  font-family: Arial, Helvetica, sans-serif;
+  background: #f8fafc;
+  color: #1e293b;
+  font-family: var(--font-poppins), Poppins, sans-serif;
 }
 
 html {
-  background: #FAF9F7;
+  background: #f8fafc;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-outfit), Outfit, sans-serif;
 }
 
 #text {

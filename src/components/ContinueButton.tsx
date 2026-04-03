@@ -16,10 +16,10 @@ export default function ContinueButton({ onPress, disabled = false, label = 'Con
       disabled={isDisabled}
       style={{
         width: '100%',
-        backgroundColor: isDisabled ? '#f2f0ed' : '#0A5C5C',
-        color: isDisabled ? '#8b92a5': '#FFFFFF',
+        backgroundColor: isDisabled ? '#f1f5f9' : '#0b7a4b',
+        color: isDisabled ? '#64748b': '#FFFFFF',
         padding: '18px',
-        borderRadius: '16px',
+        borderRadius: '8px',
         border: 'none',
         fontSize: '17px',
         fontWeight: '600',
@@ -27,7 +27,7 @@ export default function ContinueButton({ onPress, disabled = false, label = 'Con
         boxShadow: 'none',
         transition: 'all 0.15s ease',
         opacity: 1,
-        WebkitBoxShadow: isDisabled ? 'none' : '0px 4px 8px rgba(10,92,92,0.30)',
+        WebkitBoxShadow: isDisabled ? 'none' : '0px 4px 8px rgba(11,122,75,0.30)',
         WebkitTapHighlightColor: 'transparent',
         touchAction: 'manipulation',
         display: 'flex',
@@ -71,7 +71,7 @@ export default function ContinueButton({ onPress, disabled = false, label = 'Con
           style={{
             width: '18px',
             height: '18px',
-            border: '2px solid #8b92a5',
+            border: '2px solid #64748b',
             borderTopColor: 'transparent',
             borderRadius: '50%',
             animation: 'spin 0.8s linear infinite',

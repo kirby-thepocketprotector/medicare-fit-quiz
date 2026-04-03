@@ -15,7 +15,7 @@ export default function QuestionHeader({ Icon, question, subtext }: QuestionHead
         style={{
           width: '52px',
           height: '52px',
-          backgroundColor: '#E8F0F0',
+          backgroundColor: '#f0fdf4',
           borderRadius: '20px',
           display: 'flex',
           alignItems: 'center',
@@ -23,7 +23,7 @@ export default function QuestionHeader({ Icon, question, subtext }: QuestionHead
           marginBottom: '24px',
         }}
       >
-        <Icon size={24} color="#0A5C5C" strokeWidth={2} />
+        <Icon size={24} color="#0b7a4b" strokeWidth={2} />
       </div>
 
       <h2

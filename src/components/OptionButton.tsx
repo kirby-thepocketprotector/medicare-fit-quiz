@@ -54,7 +54,7 @@ export default function OptionButton({
           border: selected
             ? `2px solid ${Colors.primary}`
             : `1px solid ${Colors.buttonBorder}`,
-          borderRadius: '12px',
+          borderRadius: '8px',
           cursor: disabled ? 'not-allowed' : 'pointer',
           opacity: disabled ? 0.5 : 1,
           transition: 'all 0.15s ease',
@@ -125,7 +125,7 @@ export default function OptionButton({
           style={{
             backgroundColor: Colors.primaryLight + '10',
             padding: '12px 16px',
-            borderRadius: '0 0 12px 12px',
+            borderRadius: '0 0 8px 8px',
             marginTop: '-10px',
             paddingTop: '16px',
           }}
