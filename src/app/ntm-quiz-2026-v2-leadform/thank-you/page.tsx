@@ -116,7 +116,7 @@ function ThankYouContent() {
         {/* Benefits Section - White Card */}
         <div style={{
           backgroundColor: '#FFFFFF',
-          borderRadius: '16px',
+          borderRadius: '12px',
           border: '1px solid #E5E7EB',
           padding: '24px',
           marginBottom: '24px',
