@@ -1,0 +1,70 @@
+# Medicare Fit Quiz — Cloud Build configuration
+# Builds the Docker image with NEXT_PUBLIC_* build args and deploys to Cloud Run.
+#
+# Usage:
+#   gcloud builds submit --config=cloudbuild.yaml \
+#     --substitutions=_NEXT_PUBLIC_XANO_USER_AGE_ENDPOINT="...",_NEXT_PUBLIC_XANO_LEAD_ENDPOINT="...",_NEXT_PUBLIC_XANO_HUBSPOT_ENDPOINT="...",_NEXT_PUBLIC_XANO_HUBSPOT_UPDATE_ENDPOINT="..."
+#
+# For production, change _SERVICE_NAME to "medicare-fit-quiz" in substitutions or trigger config.
+
+substitutions:
+  # Override these via --substitutions or Cloud Build trigger config
+  _SERVICE_NAME: medicare-fit-quiz-staging          # Change to "medicare-fit-quiz" for production
+  _REGION: us-central1
+  _REPO: us-central1-docker.pkg.dev/the-pocket-protector/medicare-fit-quiz/app
+  _SERVICE_ACCOUNT: medicare-fit-quiz-runner@the-pocket-protector.iam.gserviceaccount.com
+  _NEXT_PUBLIC_XANO_USER_AGE_ENDPOINT: ""
+  _NEXT_PUBLIC_XANO_LEAD_ENDPOINT: ""
+  _NEXT_PUBLIC_XANO_HUBSPOT_ENDPOINT: ""
+  _NEXT_PUBLIC_XANO_HUBSPOT_UPDATE_ENDPOINT: ""
+
+steps:
+  # Step 1: Build the Docker image
+  # NEXT_PUBLIC_* values are passed as --build-arg so they are baked into the
+  # client JS bundle at build time (required by Next.js).
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_XANO_USER_AGE_ENDPOINT=${_NEXT_PUBLIC_XANO_USER_AGE_ENDPOINT}'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_XANO_LEAD_ENDPOINT=${_NEXT_PUBLIC_XANO_LEAD_ENDPOINT}'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_XANO_HUBSPOT_ENDPOINT=${_NEXT_PUBLIC_XANO_HUBSPOT_ENDPOINT}'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_XANO_HUBSPOT_UPDATE_ENDPOINT=${_NEXT_PUBLIC_XANO_HUBSPOT_UPDATE_ENDPOINT}'
+      - '-t'
+      - '${_REPO}:${SHORT_SHA}'
+      - '-t'
+      - '${_REPO}:latest'
+      - '.'
+
+  # Step 2: Push the image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - '--all-tags'
+      - '${_REPO}'
+
+  # Step 3: Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - '${_SERVICE_NAME}'
+      - '--image=${_REPO}:${SHORT_SHA}'
+      - '--region=${_REGION}'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+      - '--service-account=${_SERVICE_ACCOUNT}'
+      - '--min-instances=1'
+      - '--memory=1Gi'
+      - '--set-env-vars=NODE_ENV=production'
+
+images:
+  - '${_REPO}:${SHORT_SHA}'
+  - '${_REPO}:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
