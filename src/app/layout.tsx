@@ -129,6 +129,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             {/* Add here any Footer you want to be present on all pages */}
           </DevLinkProvider>
         </QuizProvider>
+        <Script id="clean-text" strategy="afterInteractive">{`
+          function cleanText(node) {
+            if (node.nodeType === Node.TEXT_NODE) {
+              node.textContent = node.textContent.replace(/\uFFFD/g, '');
+            }
+          }
+          const observer = new MutationObserver(mutations => {
+            mutations.forEach(mutation => {
+              mutation.addedNodes.forEach(node => {
+                cleanText(node);
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                  node.childNodes.forEach(cleanText);
+                }
+              });
+            });
+          });
+          observer.observe(document.body, { childList: true, subtree: true });
+        `}</Script>
       </body>
     </html>
   );
